@@ -7,8 +7,8 @@ export default function Layout({ children }) {
 	const { theme, setTheme } = useTheme();
 	return (
 		<>
-			<header className="bg-black">
-				<div className="max-w-screen-2xl px-4 mx-auto sm:px-6 lg:px-8">
+			<header className="bg-[#121212]">
+				<div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
 						<div className="flex-1 md:flex md:items-center md:gap-12">
 							<Link href="/">
@@ -31,7 +31,7 @@ export default function Layout({ children }) {
 								<ul className="flex items-center gap-6 text-sm group">
 									<li className="">
 										<Link href="/">
-											<a className="text-white transition hover:text-white">
+											<a className="text-white transition hover:text-white/75">
 												Home
 											</a>
 										</Link>
@@ -107,7 +107,7 @@ export default function Layout({ children }) {
 							<div className="flex items-center gap-4">
 								<button
 									onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-									className="p-2 text-white transition bg-gray-800 rounded hover:text-white/75"
+									className="p-2 text-white transition bg-[#222222] rounded hover:text-white/75"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"
@@ -134,7 +134,7 @@ export default function Layout({ children }) {
 								</button>
 
 								<div className="block md:hidden">
-									<button className="p-2 text-white transition bg-gray-800 rounded hover:text-white/75">
+									<button className="p-2 text-white transition bg-[#222222] rounded hover:text-white/75">
 										<svg
 											xmlns="http://www.w3.org/2000/svg"
 											className="w-5 h-5"
@@ -157,7 +157,7 @@ export default function Layout({ children }) {
 				</div>
 			</header>
 
-			<main className="max-w-screen-2xl p-4 mx-auto sm:px-6 lg:px-8">
+			<main className="max-w-screen-xl p-4 mx-auto sm:px-6 lg:px-8">
 				{children}
 			</main>
 		</>
