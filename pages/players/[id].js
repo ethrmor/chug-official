@@ -40,25 +40,46 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	try {
-		const res = await fetch('https://ethanrmorris.github.io/v1/players.json');
-		const players = await res.json();
-		const newResults = Object.values(players);
-
-		const [lastResults] = newResults.filter((obj) => {
-			return obj.player_id === params.id;
-		});
-
-		const results = { ...lastResults, asmc: 'ethan' };
-
-		console.log(results);
-
-		return {
-			props: { results },
-		};
+	  const [playersRes, ownersRes, rostersRes] = await Promise.all([
+		fetch('https://ethanrmorris.github.io/v1/players.json'),
+		fetch('https://ethanrmorris.github.io/v1/owners.json'),
+		fetch('https://api.sleeper.app/v1/league/784462448236363776/rosters/'),
+	  ]);
+	  const [players, owners, rosters] = await Promise.all([
+		playersRes.json(),
+		ownersRes.json(),
+		rostersRes.json(),
+	  ]);
+  
+	  const newResults = Object.values(players);
+  
+	  const [lastResults] = newResults.filter((obj) => {
+		return obj.player_id === params.id;
+	  });
+  
+	  const playerId = lastResults.player_id;
+  
+	  const currentTeam = rosters.find((team) => team.players.includes(playerId));
+  
+	  const currentOwner = currentTeam?.roster_id;
+  
+	  const cleanOwner = owners.find((owner) => owner.id?.includes(currentOwner));
+  
+	  const ownerName = cleanOwner?.slug;
+  
+	  const results = {
+		...lastResults,
+		asmc: ownerName ? ownerName : null,
+	  };
+  
+	  return {
+		props: { results },
+	  };
 	} catch (err) {
-		console.error(err);
-		return {
-			notFound: true,
-		};
+	  console.error(err);
+	  return {
+		notFound: true,
+	  };
 	}
-}
+  }
+  
