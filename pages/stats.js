@@ -37,41 +37,56 @@ function Table({ columns, data }) {
 	// Render the UI for your table
 	return (
 		<>
-			<table {...getTableProps()}>
-				<thead>
-					{headerGroups.map((headerGroup) => (
-						<tr {...headerGroup.getHeaderGroupProps()}>
-							{headerGroup.headers.map((column) => (
-								<th {...column.getHeaderProps(column.getSortByToggleProps())}>
-									{column.render('Header')}
-									<span>
-										{column.isSorted ? (column.isSortedDesc ? ' +' : ' -') : ''}
-									</span>
-								</th>
-							))}
-						</tr>
-					))}
-				</thead>
-				<tbody {...getTableBodyProps()}>
-					{page.map((row, i) => {
-						prepareRow(row);
-						return (
-							<tr {...row.getRowProps()}>
-								{row.cells.map((cell) => {
-									return (
-										<td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-									);
-								})}
+			<div className="wrapper overflow-x-auto">
+				<table
+					{...getTableProps()}
+					className="min-w-full text-sm divide-y divide-gray-200"
+				>
+					<thead>
+						{headerGroups.map((headerGroup, index) => (
+							<tr key={index} {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map((column, index) => (
+									<th
+										key={index}
+										{...column.getHeaderProps(column.getSortByToggleProps())}
+										className="sticky left-0 py-4 text-left"
+									>
+										{column.render('Header')}
+										<span>
+											{column.isSorted
+												? column.isSortedDesc
+													? ' ▼'
+													: ' ▲'
+												: ''}
+										</span>
+									</th>
+								))}
 							</tr>
-						);
-					})}
-				</tbody>
-			</table>
+						))}
+					</thead>
+					<tbody {...getTableBodyProps()} className="">
+						{page.map((row, index) => {
+							prepareRow(row);
+							return (
+								<tr key={index} {...row.getRowProps()}>
+									{row.cells.map((cell, index) => {
+										return (
+											<td key={index} {...cell.getCellProps()} className="">
+												{cell.render('Cell')}
+											</td>
+										);
+									})}
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			</div>
 			{/*
         Pagination can be built however you'd like.
         This is just a very basic UI implementation:
       */}
-			<div className="pagination">
+			<div className="wrapper pagination">
 				<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
 					{'First'}
 				</button>{' '}
@@ -108,7 +123,7 @@ function Table({ columns, data }) {
 						setPageSize(Number(e.target.value));
 					}}
 				>
-					{[25, 50, 100, 250].map((pageSize) => (
+					{[10, 25, 50, 100, 250].map((pageSize) => (
 						<option key={pageSize} value={pageSize}>
 							Show {pageSize}
 						</option>
@@ -123,27 +138,23 @@ export default function Stats({ results }) {
 	const columns = React.useMemo(
 		() => [
 			{
-				Header: 'Player',
-				columns: [
-					{
-						Header: 'Name',
-						accessor: 'player_name',
-						width: 200,
-						Cell: (e) => (
-							<>
-								<Link href={`/players/${e.row?.original?.player_id}`}>
-									<a>{e.row?.original?.player_name}</a>
-								</Link>
-							</>
-						),
-					},
-					{
-						Header: 'Owner',
-						accessor: 'owner',
-						width: 80,
-					},
-				],
+				Header: 'Name',
+				accessor: 'player_name',
+				width: 200,
+				Cell: (e) => (
+					<>
+						<Link href={`/players/${e.row?.original?.player_id}`}>
+							<a>{e.row?.original?.player_name}</a>
+						</Link>
+					</>
+				),
 			},
+			{
+				Header: 'Owner',
+				accessor: 'owner',
+				width: 80,
+			},
+
 			{
 				Header: 'FP',
 				accessor: 'fantasy_points',
@@ -158,9 +169,14 @@ export default function Stats({ results }) {
 		[]
 	);
 
-	const data = React.useMemo(() => results, []);
+	const data = React.useMemo(() => results, [results]);
 
-	return <Table columns={columns} data={data} />;
+	return (
+		<>
+			<h1 className="wrapper text-lg">Statistics</h1>
+			<Table columns={columns} data={data} />
+		</>
+	);
 }
 
 export async function getStaticProps() {
