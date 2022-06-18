@@ -3,19 +3,19 @@ import Link from 'next/link';
 export default function TradePark({ owner, piece }) {
 	return (
 		<div>
-			<h2>
+			<h2 className="font-semibold">
 				{owner.charAt(0).toUpperCase().concat(owner.slice(1))}
 				{' Acquires'}
 			</h2>
 			{JSON.parse(piece).map((player, index) => (
 				<Link href={`/players/${player.id}`} key={index}>
 					<div>
-						<a>
+						<a className="cursor-pointer">
 							{player.name}
 							{player.player ? (
-								<div>{`(${player.player}, ${player.position} - ${player.team})`}</div>
+								<div className="text-sm pl-6 font-light">{`(${player.player}, ${player.position} - ${player.team})`}</div>
 							) : (
-								<span>
+								<span className="text-xs pl-1 text-gray-400">
 									{player.position
 										? `  ${player.position} - ${player.team}`
 										: null}

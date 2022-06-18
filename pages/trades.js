@@ -9,11 +9,14 @@ export default function Home({ results }) {
 		<div>
 			<h1>{results.length}</h1>
 			{results.map((trade) => (
-				<div key={trade.id}>
-					<p>
+				<div
+					key={trade.id}
+					className="max-w-100 bg-white my-2 p-4 shadow-sm rounded-md"
+				>
+					<p className="text-gray-400 text-xs pb-2">
 						#{trade.id} - {trade.date}
 					</p>
-					<div>
+					<div className="grid grid-cols-2">
 						<TradePart owner={trade.owner_1} piece={trade.players_1} />
 						<TradePart owner={trade.owner_2} piece={trade.players_2} />
 						{trade.owner_3 && (
