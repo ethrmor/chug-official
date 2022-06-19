@@ -7,7 +7,7 @@ export default function Layout({ children }) {
 	const { theme, setTheme } = useTheme();
 	return (
 		<>
-			<header className="bg-[#121212]">
+			<header className="bg-[#121212] shadow-md sticky top-0 z-50">
 				<div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
 						<div className="flex-1 md:flex md:items-center md:gap-12">

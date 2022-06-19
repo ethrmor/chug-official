@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 export default function TradePark({ owner, piece }) {
 	return (
-		<div>
+		<div className="">
 			<h2 className="font-semibold">
 				{owner.charAt(0).toUpperCase().concat(owner.slice(1))}
 				{' Acquires'}
@@ -17,7 +17,7 @@ export default function TradePark({ owner, piece }) {
 							) : (
 								<span className="text-xs pl-1 text-gray-400">
 									{player.position
-										? `  ${player.position} - ${player.team}`
+										? ` ${player.position} - ${player.team}`
 										: null}
 								</span>
 							)}

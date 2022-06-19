@@ -1,13 +1,11 @@
 import { supabase } from '../utils/supabaseClient';
 
-import Link from 'next/link';
-
 import TradePart from '../components/TradePart';
 
 export default function Home({ results }) {
 	return (
 		<div>
-			<h1>{results.length}</h1>
+			<h1>Trades</h1>
 			{results.map((trade) => (
 				<div
 					key={trade.id}

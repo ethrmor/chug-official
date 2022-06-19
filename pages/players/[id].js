@@ -1,25 +1,59 @@
-import Link from 'next/link';
-import { supabase } from '../../utils/supabaseClient';
+import Image from 'next/image';
 
 export default function Player({ results }) {
 	return (
 		<div>
-			<h3>Players</h3>
-			<h5>
-				{results.full_name} - {results.number} - {results.asmc}
-			</h5>
-			<img
-				src={`https://sleepercdn.com/content/nfl/players/${results.player_id}.jpg`}
-			></img>
-			<img
-				src={
-					results.team
-						? `https://sleepercdn.com/images/team_logos/nfl/${results.team.toLowerCase()}.png`
-						: `/logo.webp`
-				}
-			></img>
-			<img src={results.asmc ? `/logo-${results.asmc}.webp` : `/logo.webp`}>
-			</img>
+			<div className="w-full h-60 bg-gradient-to-r from-violet-600 to-purple-900 shadow-md mt-[-1rem]"></div>
+			<div className="relative h-36 w-36 bg-white rounded-full mt-[-6rem] mx-auto">
+				<Image
+					src={`https://sleepercdn.com/content/nfl/players/${results.player_id}.jpg`}
+					alt={results.full_name}
+					layout="fill"
+					objectFit="cover"
+					className="rounded-full"
+				></Image>
+			</div>
+			<div className="flex items-center justify-center py-4 text-3xl font-semibold">
+				<h1 className="">{results.full_name}</h1>
+				<span className="px-2">|</span>
+				<span className="">#{results.number}</span>
+			</div>
+			<div className="flex items-center justify-center pb-4 text-xl">
+				<p>{results.fantasy_positions[0]}</p>
+				<span className="px-2">|</span>
+				<p>
+					{Math.floor(results.height / 12)}&apos;
+					{results.height - Math.floor(results.height / 12) * 12}&quot;
+				</p>
+				<span className="px-2">|</span>
+				<p>{results.weight} lb</p>
+				<span className="px-2">|</span>
+				<p>Experience: {results.years_exp}</p>
+				<span className="px-2">|</span>
+				<p>{results.college}</p>
+				<span className="px-2">|</span>
+				<p>{results.asmc}</p>
+			</div>
+			<div className="relative h-36 w-36">
+				<Image
+					src={
+						results.team
+							? `https://sleepercdn.com/images/team_logos/nfl/${results.team.toLowerCase()}.png`
+							: `/logo.webp`
+					}
+					alt="Team Logo"
+					layout="fill"
+					objectFit="contain"
+				></Image>
+			</div>
+			<div className="relative h-36 w-36">
+				<Image
+					src={results.asmc ? `/logo-${results.asmc}.webp` : `/logo.webp`}
+					alt="Logo"
+					layout="fill"
+					objectFit="contain"
+				></Image>
+			</div>
 		</div>
 	);
 }
@@ -74,6 +108,8 @@ export async function getStaticProps({ params }) {
 			asmc: ownerName ? ownerName : null,
 		};
 
+		console.log(results);
+
 		return {
 			props: { results },
 		};
@@ -84,4 +120,3 @@ export async function getStaticProps({ params }) {
 		};
 	}
 }
-
