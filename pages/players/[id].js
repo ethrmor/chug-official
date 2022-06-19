@@ -2,7 +2,7 @@ import Image from 'next/image';
 
 export default function Player({ results }) {
 	return (
-		<div>
+		<div className="bg-white dark:bg-slate-800 shadow-md">
 			<div className="w-full h-60 bg-gradient-to-r from-violet-600 to-purple-900 shadow-md mt-[-1rem]"></div>
 			<div className="relative h-36 w-36 bg-white rounded-full mt-[-6rem] mx-auto">
 				<Image
@@ -32,19 +32,21 @@ export default function Player({ results }) {
 				<span className="px-2">|</span>
 				<p>{results.college}</p>
 				<span className="px-2">|</span>
-				<p>{results.asmc}</p>
-			</div>
-			<div className="relative h-36 w-36">
-				<Image
-					src={
-						results.team
-							? `https://sleepercdn.com/images/team_logos/nfl/${results.team.toLowerCase()}.png`
-							: `/logo.webp`
-					}
-					alt="Team Logo"
-					layout="fill"
-					objectFit="contain"
-				></Image>
+				<div className="flex items-center">
+					<div className="relative h-5 w-5">
+						<Image
+							src={
+								results.team
+									? `https://sleepercdn.com/images/team_logos/nfl/${results.team.toLowerCase()}.png`
+									: `/logo.webp`
+							}
+							alt="Team Logo"
+							layout="fill"
+							objectFit="contain"
+						></Image>
+					</div>
+					<p className="pl-2">{results.team}</p>
+				</div>
 			</div>
 			<div className="relative h-36 w-36">
 				<Image
