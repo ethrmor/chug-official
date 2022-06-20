@@ -3,7 +3,7 @@ import PlayerCard from '../../components/PlayerCard';
 
 export default function Players({ results }) {
 	return (
-		<div>
+		<div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))]">
 			<PlayerCard id={results[1234]} />
 			<PlayerCard id={results[4881]} />
 			<PlayerCard id={results[6813]} />

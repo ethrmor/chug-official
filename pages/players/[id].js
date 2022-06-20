@@ -3,7 +3,7 @@ import { nflTeams } from '@/utils/nflTeams';
 
 export default function Player({ results }) {
 	return (
-		<div className="bg-white dark:bg-slate-800 shadow-md">
+		<div className="bg-white dark:bg-[#333333] shadow-md">
 			<div className="w-full h-60 bg-gradient-to-r from-violet-600 to-purple-900 shadow-md mt-[-1rem]"></div>
 			<div className="relative h-36 w-36 bg-white rounded-full mt-[-6rem] mx-auto">
 				<Image

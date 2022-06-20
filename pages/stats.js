@@ -232,7 +232,7 @@ const people = [
 ];
 
 function SelectPlayer() {
-	const [selected, setSelected] = useState({ name: 'All Owners' });
+	const [selected, setSelected] = useState({ name: '' });
 	const [query, setQuery] = useState('');
 
 	const filteredPeople =
