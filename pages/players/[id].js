@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { nflTeams } from '@/utils/nflTeams';
 
 export default function Player({ results }) {
 	return (
@@ -28,12 +29,12 @@ export default function Player({ results }) {
 				<span className="px-2">|</span>
 				<p>{results.weight} lb</p>
 				<span className="px-2">|</span>
-				<p>Experience: {results.years_exp}</p>
+				<p>Age: {results.age}</p>
 				<span className="px-2">|</span>
 				<p>{results.college}</p>
 				<span className="px-2">|</span>
 				<div className="flex items-center">
-					<div className="relative h-5 w-5">
+					<div className="relative h-7 w-7">
 						<Image
 							src={
 								results.team
@@ -45,7 +46,7 @@ export default function Player({ results }) {
 							objectFit="contain"
 						></Image>
 					</div>
-					<p className="pl-2">{results.team}</p>
+					<p className="pl-2">{nflTeams[results.team]}</p>
 				</div>
 			</div>
 			<div className="relative h-36 w-36">

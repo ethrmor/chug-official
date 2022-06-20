@@ -1,15 +1,36 @@
+import { useState } from 'react';
 import { supabase } from '../utils/supabaseClient';
 
 import TradePart from '../components/TradePart';
 
 export default function Home({ results }) {
+	const [search, setSearch] = useState('');
+	const handleSearchChange = (e) => {
+		setSearch(e.target.value);
+	};
+	const filtered = !search
+		? results
+		: results.filter(
+				(person) =>
+					person.owner_1?.toLowerCase().includes(search.toLowerCase()) ||
+					person.owner_2?.toLowerCase().includes(search.toLowerCase()) ||
+					person.owner_3?.toLowerCase().includes(search.toLowerCase())
+		  );
+
 	return (
 		<div>
 			<h1>Trades</h1>
-			{results.map((trade) => (
+			<input
+				type="text"
+				value={search}
+				onChange={handleSearchChange}
+				className="block p-4 min-w-[800px] mx-auto w-1/2 border-cyan-500 border-2 shadow-sm rounded-md"
+			/>
+			Filter Count: {filtered.length}
+			{filtered.map((trade) => (
 				<div
 					key={trade.id}
-					className="max-w-100 bg-white my-2 p-4 shadow-sm rounded-md"
+					className="min-w-[800px] w-1/2 bg-white dark:bg-[#333333] my-2 mx-auto p-4 shadow-sm rounded-md"
 				>
 					<p className="text-gray-400 text-xs pb-2">
 						#{trade.id} - {trade.date}
