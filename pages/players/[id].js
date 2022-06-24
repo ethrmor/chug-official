@@ -81,20 +81,42 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
 	try {
-		const [playersRes, ownersRes, rostersRes] = await Promise.all([
+		const [
+			playersRes,
+			ownersRes,
+			rostersRes,
+			careerRes,
+			seasonsRes,
+			detailsRes,
+		] = await Promise.all([
 			fetch('https://ethanrmorris.github.io/v1/players.json'),
 			fetch('https://ethanrmorris.github.io/v1/owners.json'),
 			fetch('https://api.sleeper.app/v1/league/784462448236363776/rosters/'),
+			fetch('https://ethanrmorris.github.io/v1/stats/players/career.json'),
+			fetch(`https://ethanrmorris.github.io/v1/stats/players/seasons.json`),
+			fetch('https://ethanrmorris.github.io/v1/stats/players/details.json'),
 		]);
-		const [players, owners, rosters] = await Promise.all([
-			playersRes.json(),
-			ownersRes.json(),
-			rostersRes.json(),
-		]);
+		const [players, owners, rosters, career, seasons, details] =
+			await Promise.all([
+				playersRes.json(),
+				ownersRes.json(),
+				rostersRes.json(),
+				careerRes.json(),
+				seasonsRes.json(),
+				detailsRes.json(),
+			]);
+
+		const idsFromRosters = rosters.map((obj) => obj.players).flat();
+		const idsFromStats = career.map((obj) => obj.player_id).flat();
+		const idsFromCurrentPlayers = [...idsFromRosters, ...idsFromStats];
 
 		const newResults = Object.values(players);
 
-		const [lastResults] = newResults.filter((obj) => {
+		const newerResults = newResults.filter((x) =>
+			idsFromCurrentPlayers.includes(x.player_id)
+		);
+
+		const [lastResults] = newerResults.filter((obj) => {
 			return obj.player_id === params.id;
 		});
 
@@ -108,12 +130,21 @@ export async function getStaticProps({ params }) {
 
 		const ownerName = cleanOwner?.slug;
 
+		const careerResults = Object.values(career);
+
+		const [careerSingle] = careerResults.filter((obj) => {
+			return obj.player_id === params.id;
+		});
+
+		console.log(careerSingle);
+
+		// const cleanSingle = [];
+		// cleanSingle.push(careerSingle);
+
 		const results = {
 			...lastResults,
 			asmc: ownerName ? ownerName : null,
 		};
-
-		console.log(results);
 
 		return {
 			props: { results },

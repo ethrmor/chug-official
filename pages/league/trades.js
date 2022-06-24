@@ -44,7 +44,7 @@ export default function Trades({ results }) {
 
 	return (
 		<div>
-			<h1 className="text-4xl mt-2 mb-4">Trades</h1>
+			<h1 className="text-3xl mt-6 mb-12">Trades</h1>
 			<div className="grid grid-cols-[300px_1fr] gap-6">
 				<div className="flex flex-col gap-4 sticky top-20 self-start">
 					<p>Filters</p>

@@ -28,7 +28,9 @@ export default function FilterDropdown({ state, setState, listArray }) {
 									key={personIdx}
 									className={({ active }) =>
 										`relative cursor-default select-none py-2 pl-10 pr-4 ${
-											active ? 'bg-red-600 text-white' : 'text-black'
+											active
+												? 'bg-red-600 text-white'
+												: 'text-black dark:text-white'
 										}`
 									}
 									value={person}
