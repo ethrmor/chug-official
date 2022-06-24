@@ -1,40 +1,73 @@
 import { useState } from 'react';
+
 import { supabase } from '../utils/supabaseClient';
 
-import TradePart from '../components/TradePart';
+import TradePart from '@/components/TradePart';
+import FilterDropdown from '@/components/FilterDropdown';
+
+const owners = [
+	{ owner: '', name: 'All Owners' },
+	{ owner: 'ethan', name: 'Silverbacks' },
+	{ owner: 'jacob', name: 'Slayton Slayerz' },
+	{ owner: 'scott', name: 'Outkasts' },
+	{ owner: 'morgan', name: 'Direwolves' },
+	{ owner: 'brian', name: 'Quarantine Cowboys' },
+	{ owner: 'juice', name: 'Macdaddys' },
+	{ owner: 'jorden', name: 'Goathouse Alums' },
+	{ owner: 'lucas', name: 'Kingston Kraken' },
+	{ owner: 'caleb', name: 'Jeff City Leprechauns' },
+	{ owner: 'shawn', name: '45ers' },
+	{ owner: 'cameron', name: 'White Panthers' },
+	{ owner: 'clint', name: 'TBD' },
+];
+
+const years = [
+	{ year: '', name: 'All Years' },
+	{ year: '2022', name: '2022' },
+	{ year: '2021', name: '2021' },
+	{ year: '2020', name: '2020' },
+];
 
 export default function Home({ results }) {
-	const [search, setSearch] = useState('');
-	const handleSearchChange = (e) => {
-		setSearch(e.target.value);
-	};
-	const filtered = !search
+	const [owner, setOwner] = useState(owners[0]);
+	const [year, setYear] = useState(years[0]);
+
+	const filtered = !owner
 		? results
 		: results.filter(
 				(person) =>
-					person.owner_1?.toLowerCase().includes(search.toLowerCase()) ||
-					person.owner_2?.toLowerCase().includes(search.toLowerCase()) ||
-					person.owner_3?.toLowerCase().includes(search.toLowerCase())
+					(person.owner_1?.toLowerCase().includes(owner.owner) ||
+						person.owner_2?.toLowerCase().includes(owner.owner) ||
+						person.owner_3?.toLowerCase().includes(owner.owner)) &&
+					person.year.toString().includes(year.year)
 		  );
 
 	return (
 		<div>
-			<h1>Trades</h1>
-			<div className="grid grid-cols-[300px_1fr]">
-				<div>
-					<p>Filter Count: {filtered.length}</p>
-				</div>
-				<div>
-					<input
-						type="text"
-						value={search}
-						onChange={handleSearchChange}
-						className="block p-4 w-full border-cyan-500 border-2 shadow-sm rounded-md"
+			<h1 className="text-3xl my-12">Trades</h1>
+			<div className="grid grid-cols-[300px_1fr] gap-6">
+				<div className="flex flex-col gap-4 sticky top-20 self-start">
+					<p>Filters</p>
+					{/* <p className="">Filter: {filtered.length}</p> */}
+					<FilterDropdown
+						state={owner}
+						setState={setOwner}
+						listArray={owners}
+						type={'Owners'}
 					/>
+					<FilterDropdown
+						state={year}
+						setState={setYear}
+						listArray={years}
+						type={'Year'}
+					/>
+				</div>
+				<div className="flex flex-col gap-4">
+					<p>Showing {filtered.length} trades...</p>
 					{filtered.map((trade) => (
 						<div
 							key={trade.id}
-							className="min-w-[800px] bg-white dark:bg-[#333333] my-4 mx-auto p-4 shadow-sm rounded-md"
+							className="min-w-[800px] bg-white dark:bg-[#333333] x-auto p-4 shadow-md rounded-md"
 						>
 							<p className="text-gray-400 text-xs pb-2">
 								#{trade.id} - {trade.date}
