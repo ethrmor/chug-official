@@ -2,6 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import { useTheme } from 'next-themes';
+import NavDropdown from './NavDropdown';
 
 export default function Layout({ children }) {
 	const { theme, setTheme } = useTheme();
@@ -28,75 +29,41 @@ export default function Layout({ children }) {
 									Header navigation
 								</h2>
 
-								<ul className="flex items-center gap-6 text-sm group">
+								<ul className="flex items-center gap-2 text-sm group">
 									<li className="">
 										<Link href="/">
-											<a className="text-white transition hover:text-white/75">
+											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
 												Home
 											</a>
 										</Link>
 									</li>
 									<li>
+										<NavDropdown buttonName={'Franchises'} />
+									</li>
+									<li>
 										<Link href="/trades">
-											<a className="text-white transition hover:text-white/75">
+											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
 												Trades
 											</a>
 										</Link>
 									</li>
 									<li>
 										<Link href="/stats">
-											<a className="text-white transition hover:text-white/75">
+											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
 												Stats
 											</a>
 										</Link>
 									</li>
 									<li>
-										<Link href="/owners">
-											<a className="text-white transition hover:text-white/75">
-												Owners
-											</a>
-										</Link>
-										<ul className="hidden">
-											<li>
-												<Link href="/owners/1">
-													<a className="text-white transition hover:text-white/75">
-														Ethan
-													</a>
-												</Link>
-											</li>
-											<li>
-												<Link href="/owners/2">
-													<a className="text-white transition hover:text-white/75">
-														Jacob
-													</a>
-												</Link>
-											</li>
-											<li>
-												<Link href="/owners/3">
-													<a className="text-white transition hover:text-white/75">
-														Scott
-													</a>
-												</Link>
-											</li>
-											<li>
-												<Link href="/owners/4">
-													<a className="text-white transition hover:text-white/75">
-														Morgan
-													</a>
-												</Link>
-											</li>
-										</ul>
-									</li>
-									<li>
 										<Link href="/players">
-											<a className="text-white transition hover:text-white/75">
+											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
 												Players
 											</a>
 										</Link>
 									</li>
 									<li>
 										<Link href="/supabase">
-											<a className="text-white transition hover:text-white">
+											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
 												Supabase
 											</a>
 										</Link>

@@ -6,18 +6,18 @@ import TradePart from '@/components/TradePart';
 import FilterDropdown from '@/components/FilterDropdown';
 
 const owners = [
-	{ owner: '', name: 'All Owners' },
+	{ owner: '', name: 'All Teams' },
 	{ owner: 'ethan', name: 'Silverbacks' },
 	{ owner: 'jacob', name: 'Slayton Slayerz' },
 	{ owner: 'scott', name: 'Outkasts' },
 	{ owner: 'morgan', name: 'Direwolves' },
-	{ owner: 'brian', name: 'Quarantine Cowboys' },
 	{ owner: 'juice', name: 'Macdaddys' },
-	{ owner: 'jorden', name: 'Goathouse Alums' },
+	{ owner: 'brian', name: 'Quarantine Cowboys' },
 	{ owner: 'lucas', name: 'Kingston Kraken' },
+	{ owner: 'jorden', name: 'Goathouse Alums' },
 	{ owner: 'caleb', name: 'Jeff City Leprechauns' },
-	{ owner: 'shawn', name: '45ers' },
 	{ owner: 'cameron', name: 'White Panthers' },
+	{ owner: 'shawn', name: '45ers' },
 	{ owner: 'clint', name: 'TBD' },
 ];
 
@@ -48,7 +48,6 @@ export default function Home({ results }) {
 			<div className="grid grid-cols-[300px_1fr] gap-6">
 				<div className="flex flex-col gap-4 sticky top-20 self-start">
 					<p>Filters</p>
-					{/* <p className="">Filter: {filtered.length}</p> */}
 					<FilterDropdown
 						state={owner}
 						setState={setOwner}
@@ -73,10 +72,10 @@ export default function Home({ results }) {
 								#{trade.id} - {trade.date}
 							</p>
 							<div className="grid grid-cols-2 gap-6">
-								<TradePart owner={trade.owner_1} piece={trade.players_1} />
-								<TradePart owner={trade.owner_2} piece={trade.players_2} />
+								<TradePart owner={trade.team_1} piece={trade.players_1} />
+								<TradePart owner={trade.team_2} piece={trade.players_2} />
 								{trade.owner_3 && (
-									<TradePart owner={trade.owner_3} piece={trade.players_3} />
+									<TradePart owner={trade.team_3} piece={trade.players_3} />
 								)}
 							</div>
 						</div>

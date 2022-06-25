@@ -46,7 +46,9 @@ export default function Player({ results }) {
 							objectFit="contain"
 						></Image>
 					</div>
-					<p className="pl-2">{nflTeams[results.team]}</p>
+					<p className="pl-2">
+						{nflTeams[results.team] ? nflTeam[results.team] : 'Free Agent'}
+					</p>
 				</div>
 			</div>
 			<div className="relative h-36 w-36">
