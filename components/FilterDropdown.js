@@ -7,7 +7,7 @@ export default function FilterDropdown({ state, setState, listArray }) {
 		<div className="w-full">
 			<Listbox value={state} onChange={setState}>
 				<div className="relative">
-					<Listbox.Button className="relative w-full cursor-default rounded-lg bg-white dark:bg-[#333333] py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base">
+					<Listbox.Button className="relative w-full cursor-pointer rounded-md bg-white dark:bg-[#333333] py-2 pl-3 pr-10 text-left shadow-md focus:outline-none focus-visible:border-indigo-500 focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75 focus-visible:ring-offset-2 focus-visible:ring-offset-orange-300 sm:text-base">
 						<span className="block truncate">{state.name}</span>
 						<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 							<SelectorIcon
@@ -27,7 +27,7 @@ export default function FilterDropdown({ state, setState, listArray }) {
 								<Listbox.Option
 									key={personIdx}
 									className={({ active }) =>
-										`relative cursor-default select-none py-2 pl-10 pr-4 ${
+										`relative cursor-pointer select-none py-2 pl-10 pr-4 ${
 											active
 												? 'bg-red-600 text-white'
 												: 'text-black dark:text-white'
@@ -44,11 +44,6 @@ export default function FilterDropdown({ state, setState, listArray }) {
 											>
 												{person.name}
 											</span>
-											{state ? (
-												<span className="absolute inset-y-0 left-0 flex items-center pl-3 text-amber-600">
-													<CheckIcon className="h-5 w-5" aria-hidden="true" />
-												</span>
-											) : null}
 										</>
 									)}
 								</Listbox.Option>

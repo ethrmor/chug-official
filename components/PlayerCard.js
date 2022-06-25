@@ -16,7 +16,7 @@ export default function PlayerCard({ id }) {
 								alt={id.full_name}
 								layout="fill"
 								objectFit="cover"
-								className=""
+								className="z-0"
 							></Image>
 						</div>
 						<div className="text-center">
