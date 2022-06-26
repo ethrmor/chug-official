@@ -3,12 +3,7 @@ import React from 'react';
 
 import { Fragment, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
-import {
-	CheckIcon,
-	SelectorIcon,
-	ChevronLeftIcon,
-	ChevronRightIcon,
-} from '@heroicons/react/solid';
+import { SelectorIcon } from '@heroicons/react/solid';
 
 import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 
@@ -46,7 +41,7 @@ function Table({ columns, data }) {
 	// Render the UI for your table
 	return (
 		<>
-			<div className="wrapper overflow-x-auto bg-white border rounded-md shadow-sm p-4">
+			<div className="wrapper overflow-x-auto bg-white  rounded-t-md shadow-md p-4">
 				<table
 					{...getTableProps()}
 					className="min-w-full text-sm divide-y divide-gray-200"
@@ -95,7 +90,7 @@ function Table({ columns, data }) {
         Pagination can be built however you'd like.
         This is just a very basic UI implementation:
       */}
-			<div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200">
+			<div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200  shadow-md rounded-b-md">
 				<div className="flex-1 flex justify-between sm:hidden">
 					<button
 						onClick={() => previousPage()}
@@ -112,7 +107,7 @@ function Table({ columns, data }) {
 						{'Next'}
 					</button>
 				</div>
-				<div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between ">
+				<div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
 					<span className="text-sm text-gray-700">
 						Showing Page{' '}
 						<strong>
@@ -400,7 +395,7 @@ export default function Stats({ results, playerNameOptions }) {
 
 	return (
 		<>
-			<h1 className="text-3xl my-12">Statistics</h1>
+			<h1 className="text-4xl mt-2 mb-4">Statistics</h1>
 			<div className="flex gap-4 pb-4">
 				<SelectMenu people={playerNameOptions} />
 				<SelectPlayer />

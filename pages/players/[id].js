@@ -4,7 +4,7 @@ import { nflTeams } from '@/utils/nflTeams';
 export default function Player({ results }) {
 	return (
 		<div className="bg-white dark:bg-[#333333] shadow-md">
-			<div className="w-full h-60 bg-gradient-to-r from-purple-500 to-purple-900 shadow-md"></div>
+			<div className="w-full h-60 bg-gradient-to-r from-purple-500 to-purple-900 shadow-md mt-[-1rem]"></div>
 			<div className="relative h-36 w-36 bg-white dark:bg-[#333333] rounded-full mt-[-6rem] mx-auto border-2 border-purple-900">
 				<Image
 					src={`https://sleepercdn.com/content/nfl/players/${results.player_id}.jpg`}

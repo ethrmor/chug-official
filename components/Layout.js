@@ -30,7 +30,7 @@ export default function Layout({ children }) {
 
 	const { theme, setTheme } = useTheme();
 	return (
-		<div className="">
+		<div className="flex flex-col min-h-screen">
 			<header className="bg-[#121212] shadow-md sticky top-0 z-50">
 				<div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
@@ -155,7 +155,7 @@ export default function Layout({ children }) {
 					</div>
 				</div>
 			</header>
-			<main className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
+			<main className="max-w-screen-xl w-full p-4 mx-auto sm:px-6 lg:px-8 flex-grow">
 				{children}
 			</main>
 			<footer className="bg-[#121212] text-white py-6">

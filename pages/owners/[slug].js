@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Manager({ results, currentOwner }) {
 	return (
 		<>
-			<h3 className="text-3xl my-12">{currentOwner[0].team}</h3>
+			<h1 className="text-4xl mt-2 mb-4">{currentOwner[0].team}</h1>
 			<div>
 				{results.map((player) => (
 					<div key={player.id}>

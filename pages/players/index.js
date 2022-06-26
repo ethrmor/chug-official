@@ -4,7 +4,7 @@ import PlayerCard from '../../components/PlayerCard';
 export default function Players({ results }) {
 	return (
 		<>
-			<h1 className="text-3xl my-12">Players</h1>
+			<h1 className="text-4xl mt-2 mb-4">Players</h1>
 
 			<h2 className="border-b border-black/5 mb-4">Featured</h2>
 			<div className="grid grid-cols-[repeat(auto-fit,minmax(250px,1fr))] gap-4">

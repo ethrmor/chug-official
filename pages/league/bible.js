@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 export default function Bible({ results }) {
 	return (
 		<>
-			<h1 className="text-3xl my-12">League Bible</h1>
+			<h1 className="text-4xl mt-2 mb-4">League Bible</h1>
 			<div className="md:grid md:grid-cols-[275px_1fr] md:gap-4 lg:8">
 				<nav className="md:block hidden sticky top-20 self-start bg-white dark:bg-[#333333] rounded-md shadow-md p-4">
 					<ul>
@@ -77,8 +77,6 @@ export async function getStaticProps() {
 	try {
 		const res = await fetch('https://ethanrmorris.github.io/v1/bible.json');
 		const results = await res.json();
-
-		console.log(results);
 
 		return {
 			props: { results },

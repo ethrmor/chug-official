@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Owners({ results }) {
 	return (
 		<>
-			<h3>Owners</h3>
+			<h1 className="text-4xl mt-2 mb-4">Owners</h1>
 			<div>
 				{results.map((owner) => (
 					<div key={owner.id}>
