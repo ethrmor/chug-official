@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function Manager({ results, currentOwner }) {
 	return (
 		<>
-			<h3>{currentOwner[0].team}</h3>
+			<h3 className="text-3xl my-12">{currentOwner[0].team}</h3>
 			<div>
 				{results.map((player) => (
 					<div key={player.id}>
@@ -45,8 +45,6 @@ export async function getStaticProps({ params }) {
 			ownersRes.json(),
 			rostersRes.json(),
 		]);
-
-		console.log('slug', parseInt(params.slug));
 
 		const rostersArray = Object.values(rosters);
 

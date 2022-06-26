@@ -3,7 +3,12 @@ import React from 'react';
 
 import { Fragment, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
-import { CheckIcon, SelectorIcon } from '@heroicons/react/solid';
+import {
+	CheckIcon,
+	SelectorIcon,
+	ChevronLeftIcon,
+	ChevronRightIcon,
+} from '@heroicons/react/solid';
 
 import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 
@@ -68,7 +73,7 @@ function Table({ columns, data }) {
 							</tr>
 						))}
 					</thead>
-					<tbody {...getTableBodyProps()} className="">
+					<tbody {...getTableBodyProps()}>
 						{page.map((row, index) => {
 							prepareRow(row);
 							return (
@@ -90,49 +95,93 @@ function Table({ columns, data }) {
         Pagination can be built however you'd like.
         This is just a very basic UI implementation:
       */}
-			<div className="wrapper pagination">
-				<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-					{'First'}
-				</button>{' '}
-				<button onClick={() => previousPage()} disabled={!canPreviousPage}>
-					{'Previous'}
-				</button>{' '}
-				<button onClick={() => nextPage()} disabled={!canNextPage}>
-					{'Next'}
-				</button>{' '}
-				<button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-					{'Last'}
-				</button>{' '}
-				<span>
-					Page{' '}
-					<strong>
-						{pageIndex + 1} of {pageOptions.length}
-					</strong>{' '}
-				</span>
-				<span>
-					| Go to page:{' '}
-					<input
-						type="number"
-						defaultValue={pageIndex + 1}
-						onChange={(e) => {
-							const page = e.target.value ? Number(e.target.value) - 1 : 0;
-							gotoPage(page);
-						}}
-						style={{ width: '100px' }}
-					/>
-				</span>{' '}
-				<select
-					value={pageSize}
-					onChange={(e) => {
-						setPageSize(Number(e.target.value));
-					}}
-				>
-					{[10, 25, 50, 100, 250].map((pageSize) => (
-						<option key={pageSize} value={pageSize}>
-							Show {pageSize}
-						</option>
-					))}
-				</select>
+			<div className="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200">
+				<div className="flex-1 flex justify-between sm:hidden">
+					<button
+						onClick={() => previousPage()}
+						disabled={!canPreviousPage}
+						className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+					>
+						{'Previous'}
+					</button>{' '}
+					<button
+						onClick={() => nextPage()}
+						disabled={!canNextPage}
+						className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+					>
+						{'Next'}
+					</button>
+				</div>
+				<div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between ">
+					<span className="text-sm text-gray-700">
+						Showing Page{' '}
+						<strong>
+							{pageIndex + 1} <span className="font-normal">of</span>{' '}
+							{pageOptions.length}
+						</strong>{' '}
+					</span>
+					<div className="flex gap-2">
+						<span className="text-sm">
+							Show:{' '}
+							<select
+								value={pageSize}
+								onChange={(e) => {
+									setPageSize(Number(e.target.value));
+								}}
+								className="relative h-[38px] inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+							>
+								{[10, 25, 50, 100, 250].map((pageSize) => (
+									<option key={pageSize} value={pageSize}>
+										{pageSize}
+									</option>
+								))}
+							</select>
+						</span>
+						<span className="text-sm hidden md:block">
+							Go to page:{' '}
+							<input
+								// type="number"
+								defaultValue={pageIndex + 1}
+								onChange={(e) => {
+									const page = e.target.value ? Number(e.target.value) - 1 : 0;
+									gotoPage(page);
+								}}
+								style={{ width: '60px' }}
+								className="relative hidden md:inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+							/>
+						</span>{' '}
+						<div className="flex gap-2">
+							<button
+								onClick={() => gotoPage(0)}
+								disabled={!canPreviousPage}
+								className="relative hidden lg:inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								{'First'}
+							</button>
+							<button
+								onClick={() => previousPage()}
+								disabled={!canPreviousPage}
+								className="relative inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								{'Previous'}
+							</button>
+							<button
+								onClick={() => nextPage()}
+								disabled={!canNextPage}
+								className="relative inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								{'Next'}
+							</button>
+							<button
+								onClick={() => gotoPage(pageCount - 1)}
+								disabled={!canNextPage}
+								className="relative hidden lg:inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							>
+								{'Last'}
+							</button>{' '}
+						</div>
+					</div>
+				</div>
 			</div>
 		</>
 	);
@@ -206,9 +255,7 @@ function SelectMenu({ people }) {
 														className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
 															active ? 'text-white' : 'text-red-600'
 														}`}
-													>
-														<CheckIcon className="h-5 w-5" aria-hidden="true" />
-													</span>
+													></span>
 												) : null}
 											</>
 										)}
@@ -299,9 +346,7 @@ function SelectPlayer() {
 														className={`absolute inset-y-0 left-0 flex items-center pl-3 ${
 															active ? 'text-white' : 'text-red-600'
 														}`}
-													>
-														<CheckIcon className="h-5 w-5" aria-hidden="true" />
-													</span>
+													></span>
 												) : null}
 											</>
 										)}
@@ -355,8 +400,8 @@ export default function Stats({ results, playerNameOptions }) {
 
 	return (
 		<>
-			<h1 className="wrapper text-lg">Statistics</h1>
-			<div className="flex gap-4 py-4">
+			<h1 className="text-3xl my-12">Statistics</h1>
+			<div className="flex gap-4 pb-4">
 				<SelectMenu people={playerNameOptions} />
 				<SelectPlayer />
 			</div>

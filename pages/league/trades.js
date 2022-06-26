@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { supabase } from '../utils/supabaseClient';
+import { supabase } from '@/utils/supabaseClient';
 
 import TradePart from '@/components/TradePart';
 import FilterDropdown from '@/components/FilterDropdown';

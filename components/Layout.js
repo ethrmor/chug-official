@@ -5,9 +5,32 @@ import { useTheme } from 'next-themes';
 import NavDropdown from './NavDropdown';
 
 export default function Layout({ children }) {
+	let newDate = new Date();
+	let year = newDate.getFullYear();
+
+	const ownerLinks = [
+		{ id: '/owners/1', name: 'Silverbacks' },
+		{ id: '/owners/2', name: 'Slayton Slayerz' },
+		{ id: '/owners/3', name: 'Outkasts' },
+		{ id: '/owners/4', name: 'Direwolves' },
+		{ id: '/owners/5', name: 'Macdaddys' },
+		{ id: '/owners/6', name: 'Quarantine Cowboys' },
+		{ id: '/owners/7', name: 'Kingston Kraken' },
+		{ id: '/owners/8', name: 'Goathouse Alums' },
+		{ id: '/owners/9', name: 'Jeff City Leprechauns' },
+		{ id: '/owners/10', name: 'White Panthers' },
+		{ id: '/owners/11', name: '45ers' },
+		{ id: '/owners/12', name: 'TBD' },
+	];
+
+	const leagueLinks = [
+		{ id: '/league/trades', name: 'Trades' },
+		{ id: '/league/bible', name: 'Bible' },
+	];
+
 	const { theme, setTheme } = useTheme();
 	return (
-		<>
+		<div className="">
 			<header className="bg-[#121212] shadow-md sticky top-0 z-50">
 				<div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
@@ -38,12 +61,15 @@ export default function Layout({ children }) {
 										</Link>
 									</li>
 									<li>
-										<NavDropdown buttonName={'Franchises'} />
+										<NavDropdown
+											buttonName={'Franchises'}
+											listArray={ownerLinks}
+										/>
 									</li>
 									<li>
-										<Link href="/trades">
+										<Link href="/schedule">
 											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
-												Trades
+												Schedule
 											</a>
 										</Link>
 									</li>
@@ -53,6 +79,12 @@ export default function Layout({ children }) {
 												Stats
 											</a>
 										</Link>
+									</li>
+									<li>
+										<NavDropdown
+											buttonName={'League'}
+											listArray={leagueLinks}
+										/>
 									</li>
 									<li>
 										<Link href="/players">
@@ -123,10 +155,74 @@ export default function Layout({ children }) {
 					</div>
 				</div>
 			</header>
-
-			<main className="max-w-screen-xl p-4 mx-auto sm:px-6 lg:px-8">
+			<main className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
 				{children}
 			</main>
-		</>
+			<footer className="bg-[#121212] text-white py-6">
+				<div className="max-w-screen-xl p-4 mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
+					<nav>
+						<ul className="flex items-center gap-2 text-xs group">
+							<li>
+								<Link href="/">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Home
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/owners">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Franchises
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/schedule">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Schedule
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/stats">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Stats
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/league">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										League
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/players">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Players
+									</a>
+								</Link>
+							</li>
+							<li>
+								<Link href="/supabase">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Supabase
+									</a>
+								</Link>
+							</li>
+						</ul>
+					</nav>
+					<div>
+						<Link href="/">
+							<a className="flex py-6">
+								<Image src="/logo.webp" width={80} height={48} alt={'Logo'} />
+							</a>
+						</Link>
+					</div>
+					<p className="text-xs text-white/60">Chug League &copy; {year}</p>
+				</div>
+			</footer>
+		</div>
 	);
 }

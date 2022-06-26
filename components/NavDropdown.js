@@ -15,7 +15,7 @@ const MyLink = forwardRef((props, ref) => {
 	);
 });
 
-export default function NavDropdown({ buttonName }) {
+export default function NavDropdown({ buttonName, listArray }) {
 	return (
 		<div className="">
 			<Menu as="div" className="relative inline-block text-left">
@@ -39,20 +39,7 @@ export default function NavDropdown({ buttonName }) {
 				>
 					<Menu.Items className="absolute right-0 mt-4 w-56 origin-top-right divide-gray-100 rounded-md bg-white dark:bg-[#121212] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 						<div className="px-1 py-1 ">
-							{[
-								{ id: '/owners/1', name: 'Silverbacks' },
-								{ id: '/owners/2', name: 'Slayton Slayerz' },
-								{ id: '/owners/3', name: 'Outkasts' },
-								{ id: '/owners/4', name: 'Direwolves' },
-								{ id: '/owners/5', name: 'Macdaddys' },
-								{ id: '/owners/6', name: 'Quarantine Cowboys' },
-								{ id: '/owners/7', name: 'Kingston Kraken' },
-								{ id: '/owners/8', name: 'Goathouse Alums' },
-								{ id: '/owners/9', name: 'Jeff City Leprechauns' },
-								{ id: '/owners/10', name: 'White Panthers' },
-								{ id: '/owners/11', name: '45ers' },
-								{ id: '/owners/12', name: 'TBD' },
-							].map((item) => (
+							{listArray.map((item) => (
 								<Menu.Item key={item.id}>
 									{({ active }) => (
 										<MyLink

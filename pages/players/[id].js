@@ -4,8 +4,8 @@ import { nflTeams } from '@/utils/nflTeams';
 export default function Player({ results }) {
 	return (
 		<div className="bg-white dark:bg-[#333333] shadow-md">
-			<div className="w-full h-60 bg-gradient-to-r from-violet-600 to-purple-900 shadow-md mt-[-1rem]"></div>
-			<div className="relative h-36 w-36 bg-white rounded-full mt-[-6rem] mx-auto">
+			<div className="w-full h-60 bg-gradient-to-r from-purple-500 to-purple-900 shadow-md"></div>
+			<div className="relative h-36 w-36 bg-white dark:bg-[#333333] rounded-full mt-[-6rem] mx-auto border-2 border-purple-900">
 				<Image
 					src={`https://sleepercdn.com/content/nfl/players/${results.player_id}.jpg`}
 					alt={results.full_name}
@@ -47,7 +47,7 @@ export default function Player({ results }) {
 						></Image>
 					</div>
 					<p className="pl-2">
-						{nflTeams[results.team] ? nflTeam[results.team] : 'Free Agent'}
+						{nflTeams[results.team] ? nflTeams[results.team] : 'Free Agent'}
 					</p>
 				</div>
 			</div>
