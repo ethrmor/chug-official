@@ -28,7 +28,7 @@ const years = [
 	{ year: '2020', name: '2020' },
 ];
 
-export default function Home({ results }) {
+export default function Trades({ results }) {
 	const [owner, setOwner] = useState(owners[0]);
 	const [year, setYear] = useState(years[0]);
 
@@ -52,14 +52,8 @@ export default function Home({ results }) {
 						state={owner}
 						setState={setOwner}
 						listArray={owners}
-						type={'Owners'}
 					/>
-					<FilterDropdown
-						state={year}
-						setState={setYear}
-						listArray={years}
-						type={'Year'}
-					/>
+					<FilterDropdown state={year} setState={setYear} listArray={years} />
 				</div>
 				<div className="flex flex-col gap-4">
 					<p>Showing {filtered.length} trades...</p>

@@ -10,8 +10,8 @@ export default function TradePart({ owner, piece }) {
 			{JSON.parse(piece).map((player, index) => (
 				<>
 					{player.position ? (
-						<Link href={`/players/${player.id}`} key={index}>
-							<div>
+						<Link href={`/players/${player.id}`}>
+							<div key={index}>
 								<a className="cursor-pointer">
 									{player.name}
 									{player.player ? (
