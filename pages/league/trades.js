@@ -66,10 +66,10 @@ export default function Trades({ results }) {
 								#{trade.id} - {trade.date}
 							</p>
 							<div className="grid grid-cols-2 gap-6">
-								<TradePart owner={trade.team_1} piece={trade.players_1} />
-								<TradePart owner={trade.team_2} piece={trade.players_2} />
+								<TradePart owner={trade.id_1.team} piece={trade.players_1} />
+								<TradePart owner={trade.id_2.team} piece={trade.players_2} />
 								{trade.owner_3 && (
-									<TradePart owner={trade.team_3} piece={trade.players_3} />
+									<TradePart owner={trade.id_3.team} piece={trade.players_3} />
 								)}
 							</div>
 						</div>
@@ -84,8 +84,7 @@ export async function getStaticProps() {
 	try {
 		const { data: results } = await supabase
 			.from('trades')
-			.select('*')
-			// .or('owner_1.eq.ethan,owner_2.eq.ethan,owner_3.eq.ethan')
+			.select('*, id_1 (team), id_2 (team), id_3 (team)')
 			.order('id', { ascending: false });
 
 		return {

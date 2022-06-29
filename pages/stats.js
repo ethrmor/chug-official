@@ -304,10 +304,10 @@ export default function Stats({ results, playerNameOptions }) {
 export async function getStaticProps() {
 	try {
 		const { data: results } = await supabase
-			.from('game_logs')
+			.from('players_games')
 			.select('*')
 			// .or('owner_1.eq.ethan,owner_2.eq.ethan,owner_3.eq.ethan')
-			.order('rank', { ascending: true });
+			.order('fantasy_points', { ascending: false });
 
 		const playerNameOptions = [
 			...new Set(results.map((player) => player.player_name)),

@@ -1,10 +1,24 @@
 import Link from 'next/link';
 import Image from 'next/image';
 
+import { useState, useEffect } from 'react';
+
 import { useTheme } from 'next-themes';
 import NavDropdown from './NavDropdown';
 
 export default function Layout({ children }) {
+	const [scrolled, setScrolled] = useState(false);
+
+	useEffect(() => {
+		window.onscroll = function () {
+			if (window.scrollY > 0) {
+				setScrolled(true);
+			} else {
+				setScrolled(false);
+			}
+		};
+	}, []);
+
 	let newDate = new Date();
 	let year = newDate.getFullYear();
 
@@ -31,7 +45,11 @@ export default function Layout({ children }) {
 	const { theme, setTheme } = useTheme();
 	return (
 		<div className="flex flex-col min-h-screen">
-			<header className="bg-[#121212] shadow-md sticky top-0 z-50">
+			<header
+				className={`bg-[#121212] shadow-md sticky top-0 z-50 ${
+					scrolled ? 'shadow-xl' : null
+				}`}
+			>
 				<div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
 						<div className="flex-1 md:flex md:items-center md:gap-12">

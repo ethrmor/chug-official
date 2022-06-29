@@ -11,7 +11,7 @@ export default function TradePart({ owner, piece }) {
 				<>
 					{player.position ? (
 						<Link href={`/players/${player.id}`}>
-							<div key={index}>
+							<div key={player.id}>
 								<a className="cursor-pointer">
 									{player.name}
 									{player.player ? (
