@@ -133,21 +133,25 @@ export default function Stats({ results, playerNameOptions }) {
 				Header: 'Pos',
 				accessor: 'position',
 				width: 50,
+				disableSortBy: true,
 			},
 			{
 				Header: 'Year',
 				accessor: 'year',
 				width: 50,
+				disableSortBy: true,
 			},
 			{
 				Header: 'Week',
 				accessor: 'week',
 				width: 50,
+				disableSortBy: true,
 			},
 			{
 				Header: 'FP',
 				accessor: 'fantasy_points',
 				width: 50,
+				sortType: 'basic',
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
@@ -161,6 +165,7 @@ export default function Stats({ results, playerNameOptions }) {
 						Header: 'Yards',
 						accessor: 'pass_yards',
 						width: 70,
+						sortType: 'basic',
 						Cell: (e) => (
 							<>
 								<p className="tabular-nums text-right">{e.value}</p>
@@ -206,6 +211,7 @@ export default function Stats({ results, playerNameOptions }) {
 						Header: 'Yards',
 						accessor: 'rush_yards',
 						width: 70,
+						sortType: 'basic',
 						Cell: (e) => (
 							<>
 								<p className="tabular-nums text-right">{e.value}</p>
@@ -241,6 +247,7 @@ export default function Stats({ results, playerNameOptions }) {
 						Header: 'Rec',
 						accessor: 'rec',
 						width: 50,
+						sortType: 'basic',
 						Cell: (e) => (
 							<>
 								<p className="tabular-nums text-right">{e.value}</p>
@@ -306,7 +313,6 @@ export async function getStaticProps() {
 		const { data: results } = await supabase
 			.from('players_games')
 			.select('*')
-			// .or('owner_1.eq.ethan,owner_2.eq.ethan,owner_3.eq.ethan')
 			.order('fantasy_points', { ascending: false });
 
 		const playerNameOptions = [
