@@ -5,14 +5,27 @@ export default function Home() {
 	return (
 		<>
 			<div className="grid grid-cols-[250px_1fr_300px] gap-4">
-				<aside className="bg-blue-800">
-					<h2>Left Column</h2>
+				<aside className="bg-white rounded-md shadow-md">
+					<h2>Quick Links</h2>
+					{[
+						'Home',
+						'Schedule',
+						'Standings',
+						'Rosters',
+						'Players',
+						'Teams',
+						'About',
+					].map((link, i) => (
+						<a key={i} href={`/${link.toLowerCase()}`} className="block p-2">
+							{link}
+						</a>
+					))}
 				</aside>
-				<section className="bg-blue-800">
-					<h3>Center Column</h3>
+				<section className="bg-white rounded-md shadow-md">
+					<h2>Featured</h2>
 				</section>
-				<aside className="bg-blue-800">
-					<h4>Right Column</h4>
+				<aside className="bg-white rounded-md shadow-md">
+					<h2>Latest News</h2>
 				</aside>
 			</div>
 		</>

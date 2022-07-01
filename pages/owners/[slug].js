@@ -1,74 +1,106 @@
+import RosterPosition from '@/components/RosterPosition';
+import { leagueID } from '@/utils/chugLeague';
+import { supabase } from '@/utils/supabaseClient';
 import Link from 'next/link';
 
-export default function Manager({ results, currentOwner }) {
+export default function Manager({ positionsArray, owner }) {
 	return (
 		<>
-			<h1 className="text-4xl mt-2 mb-4">{currentOwner[0].team}</h1>
-			<div>
-				{results.map((player) => (
-					<div key={player.id}>
-						<Link href={`/players/${player.player_id}`}>
-							<a>{`${player.number} ${player.position} ${player.full_name}`}</a>
-						</Link>
-					</div>
-				))}
+			<h1 className="text-4xl mt-2 mb-4">{owner.team}</h1>
+			<div className="flex flex-col gap-4">
+				<RosterPosition arr={positionsArray[0]} position={'Quarterbacks'} />
+				<RosterPosition arr={positionsArray[1]} position={'Runningbacks'} />
+				<RosterPosition arr={positionsArray[2]} position={'Wide Receivers'} />
+				<RosterPosition arr={positionsArray[3]} position={'Tight Ends'} />
+				<RosterPosition arr={positionsArray[4]} position={'Defensive Line'} />
+				<RosterPosition arr={positionsArray[5]} position={'Linebackers'} />
+				<RosterPosition arr={positionsArray[6]} position={'Defensive Backs'} />
 			</div>
 		</>
 	);
 }
 
-// This function gets called at build time
 export async function getStaticPaths() {
-	// Call an external API endpoint to get posts
-	const res = await fetch('https://ethanrmorris.github.io/v1/owners.json');
-	const owners = await res.json();
+	const { data: owners } = await supabase.from('owners').select('*');
 
-	// Get the paths we want to pre-render based on posts
 	const paths = owners.map((owner) => ({
-		params: { slug: owner.id },
+		params: { slug: owner.id.toString() },
 	}));
 
-	// We'll pre-render only these paths at build time.
-	// { fallback: false } means other routes should 404.
 	return { paths, fallback: false };
 }
 
 export async function getStaticProps({ params }) {
 	try {
-		const [playersRes, ownersRes, rostersRes] = await Promise.all([
-			fetch('https://ethanrmorris.github.io/v1/players.json'),
-			fetch('https://ethanrmorris.github.io/v1/owners.json'),
-			fetch('https://api.sleeper.app/v1/league/784462448236363776/rosters/'),
-		]);
-		const [players, owners, rosters] = await Promise.all([
-			playersRes.json(),
-			ownersRes.json(),
-			rostersRes.json(),
-		]);
+		const res = await fetch(
+			`https://api.sleeper.app/v1/league/${leagueID}/rosters/`
+		);
+		const rosters = await res.json();
 
 		const rostersArray = Object.values(rosters);
 
-		const currentRoster = rostersArray.filter((obj) => {
+		const currentOwner = rostersArray.filter((obj) => {
 			return obj.roster_id === parseInt(params.slug);
 		});
 
-		const currentOwner = owners.filter((obj) => {
-			return obj.id === params.slug;
+		const currentRoster = currentOwner[0].players;
+
+		const { data: ownerArray } = await supabase
+			.from('owners')
+			.select('*')
+			.eq('id', parseInt(params.slug));
+
+		const owner = ownerArray[0];
+
+		const { data: players } = await supabase
+			.from('players')
+			.select('*')
+			.in('player_id', currentRoster)
+			.order('number', { ascending: true });
+
+		const qbArray = players.filter((obj) => {
+			return obj.position === 'QB';
 		});
 
-		const filteredUsers = Object.keys(players)
-			.filter((key) => currentRoster[0].players.includes(key))
-			.reduce((obj, key) => {
-				obj[key] = players[key];
-				return obj;
-			}, {});
+		const rbArray = players.filter((obj) => {
+			return obj.position === 'RB';
+		});
 
-		const results = Object.values(filteredUsers).sort((a, b) =>
-			a.number > b.number ? 1 : -1
-		);
+		const wrArray = players.filter((obj) => {
+			return obj.position === 'WR';
+		});
+
+		const teArray = players.filter((obj) => {
+			return obj.position === 'TE';
+		});
+
+		const dlArray = players.filter((obj) => {
+			return obj.fantasy_positions[0] === 'DL';
+		});
+
+		const lbArray = players.filter((obj) => {
+			return obj.fantasy_positions[0] === 'LB';
+		});
+
+		const dbArray = players.filter((obj) => {
+			return obj.fantasy_positions[0] === 'DB';
+		});
+
+		const positionsArray = [
+			qbArray,
+			rbArray,
+			wrArray,
+			teArray,
+			dlArray,
+			lbArray,
+			dbArray,
+		];
 
 		return {
-			props: { results, currentOwner },
+			props: {
+				positionsArray,
+				owner,
+			},
 		};
 	} catch (err) {
 		console.error(err);
