@@ -57,15 +57,19 @@ export default function Schedule({ results }) {
 							key={game.id}
 							className="min-w-[400px] bg-white dark:bg-[#333333] p-4 shadow-md rounded-md hover:shadow-lg"
 						>
-							<MiniBoxScore
-								id={game.id}
-								team={game.owner_id.team}
-								teamOwner={game.owner_id.slug}
-								opponent={game.opponent_id.team}
-								opponentOwner={game.opponent_id.slug}
-								teamPoints={game.team_points}
-								opponentPoints={game.opponent_points}
-							/>
+							{game.owner ? (
+								<MiniBoxScore
+									id={game.id}
+									team={game.owner_id.team}
+									teamOwner={game.owner_id.slug}
+									teamPoints={game.owner_points}
+									opponent={game.opponent_id.team}
+									opponentOwner={game.opponent_id.slug}
+									opponentPoints={game.opponent_points}
+								/>
+							) : (
+								'Playoff Teams TBD'
+							)}
 						</div>
 					))}
 				</div>

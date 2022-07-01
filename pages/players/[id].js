@@ -4,7 +4,7 @@ import { supabase } from '@/utils/supabaseClient';
 import { leagueID } from '@/utils/chugLeague';
 import Link from 'next/link';
 import React from 'react';
-import Table from '@/components/careerTable';
+import Table from '@/components/CareerTable';
 
 export default function Player({ player }) {
 	const columns = React.useMemo(
