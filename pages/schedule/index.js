@@ -41,8 +41,8 @@ export default function Schedule({ results }) {
 
 	return (
 		<>
-			<h1 className="text-3xl mt-6 mb-12">Schedule</h1>
-			<div className="grid grid-cols-[300px_1fr] gap-6">
+			<h1 className="text-3xl mt-2 mb-4">Schedule</h1>
+			<div className="grid md:grid-cols-[300px_1fr] gap-6">
 				<div className="flex flex-col gap-4 sticky top-20 self-start">
 					<p>Filters</p>
 					<FilterDropdown state={week} setState={setWeek} listArray={weeks} />
@@ -63,9 +63,15 @@ export default function Schedule({ results }) {
 									team={game.owner_id.team}
 									teamOwner={game.owner_id.slug}
 									teamPoints={game.owner_points}
+									teamPlayerName={game.owner_player_id?.player_name}
+									teamPlayerPosition={game.owner_player_id?.position}
+									teamPlayerPoints={game.owner_player_points}
 									opponent={game.opponent_id.team}
 									opponentOwner={game.opponent_id.slug}
 									opponentPoints={game.opponent_points}
+									opponentPlayerName={game.opponent_player_id?.player_name}
+									opponentPlayerPosition={game.opponent_player_id?.position}
+									opponentPlayerPoints={game.opponent_player_points}
 								/>
 							) : (
 								'Playoff Teams TBD'
@@ -82,7 +88,9 @@ export async function getStaticProps() {
 	try {
 		const { data: results } = await supabase
 			.from('game_box_score')
-			.select('*, owner_id (slug, team), opponent_id (slug, team)');
+			.select(
+				'*, owner_id (slug, team), opponent_id (slug, team), owner_player_id (player_name, position), opponent_player_id (player_name, position)'
+			);
 
 		console.log(results);
 

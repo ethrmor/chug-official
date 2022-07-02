@@ -1,7 +1,7 @@
 export default function Bible({ results }) {
 	return (
 		<>
-			<h1 className="text-3xl mt-6 mb-12">League Bible</h1>
+			<h1 className="text-3xl mt-2 mb-4">League Bible</h1>
 			<div className="md:grid md:grid-cols-[275px_1fr] md:gap-4 lg:8">
 				<nav className="md:block hidden sticky top-20 self-start bg-white dark:bg-[#333333] rounded-md shadow-md p-4">
 					<ul>

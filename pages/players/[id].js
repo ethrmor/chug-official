@@ -129,13 +129,23 @@ export default function Player({ player }) {
 		<div className="bg-white dark:bg-[#333333] shadow-md">
 			<div className="w-full h-60 bg-gradient-to-r from-purple-500 to-purple-900 shadow-md mt-[-1rem]"></div>
 			<div className="relative h-36 w-36 bg-white dark:bg-[#333333] rounded-full mt-[-6rem] mx-auto border-2 border-purple-900">
-				<Image
-					src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
-					alt={player.full_name}
-					layout="fill"
-					objectFit="cover"
-					className="rounded-full"
-				></Image>
+				{player.years_exp >= 1 ? (
+					<Image
+						src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
+						alt={player.full_name}
+						layout="fill"
+						objectFit="cover"
+						className="rounded-full"
+					></Image>
+				) : (
+					<Image
+						src={`https://sleepercdn.com/images/v2/icons/player_default.webp`}
+						alt={player.full_name}
+						layout="fill"
+						objectFit="cover"
+						className="rounded-full"
+					></Image>
+				)}{' '}
 			</div>
 			<div className="flex items-center justify-center py-4 text-2xl font-semibold">
 				<h1 className="">{player.full_name}</h1>
@@ -243,6 +253,8 @@ export async function getStaticProps({ params }) {
 			owner: owner[0].slug,
 			asmc: owner[0].team,
 		};
+
+		console.log(player);
 
 		return {
 			props: { player },

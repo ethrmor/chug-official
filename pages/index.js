@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<>
 			<div className="grid grid-cols-[250px_1fr_300px] gap-4">
-				<aside className="bg-white rounded-md shadow-md">
+				<aside className="bg-white dark:bg-[#333333] rounded-md shadow-md">
 					<h2>Quick Links</h2>
 					{[
 						'Home',
@@ -21,10 +21,10 @@ export default function Home() {
 						</a>
 					))}
 				</aside>
-				<section className="bg-white rounded-md shadow-md">
+				<section className="bg-white dark:bg-[#333333] rounded-md shadow-md">
 					<h2>Featured</h2>
 				</section>
-				<aside className="bg-white rounded-md shadow-md">
+				<aside className="bg-white dark:bg-[#333333] rounded-md shadow-md">
 					<h2>Latest News</h2>
 				</aside>
 			</div>
