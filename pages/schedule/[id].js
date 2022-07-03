@@ -80,6 +80,12 @@ export default function singleGame({ results }) {
 					<BoxScoreRow results={results} index={8} />
 					<BoxScoreRow results={results} index={9} />
 					<BoxScoreRow results={results} index={10} />
+					{results.year !== 2020 && (
+						<>
+							<BoxScoreRow results={results} index={11} />
+							<BoxScoreRow results={results} index={12} />
+						</>
+					)}
 				</div>
 			</div>
 		</>
@@ -134,8 +140,6 @@ export async function getStaticProps({ params }) {
 			team_players,
 			opponent_players,
 		};
-
-		console.log(results);
 
 		return {
 			props: { results },

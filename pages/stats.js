@@ -3,46 +3,34 @@ import React from 'react';
 
 import { Fragment, useState } from 'react';
 import { Combobox, Transition } from '@headlessui/react';
-import { SelectorIcon } from '@heroicons/react/solid';
+import {
+	ArrowSmDownIcon,
+	ArrowSmUpIcon,
+	SelectorIcon,
+} from '@heroicons/react/solid';
 
 import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
 import Pagination from '@/components/Pagination';
 import { supabase } from '@/utils/supabaseClient';
 
 function Table({ columns, data }) {
-	const {
-		getTableProps,
-		getTableBodyProps,
-		headerGroups,
-		prepareRow,
-		page,
-		canPreviousPage,
-		canNextPage,
-		pageOptions,
-		pageCount,
-		gotoPage,
-		nextPage,
-		previousPage,
-		setPageSize,
-		state: { pageIndex, pageSize },
-	} = useTable(
-		{
-			columns,
-			data,
-			initialState: { pageIndex: 0, pageSize: 25 },
-		},
-		useFlexLayout,
-		useSortBy,
-		usePagination
-	);
+	const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
+		useTable(
+			{
+				columns,
+				data,
+			},
+			useFlexLayout,
+			useSortBy
+		);
 
 	// Render the UI for your table
 	return (
 		<>
-			<div className="wrapper overflow-x-auto bg-white dark:bg-[#333333] rounded-t-md shadow-md p-4">
+			<div className="wrapper overflow-x-auto p-4">
 				<table
-					{...getTableProps()}
 					className="min-w-full text-sm divide-y divide-gray-200 dark:divide-[#555555]"
+					{...getTableProps()}
 				>
 					<thead>
 						{headerGroups.map((headerGroup, index) => (
@@ -50,16 +38,20 @@ function Table({ columns, data }) {
 								{headerGroup.headers.map((column, index) => (
 									<th
 										key={index}
+										className="flex items-center justify-center py-2"
 										{...column.getHeaderProps(column.getSortByToggleProps())}
-										className=""
 									>
 										{column.render('Header')}
 										<span>
-											{column.isSorted
-												? column.isSortedDesc
-													? ' ▼'
-													: ' ▲'
-												: ''}
+											{column.isSorted ? (
+												column.isSortedDesc ? (
+													<ArrowSmDownIcon className="h-5 w-5" />
+												) : (
+													<ArrowSmUpIcon className="h-5 w-5" />
+												)
+											) : (
+												''
+											)}
 										</span>
 									</th>
 								))}
@@ -67,13 +59,17 @@ function Table({ columns, data }) {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
-						{page.map((row, index) => {
+						{rows.map((row, i) => {
 							prepareRow(row);
 							return (
-								<tr key={index} {...row.getRowProps()}>
+								<tr
+									key={i}
+									className="py-4 border-b last:border-0"
+									{...row.getRowProps()}
+								>
 									{row.cells.map((cell, index) => {
 										return (
-											<td key={index} {...cell.getCellProps()} className="">
+											<td key={index} {...cell.getCellProps()}>
 												{cell.render('Cell')}
 											</td>
 										);
@@ -84,207 +80,135 @@ function Table({ columns, data }) {
 					</tbody>
 				</table>
 			</div>
-
-			<Pagination
-				canPreviousPage={canPreviousPage}
-				canNextPage={canNextPage}
-				pageCount={pageCount}
-				pageOptions={pageOptions}
-				pageSize={pageSize}
-				pageIndex={pageIndex}
-				gotoPage={gotoPage}
-				nextPage={nextPage}
-				previousPage={previousPage}
-				setPageSize={setPageSize}
-			/>
 		</>
 	);
 }
 
-const people = [
-	{ id: 1, name: 'Ethan' },
-	{ id: 2, name: 'Jacob' },
-	{ id: 3, name: 'Scott' },
-	{ id: 4, name: 'Morgan' },
-	{ id: 5, name: 'Jorden' },
-];
-
-export default function Stats({ results, playerNameOptions }) {
+export default function Stats({ results }) {
 	const columns = React.useMemo(
 		() => [
 			{
-				Header: 'Name',
-				accessor: 'player_name',
+				Header: 'Team',
+				accessor: 'id.team',
 				width: 200,
+				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/players/${e.row?.original?.player_id}`}>
-							<a>{e.row?.original?.player_name}</a>
+						<Link href={`/owners/${e.row?.original?.id.id}`}>
+							<a>{e.row?.original?.id.team}</a>
 						</Link>
 					</>
 				),
 			},
 			{
-				Header: 'Team',
-				accessor: 'team',
-				width: 160,
-			},
-			{
-				Header: 'Pos',
-				accessor: 'position',
-				width: 50,
-				disableSortBy: true,
-			},
-			{
-				Header: 'Year',
-				accessor: 'year',
-				width: 50,
-				disableSortBy: true,
-			},
-			{
-				Header: 'Week',
-				accessor: 'week',
-				width: 50,
-				disableSortBy: true,
-			},
-			{
-				Header: 'FP',
-				accessor: 'fantasy_points',
-				width: 50,
+				Header: 'Games Played',
+				accessor: 'regular_season_games_played',
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
+						<p className="tabular-nums text-center">{e.value}</p>
 					</>
 				),
 			},
 			{
-				Header: 'Passing',
-				columns: [
-					{
-						Header: 'Yards',
-						accessor: 'pass_yards',
-						width: 70,
-						sortType: 'basic',
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: 'TD',
-						accessor: 'pass_td',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: 'Int',
-						accessor: 'pass_int',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: '2Pt',
-						accessor: 'pass_2pt',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-				],
+				Header: 'Wins',
+				accessor: 'regular_season_wins',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
 			},
 			{
-				Header: 'Rushing',
-				columns: [
-					{
-						Header: 'Yards',
-						accessor: 'rush_yards',
-						width: 70,
-						sortType: 'basic',
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: 'TD',
-						accessor: 'rush_td',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: '2Pt',
-						accessor: 'rush_2pt',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-				],
+				Header: 'Losses',
+				accessor: 'regular_season_losses',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
 			},
 			{
-				Header: 'Receiving',
-				columns: [
-					{
-						Header: 'Rec',
-						accessor: 'rec',
-						width: 50,
-						sortType: 'basic',
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: 'Yards',
-						accessor: 'rec_yards',
-						width: 70,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: 'TD',
-						accessor: 'rec_td',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-					{
-						Header: '2Pt',
-						accessor: 'rec_2pt',
-						width: 50,
-						Cell: (e) => (
-							<>
-								<p className="tabular-nums text-right">{e.value}</p>
-							</>
-						),
-					},
-				],
+				Header: 'Ties',
+				accessor: 'regular_season_ties',
+				width: 50,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'regular_season_pct',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points For',
+				accessor: 'regular_season_points_for',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points Against',
+				accessor: 'regular_season_points_against',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points Spread',
+				accessor: 'regular_season_points_spread',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'High Score',
+				accessor: 'regular_season_game_hi',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Low Score',
+				accessor: 'regular_season_game_lo',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+					</>
+				),
 			},
 		],
 		[]
@@ -294,16 +218,11 @@ export default function Stats({ results, playerNameOptions }) {
 
 	return (
 		<>
-			<h1 className="text-4xl mt-2 mb-4">Statistics</h1>
-			<div className="flex gap-4 pb-4">
-				<select>
-					<option>One</option>
-				</select>
-				<select>
-					<option>Two</option>
-				</select>
+			<h1 className="text-3xl mt-2 mb-4">Statistics</h1>
+			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+				<h2 className="text-lg border-b-2 p-4">Regular Season</h2>
+				<Table columns={columns} data={data} />
 			</div>
-			<Table columns={columns} data={data} />
 		</>
 	);
 }
@@ -311,18 +230,14 @@ export default function Stats({ results, playerNameOptions }) {
 export async function getStaticProps() {
 	try {
 		const { data: results } = await supabase
-			.from('players_games')
-			.select('*')
-			.order('fantasy_points', { ascending: false });
+			.from('owners_career')
+			.select('*, id (*)')
+			.order('apr_plus', { ascending: false });
 
-		const playerNameOptions = [
-			...new Set(results.map((player) => player.player_name)),
-		]
-			.sort()
-			.map((string, index) => ({ id: index + 1, name: string }));
+		console.log(results);
 
 		return {
-			props: { results, playerNameOptions },
+			props: { results },
 		};
 	} catch (err) {
 		console.error(err);

@@ -34,7 +34,7 @@ export default function Layout({ children }) {
 		{ id: '/owners/9', name: 'Jeff City Leprechauns' },
 		{ id: '/owners/10', name: 'White Panthers' },
 		{ id: '/owners/11', name: '45ers' },
-		{ id: '/owners/12', name: 'TBD' },
+		{ id: '/owners/12', name: 'Rabbis' },
 	];
 
 	const leagueLinks = [

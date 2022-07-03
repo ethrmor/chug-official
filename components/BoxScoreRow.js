@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function BoxScoreRow({ results, index }) {
 	return (
 		<div className="grid grid-cols-[1fr_6rem_1fr] border-b-2 py-4 items-center">
-			<Link href={`/player/${results.team_players[index].player_id}`}>
+			<Link href={`/players/${results.team_players[index].player_id}`}>
 				<a className="flex justify-between items-center gap-4">
 					<div className="flex items-center">
 						<div className="relative h-10 w-10 bg-white dark:bg-[#333333] hidden lg:block">
@@ -447,7 +447,7 @@ export default function BoxScoreRow({ results, index }) {
 			<p className="text-center lg:text-md lg:font-bold">
 				{results.team_players[index].fantasy_position}
 			</p>
-			<Link href={`/player/${results.opponent_players[index].player_id}`}>
+			<Link href={`/players/${results.opponent_players[index].player_id}`}>
 				<a className="flex justify-between items-center gap-4">
 					<p className="text-right tabular-nums">
 						{results.opponent_players[index].fantasy_points.toFixed(2)}
