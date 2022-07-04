@@ -7,7 +7,12 @@ export default function singleGame({ results }) {
 	return (
 		<>
 			<h1 className="text-3xl mt-2 mb-4">
-				{results.year} - Week {results.week}
+				<span className="text-sm text-blue-500 hover:underline block pb-2">
+					<Link href="/schedule">
+						<a>Back to Schedule</a>
+					</Link>
+				</span>
+				{results.year} - Week {results.week}{' '}
 			</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4 flex flex-col gap-10">
 				<div className="grid grid-cols-[1fr_6rem_1fr]">
@@ -24,8 +29,8 @@ export default function singleGame({ results }) {
 								<h2 className="text-xl">
 									{results.team_id.team}
 									<span className="text-base pl-1 opacity-70">
-										({results.owner_wins} - {results.owner_losses}
-										{results.owner_ties === 0
+										({results.owner_wins || '0'} - {results.owner_losses || '0'}
+										{!results.owner_ties || results.owner_ties === 0
 											? null
 											: ` - ${results.owner_ties}`}
 										)
@@ -37,15 +42,19 @@ export default function singleGame({ results }) {
 						<div>
 							<p
 								className={
-									results.owner_points > results.opponent_points
+									results.owner_points === results.opponent_points
+										? 'text-2xl'
+										: results.owner_points > results.opponent_points
 										? 'text-2xl font-bold'
 										: 'text-2xl opacity-70'
 								}
 							>
-								{results.owner_points}
+								{results.owner_points !== 0
+									? results.owner_points.toFixed(2)
+									: '0.00'}
 							</p>
 							<p className="text-sm text-right opacity-70">
-								{results.owner_bb_id.team_points}
+								{results.owner_bb_id.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
 					</div>
@@ -56,23 +65,28 @@ export default function singleGame({ results }) {
 						<div>
 							<p
 								className={
-									results.owner_points < results.opponent_points
+									results.owner_points === results.opponent_points
+										? 'text-2xl'
+										: results.owner_points < results.opponent_points
 										? 'text-2xl font-bold'
-										: 'text-2xl opacity-50'
+										: 'text-2xl opacity-70'
 								}
 							>
-								{results.opponent_points}
+								{results.opponent_points !== 0
+									? results.opponent_points.toFixed(2)
+									: '0.00'}
 							</p>
 							<p className="text-sm text-left opacity-70">
-								{results.opponent_bb_id.team_points}
+								{results.opponent_bb_id.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
 						<div className="flex items-center gap-6">
 							<div className="text-right">
 								<h2 className="text-xl">
 									<span className="text-base pr-1 opacity-70">
-										({results.opponent_wins} - {results.opponent_losses}
-										{results.opponent_ties === 0
+										({results.opponent_wins || '0'} -{' '}
+										{results.opponent_losses || '0'}
+										{!results.opponent_ties || results.opponent_ties === 0
 											? null
 											: ` - ${results.opponent_ties}`}
 										)
@@ -97,21 +111,21 @@ export default function singleGame({ results }) {
 						<p className="text-center">Position</p>
 						<p className="text-right">Player Name</p>
 					</div>
-					<BoxScoreRow results={results} index={0} />
-					<BoxScoreRow results={results} index={1} />
-					<BoxScoreRow results={results} index={2} />
-					<BoxScoreRow results={results} index={3} />
-					<BoxScoreRow results={results} index={4} />
-					<BoxScoreRow results={results} index={5} />
-					<BoxScoreRow results={results} index={6} />
-					<BoxScoreRow results={results} index={7} />
-					<BoxScoreRow results={results} index={8} />
-					<BoxScoreRow results={results} index={9} />
-					<BoxScoreRow results={results} index={10} />
+					<BoxScoreRow results={results} index={0} fantasyPos={'QB'} />
+					<BoxScoreRow results={results} index={1} fantasyPos={'RB'} />
+					<BoxScoreRow results={results} index={2} fantasyPos={'RB'} />
+					<BoxScoreRow results={results} index={3} fantasyPos={'WR'} />
+					<BoxScoreRow results={results} index={4} fantasyPos={'WR'} />
+					<BoxScoreRow results={results} index={5} fantasyPos={'WR'} />
+					<BoxScoreRow results={results} index={6} fantasyPos={'TE'} />
+					<BoxScoreRow results={results} index={7} fantasyPos={'FLEX'} />
+					<BoxScoreRow results={results} index={8} fantasyPos={'DL'} />
+					<BoxScoreRow results={results} index={9} fantasyPos={'LB'} />
+					<BoxScoreRow results={results} index={10} fantasyPos={'DB'} />
 					{results.year !== 2020 && (
 						<>
-							<BoxScoreRow results={results} index={11} />
-							<BoxScoreRow results={results} index={12} />
+							<BoxScoreRow results={results} index={11} fantasyPos={'IDP'} />
+							<BoxScoreRow results={results} index={12} fantasyPos={'IDP'} />
 						</>
 					)}
 				</div>

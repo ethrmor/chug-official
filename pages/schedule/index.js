@@ -66,12 +66,18 @@ export default function Schedule({ results }) {
 									teamPlayerName={game.owner_player_id?.player_name}
 									teamPlayerPosition={game.owner_player_id?.position}
 									teamPlayerPoints={game.owner_player_points}
+									teamWins={game.owner_wins}
+									teamLosses={game.owner_losses}
+									teamTies={game.owner_ties}
 									opponent={game.opponent_id.team}
 									opponentOwner={game.opponent_id.slug}
 									opponentPoints={game.opponent_points}
 									opponentPlayerName={game.opponent_player_id?.player_name}
 									opponentPlayerPosition={game.opponent_player_id?.position}
 									opponentPlayerPoints={game.opponent_player_points}
+									opponentWins={game.opponent_wins}
+									opponentLosses={game.opponent_losses}
+									opponentTies={game.opponent_ties}
 								/>
 							) : (
 								'Playoff Teams TBD'

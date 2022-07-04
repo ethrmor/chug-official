@@ -10,12 +10,18 @@ export default function MiniBoxScore({
 	teamPlayerName,
 	teamPlayerPosition,
 	teamPlayerPoints,
+	teamWins,
+	teamLosses,
+	teamTies,
 	opponent,
 	opponentOwner,
 	opponentPoints,
 	opponentPlayerName,
 	opponentPlayerPosition,
 	opponentPlayerPoints,
+	opponentWins,
+	opponentLosses,
+	opponentTies,
 }) {
 	return (
 		<>
@@ -24,7 +30,7 @@ export default function MiniBoxScore({
 					<div className="flex flex-col lg:border-r-2 dark:border-[#555555] pr-4">
 						<div
 							className={`flex justify-between items-center p-4 ${
-								parseInt(teamPoints) > parseInt(opponentPoints)
+								parseFloat(teamPoints) > parseFloat(opponentPoints)
 									? 'font-bold'
 									: null
 							}`}
@@ -36,15 +42,23 @@ export default function MiniBoxScore({
 									height={40}
 									alt={`${teamOwner} Logo`}
 								/>
-								<h3>{team}</h3>
+								<h3>
+									{team}
+									<span className="pl-1 text-sm">
+										({!teamWins ? '0' : teamWins} {' - '}{' '}
+										{!teamLosses ? '0' : teamLosses}
+										{!teamTies || teamTies === 0 ? '' : ' - '}
+										{!teamTies ? '' : teamTies})
+									</span>
+								</h3>
 							</div>
 							<p className="tabular-nums text-lg">
-								{teamPoints ? teamPoints.toFixed(2) : teamPoints}
+								{teamPoints !== 0 ? teamPoints.toFixed(2) : '0.00'}
 							</p>
 						</div>
 						<div
 							className={`flex justify-between items-center p-4 ${
-								parseInt(teamPoints) < parseInt(opponentPoints)
+								parseFloat(teamPoints) < parseFloat(opponentPoints)
 									? 'font-bold'
 									: null
 							}`}
@@ -56,10 +70,18 @@ export default function MiniBoxScore({
 									height={40}
 									alt={`${opponentOwner} Logo`}
 								/>
-								<h3>{opponent}</h3>
+								<h3>
+									{opponent}
+									<span className="pl-1 text-sm">
+										({!opponentWins ? '0' : opponentWins} {' - '}{' '}
+										{!opponentLosses ? '0' : opponentLosses}
+										{!opponentTies || opponentTies === 0 ? '' : ' - '}
+										{!opponentTies ? '' : opponentTies})
+									</span>
+								</h3>
 							</div>
 							<p className="tabular-nums text-lg">
-								{opponentPoints ? opponentPoints.toFixed(2) : opponentPoints}
+								{opponentPoints !== 0 ? opponentPoints.toFixed(2) : '0.00'}
 							</p>
 						</div>
 					</div>
