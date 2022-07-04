@@ -21,36 +21,64 @@ export default function singleGame({ results }) {
 								/>
 							</div>
 							<div className="">
-								<h2 className="text-xl">{results.team_id.team}</h2>
+								<h2 className="text-xl">
+									{results.team_id.team}
+									<span className="text-base pl-1 opacity-70">
+										({results.owner_wins} - {results.owner_losses}
+										{results.owner_ties === 0
+											? null
+											: ` - ${results.owner_ties}`}
+										)
+									</span>
+								</h2>
 								<h3 className="text-sm">{results.team_id.name}</h3>
 							</div>
 						</div>
-						<p
-							className={
-								results.owner_points > results.opponent_points
-									? 'text-2xl font-bold'
-									: 'text-2xl opacity-70'
-							}
-						>
-							{results.owner_points}
-						</p>
+						<div>
+							<p
+								className={
+									results.owner_points > results.opponent_points
+										? 'text-2xl font-bold'
+										: 'text-2xl opacity-70'
+								}
+							>
+								{results.owner_points}
+							</p>
+							<p className="text-sm text-right opacity-70">
+								{results.owner_bb_id.team_points}
+							</p>
+						</div>
 					</div>
 					<div className="flex items-center justify-center">
 						<p>VS</p>
 					</div>
 					<div className="flex justify-between items-center">
-						<p
-							className={
-								results.owner_points < results.opponent_points
-									? 'text-2xl font-bold'
-									: 'text-2xl opacity-50'
-							}
-						>
-							{results.opponent_points}
-						</p>
+						<div>
+							<p
+								className={
+									results.owner_points < results.opponent_points
+										? 'text-2xl font-bold'
+										: 'text-2xl opacity-50'
+								}
+							>
+								{results.opponent_points}
+							</p>
+							<p className="text-sm text-left opacity-70">
+								{results.opponent_bb_id.team_points}
+							</p>
+						</div>
 						<div className="flex items-center gap-6">
 							<div className="text-right">
-								<h2 className="text-xl">{results.opp_id.team}</h2>
+								<h2 className="text-xl">
+									<span className="text-base pr-1 opacity-70">
+										({results.opponent_wins} - {results.opponent_losses}
+										{results.opponent_ties === 0
+											? null
+											: ` - ${results.opponent_ties}`}
+										)
+									</span>
+									{results.opp_id.team}
+								</h2>
 								<h3 className="text-sm">{results.opp_id.name}</h3>
 							</div>
 							<div className="relative w-24 h-24">
@@ -107,7 +135,7 @@ export async function getStaticProps({ params }) {
 		const { data: game } = await supabase
 			.from('game_box_score')
 			.select(
-				`*, team_id:owner_id (id, team, slug, name), opp_id:opponent_id (id, team, slug, name), owner_player_id ("*"), opponent_player_id ("*")`
+				`*, team_id:owner_id (id, team, slug, name), opp_id:opponent_id (id, team, slug, name), owner_player_id ("*"), opponent_player_id ("*"), owner_bb_id (team_points, win, loss, tie), opponent_bb_id (team_points, win, loss, tie)`
 			)
 			.eq('id', params.id);
 
@@ -140,6 +168,8 @@ export async function getStaticProps({ params }) {
 			team_players,
 			opponent_players,
 		};
+
+		console.log(result);
 
 		return {
 			props: { results },

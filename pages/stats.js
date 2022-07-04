@@ -1,16 +1,8 @@
 import Link from 'next/link';
 import React from 'react';
 
-import { Fragment, useState } from 'react';
-import { Combobox, Transition } from '@headlessui/react';
-import {
-	ArrowSmDownIcon,
-	ArrowSmUpIcon,
-	SelectorIcon,
-} from '@heroicons/react/solid';
-
-import { useTable, usePagination, useSortBy, useFlexLayout } from 'react-table';
-import Pagination from '@/components/Pagination';
+import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
+import { useTable, useSortBy, useFlexLayout } from 'react-table';
 import { supabase } from '@/utils/supabaseClient';
 
 function Table({ columns, data }) {
@@ -64,7 +56,7 @@ function Table({ columns, data }) {
 							return (
 								<tr
 									key={i}
-									className="py-4 border-b last:border-0"
+									className="py-4 border-b last:border-0 dark:border-gray-600"
 									{...row.getRowProps()}
 								>
 									{row.cells.map((cell, index) => {
@@ -217,13 +209,17 @@ export default function Stats({ results }) {
 	const data = React.useMemo(() => results, [results]);
 
 	return (
-		<>
+		<div className="flex flex-col gap-4">
 			<h1 className="text-3xl mt-2 mb-4">Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
 				<h2 className="text-lg border-b-2 p-4">Regular Season</h2>
 				<Table columns={columns} data={data} />
 			</div>
-		</>
+			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+				<h2 className="text-lg border-b-2 p-4">Advanced</h2>
+				<Table columns={columns} data={data} />
+			</div>
+		</div>
 	);
 }
 
