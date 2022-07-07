@@ -76,7 +76,7 @@ export default function Table({ columns, data }) {
         Pagination can be built however you'd like.
         This is just a very basic UI implementation:
       */}
-			<div className="pagination">
+			{/* <div className="pagination">
 				<button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
 					{'First'}
 				</button>{' '}
@@ -119,7 +119,7 @@ export default function Table({ columns, data }) {
 						</option>
 					))}
 				</select>
-			</div>
+			</div> */}
 		</>
 	);
 }

@@ -9,36 +9,36 @@ import Table from '@/components/CareerTable';
 export default function Player({ player }) {
 	const columns = React.useMemo(
 		() => [
-			{
-				Header: 'Year',
-				accessor: 'year',
-				width: 60,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Week',
-				accessor: 'week',
-				width: 50,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right pr-5">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Owner',
-				accessor: 'owner_id.team',
-				width: 175,
-				Cell: (e) => (
-					<>
-						<p className="pl-5">{e.value}</p>
-					</>
-				),
-			},
+			// {
+			// 	Header: 'Year',
+			// 	accessor: 'year',
+			// 	width: 60,
+			// 	Cell: (e) => (
+			// 		<>
+			// 			<p className="tabular-nums text-center">{e.value}</p>
+			// 		</>
+			// 	),
+			// },
+			// {
+			// 	Header: 'Week',
+			// 	accessor: 'week',
+			// 	width: 50,
+			// 	Cell: (e) => (
+			// 		<>
+			// 			<p className="tabular-nums text-right">{e.value}</p>
+			// 		</>
+			// 	),
+			// },
+			// {
+			// 	Header: 'Owner',
+			// 	accessor: 'owner_id.team',
+			// 	width: 175,
+			// 	Cell: (e) => (
+			// 		<>
+			// 			<p className="">{e.value}</p>
+			// 		</>
+			// 	),
+			// },
 			{
 				Header: 'FP',
 				accessor: 'fantasy_points',
@@ -49,7 +49,42 @@ export default function Player({ player }) {
 					</>
 				),
 			},
-
+			{
+				Header: 'Average Season FP',
+				accessor: 'average_fp',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Average Season Rank',
+				accessor: 'season_average_rank',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-right">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Average Game FP',
+				accessor: 'average_fp_game',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Average Season FP',
+				accessor: 'game_average_rank',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-right">{e.value}</p>
+					</>
+				),
+			},
 			{
 				Header: 'Yards',
 				accessor: 'pass_yards',
@@ -124,11 +159,14 @@ export default function Player({ player }) {
 		[]
 	);
 
-	const data = React.useMemo(() => player.games, [player.games]);
+	const data = React.useMemo(() => player.career, [player.career]);
 	return (
 		<div className="bg-white dark:bg-[#333333] shadow-md">
-			<div className="w-full h-60 bg-gradient-to-r from-purple-500 to-purple-900 shadow-md mt-[-1rem]"></div>
-			<div className="relative h-36 w-36 bg-white dark:bg-[#333333] rounded-full mt-[-6rem] mx-auto border-2 border-purple-900">
+			<div
+				style={{ backgroundImage: `url(/player-header-${player.owner}.jpg)` }}
+				className={`w-full h-[175px] md:h-[225px] lg:h-[275px] bg-no-repeat bg-cover bg-right shadow-md mt-[-1rem]`}
+			></div>
+			<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-[#333333] rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-purple-900">
 				{player.years_exp >= 1 ? (
 					<Image
 						src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
@@ -184,21 +222,15 @@ export default function Player({ player }) {
 					</p>
 				</div>
 			</div>
-			<div className="relative h-36 w-36">
-				<Image
-					src={player.owner ? `/logo-${player.owner}.webp` : `/logo.webp`}
-					alt="Logo"
-					layout="fill"
-					objectFit="contain"
-				></Image>
-			</div>
-			<div>
-				<h3>Stats</h3>
-				{player.games ? (
-					<Table columns={columns} data={data} />
-				) : (
-					'No Stats Accrued'
-				)}
+			<div className="p-4">
+				<div>
+					<h3 className="text-2xl">Career</h3>
+					{player.games ? (
+						<Table columns={columns} data={data} />
+					) : (
+						'No Stats Accrued'
+					)}
+				</div>
 			</div>
 		</div>
 	);
@@ -236,6 +268,11 @@ export async function getStaticProps({ params }) {
 			team.players.includes(playerObj.player_id.toString())
 		);
 
+		const { data: career } = await supabase
+			.from('players_career')
+			.select('*')
+			.eq('player_id', params.id);
+
 		const { data: games } = await supabase
 			.from('players_games')
 			.select('*, owner_id (team)')
@@ -250,11 +287,10 @@ export async function getStaticProps({ params }) {
 		const player = {
 			...playerObj,
 			games: games,
+			career: career,
 			owner: owner[0].slug,
 			asmc: owner[0].team,
 		};
-
-		console.log(player);
 
 		return {
 			props: { player },

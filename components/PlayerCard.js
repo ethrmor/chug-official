@@ -9,7 +9,8 @@ export default function PlayerCard({ id }) {
 					<div className="flex flex-col items-center bg-white dark:bg-[#333333] w-full p-4 rounded-md shadow-md hover:shadow-xl dark:hover:bg-[#2f2f2f]">
 						<div className="relative h-60 w-60">
 							<span
-								className={`block absolute inset-0 bg-[url('/logo-${id.asmc}.webp')] bg-contain opacity-20`}
+								style={{ backgroundImage: `url('/logo-${id.owner}.webp')` }}
+								className={`block absolute inset-0 bg-contain opacity-20`}
 							></span>
 							<Image
 								src={`https://sleepercdn.com/content/nfl/players/${id.player_id}.jpg`}
