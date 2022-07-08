@@ -1,5 +1,4 @@
 import { supabase } from '@/utils/supabaseClient';
-import Link from 'next/link';
 import { useState } from 'react';
 import FilterDropdown from '../../components/FilterDropdown';
 import MiniBoxScore from '../../components/MiniBoxScore';
@@ -97,8 +96,6 @@ export async function getStaticProps() {
 			.select(
 				'*, owner_id (slug, team), opponent_id (slug, team), owner_player_id (player_name, position), opponent_player_id (player_name, position)'
 			);
-
-		console.log(results);
 
 		return {
 			props: { results },

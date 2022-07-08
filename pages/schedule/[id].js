@@ -7,12 +7,12 @@ export default function singleGame({ results }) {
 	return (
 		<>
 			<h1 className="text-3xl mt-2 mb-4">
-				<span className="text-sm text-blue-500 hover:underline block pb-2">
+				{results.year} - Week {results.week}{' '}
+				<span className="text-sm text-blue-500 hover:underline block pt-2">
 					<Link href="/schedule">
 						<a>Back to Schedule</a>
 					</Link>
 				</span>
-				{results.year} - Week {results.week}{' '}
 			</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4 flex flex-col gap-10">
 				<div className="grid grid-cols-[1fr_6rem_1fr]">
@@ -182,8 +182,6 @@ export async function getStaticProps({ params }) {
 			team_players,
 			opponent_players,
 		};
-
-		console.log(result);
 
 		return {
 			props: { results },
