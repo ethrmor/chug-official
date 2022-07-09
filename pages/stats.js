@@ -3,6 +3,7 @@ import React from 'react';
 
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
 import { useTable, useSortBy, useFlexLayout } from 'react-table';
+import { Tab } from '@headlessui/react';
 import { supabase } from '@/utils/supabaseClient';
 
 function Table({ columns, data }) {
@@ -56,7 +57,7 @@ function Table({ columns, data }) {
 							return (
 								<tr
 									key={i}
-									className="py-2 border-b last:border-0 dark:border-gray-600 text-sm hover:bg-gray-200"
+									className="py-2 border-b last:border-0 dark:border-gray-600 text-sm hover:bg-gray-200 dark:hover:bg-gray-800"
 									{...row.getRowProps()}
 								>
 									{row.cells.map((cell, index) => {
@@ -148,81 +149,91 @@ export default function Stats({ results }) {
 				),
 			},
 			{
-				Header: 'Points For',
-				accessor: 'regular_season_points_for',
-				width: 100,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'regular_season_points_for',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'regular_season_points_against',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'regular_season_points_spread',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'High Score',
+						accessor: 'regular_season_game_hi',
+						width: 90,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Low Score',
+						accessor: 'regular_season_game_lo',
+						width: 90,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
 			},
 			{
-				Header: 'Points Against',
-				accessor: 'regular_season_points_against',
-				width: 100,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Spread',
-				accessor: 'regular_season_points_spread',
-				width: 100,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'High Score',
-				accessor: 'regular_season_game_hi',
-				width: 90,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Low Score',
-				accessor: 'regular_season_game_lo',
-				width: 90,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Txns',
-				accessor: 'transactions',
-				width: 70,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Trades',
-				accessor: 'trades',
-				width: 60,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value}</p>
-					</>
-				),
+				Header: 'Transactions',
+				columns: [
+					{
+						Header: 'Waivers',
+						accessor: 'transactions',
+						width: 70,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Trades',
+						accessor: 'trades',
+						width: 60,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
 			},
 		],
 		[]
@@ -460,37 +471,42 @@ export default function Stats({ results }) {
 				),
 			},
 			{
-				Header: 'Points For',
-				accessor: 'playoff_points_for',
-				width: 120,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Against',
-				accessor: 'playoff_points_against',
-				width: 120,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Spread',
-				accessor: 'playoff_points_spread',
-				width: 100,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'playoff_points_for',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'playoff_points_against',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'playoff_points_spread',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
 			},
 		],
 		[]
@@ -556,37 +572,42 @@ export default function Stats({ results }) {
 				),
 			},
 			{
-				Header: 'Points For',
-				accessor: 'championship_points_for',
-				width: 160,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Against',
-				accessor: 'championship_points_against',
-				width: 160,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Spread',
-				accessor: 'championship_points_spread',
-				width: 160,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'championship_points_for',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'championship_points_against',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'championship_points_spread',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
 			},
 		],
 		[]
@@ -663,37 +684,42 @@ export default function Stats({ results }) {
 				),
 			},
 			{
-				Header: 'Points For',
-				accessor: 'overall_points_for',
-				width: 150,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Against',
-				accessor: 'overall_points_against',
-				width: 150,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Points Spread',
-				accessor: 'overall_points_spread',
-				width: 150,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
-					</>
-				),
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'overall_points_for',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'overall_points_against',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'overall_points_spread',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
 			},
 		],
 		[]
@@ -835,31 +861,105 @@ export default function Stats({ results }) {
 	const data = React.useMemo(() => results, [results]);
 
 	return (
-		<div className="flex flex-col gap-4">
+		<div className="flex flex-col">
 			<h1 className="text-3xl mt-2 mb-4">Statistics</h1>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-				<h2 className="text-md border-b-2 p-4">Regular Season</h2>
-				<Table columns={columnsRegular} data={data} />
-			</div>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-				<h2 className="text-md border-b-2 p-4">Advanced</h2>
-				<Table columns={columnsAdvanced} data={data} />
-			</div>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-				<h2 className="text-md border-b-2 p-4">Playoffs</h2>
-				<Table columns={columnsPlayoffs} data={data} />
-			</div>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-				<h2 className="text-md border-b-2 p-4">Championships</h2>
-				<Table columns={columnsChampionships} data={data} />
-			</div>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-				<h2 className="text-md border-b-2 p-4">Overall</h2>
-				<Table columns={columnsOverall} data={data} />
-			</div>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-				<h2 className="text-md border-b-2 p-4">Game Averages</h2>
-				<Table columns={columnsPPG} data={data} />
+			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+				<Tab.Group>
+					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+						<Tab
+							className={({ selected }) =>
+								selected
+									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+									: 'text-black/50 dark:text-white/50 pb-2 px-4'
+							}
+						>
+							Regular Season
+						</Tab>
+						<Tab
+							className={({ selected }) =>
+								selected
+									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+									: 'text-black/50 dark:text-white/50 pb-2 px-4'
+							}
+						>
+							Advanced
+						</Tab>
+						<Tab
+							className={({ selected }) =>
+								selected
+									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+									: 'text-black/50 dark:text-white/50 pb-2 px-4'
+							}
+						>
+							Playoffs
+						</Tab>
+						<Tab
+							className={({ selected }) =>
+								selected
+									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+									: 'text-black/50 dark:text-white/50 pb-2 px-4'
+							}
+						>
+							Championships
+						</Tab>
+						<Tab
+							className={({ selected }) =>
+								selected
+									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+									: 'text-black/50 dark:text-white/50 pb-2 px-4'
+							}
+						>
+							Overall
+						</Tab>
+						<Tab
+							className={({ selected }) =>
+								selected
+									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+									: 'text-black/50 dark:text-white/50 pb-2 px-4'
+							}
+						>
+							Game Averages
+						</Tab>
+					</Tab.List>
+					<Tab.Panels className="">
+						<Tab.Panel>
+							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								{/* <h2 className="text-md border-b-2 p-4">Regular Season</h2> */}
+								<Table columns={columnsRegular} data={data} />
+							</div>
+						</Tab.Panel>
+						<Tab.Panel>
+							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								{/* <h2 className="text-md border-b-2 p-4">Advanced</h2> */}
+								<Table columns={columnsAdvanced} data={data} />
+							</div>
+						</Tab.Panel>
+						<Tab.Panel>
+							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								{/* <h2 className="text-md border-b-2 p-4">Playoffs</h2> */}
+								<Table columns={columnsPlayoffs} data={data} />
+							</div>
+						</Tab.Panel>
+						<Tab.Panel>
+							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								{/* <h2 className="text-md border-b-2 p-4">Championships</h2> */}
+								<Table columns={columnsChampionships} data={data} />
+							</div>
+						</Tab.Panel>
+						<Tab.Panel>
+							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								{/* <h2 className="text-md border-b-2 p-4">Overall</h2> */}
+								<Table columns={columnsOverall} data={data} />
+							</div>
+						</Tab.Panel>
+						<Tab.Panel>
+							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								{/* <h2 className="text-md border-b-2 p-4">Game Averages</h2> */}
+								<Table columns={columnsPPG} data={data} />
+							</div>
+						</Tab.Panel>
+					</Tab.Panels>
+				</Tab.Group>
 			</div>
 		</div>
 	);
