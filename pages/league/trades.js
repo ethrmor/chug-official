@@ -45,7 +45,7 @@ export default function Trades({ results }) {
 	return (
 		<div>
 			<h1 className="text-2xl mt-2 mb-4">Trades</h1>
-			<div className="grid grid-cols-[300px_1fr] gap-6">
+			<div className="grid grid-cols-[300px_1fr] gap-6 text-xs">
 				<div className="flex flex-col gap-4 sticky top-20 self-start">
 					<p>Filters</p>
 					<FilterDropdown
@@ -65,7 +65,7 @@ export default function Trades({ results }) {
 							<p className="text-gray-400 text-xs pb-2">
 								#{trade.id} - {trade.date}
 							</p>
-							<div className="grid grid-cols-2 gap-6">
+							<div className="grid grid-cols-2 gap-6 text-sm">
 								<TradePart owner={trade.id_1.team} piece={trade.players_1} />
 								<TradePart owner={trade.id_2.team} piece={trade.players_2} />
 								{trade.owner_3 && (

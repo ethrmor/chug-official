@@ -6,7 +6,7 @@ export default function Bible({ results }) {
 				<nav className="md:block hidden sticky top-20 self-start bg-white dark:bg-[#333333] rounded-md shadow-md p-4">
 					<ul>
 						{results.map((article) => (
-							<li key={article.id} className="py-1 hover:underline">
+							<li key={article.id} className="py-1 text-sm hover:underline">
 								<a href={`#${article.id}`}>
 									{article.id}. {article.article}
 								</a>
@@ -21,12 +21,12 @@ export default function Bible({ results }) {
 							id={`${rule.id}`}
 							className="pb-6 scroll-mt-20"
 						>
-							<h2 className="text-2xl font-bold text-center">
+							<h2 className="text-md font-bold text-center">
 								Article {rule.id} - {rule.article}
 							</h2>
 							{rule.sections.map((section) => (
 								<div key={section.id}>
-									<h3 className="py-2">
+									<h3 className=" text-sm py-2">
 										<span className="font-bold mr-2">
 											Section {section.id}.
 										</span>
@@ -34,7 +34,7 @@ export default function Bible({ results }) {
 									</h3>
 									<ul className="py-2">
 										{section?.subSections?.map((subSection) => (
-											<li key={subSection.id} className="pl-10">
+											<li key={subSection.id} className="pl-10 text-sm">
 												<span className="font-bold mr-2">
 													Section {subSection.id}.{' '}
 												</span>

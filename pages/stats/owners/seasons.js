@@ -880,8 +880,22 @@ export default function Stats({ results }) {
 
 	return (
 		<div className="flex flex-col">
-			<h1 className="text-2xl mt-2 mb-4">Statistics</h1>
+			<h1 className="text-2xl mt-2 mb-4">Owner Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+				<div>
+					<div className="flex text-md border-b border-[#e5e5e5] dark:border-[#444444]">
+						<Link href="/stats/owners/career">
+							<a className="text-black/50 dark:text-white/50 pb-2 px-4">
+								Career
+							</a>
+						</Link>
+						<Link href="/stats/owners/seasons">
+							<a className="border-b-2 border-red-600 pb-2 px-4 outline-none">
+								Seasons
+							</a>
+						</Link>
+					</div>
+				</div>
 				<Tab.Group>
 					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
 						{tabs.map((tab, index) => (
@@ -889,8 +903,8 @@ export default function Stats({ results }) {
 								key={index}
 								className={({ selected }) =>
 									selected
-										? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-										: 'text-black/50 dark:text-white/50 pb-2 px-4'
+										? 'border-b-2 border-red-600 py-2 px-4 outline-none'
+										: 'text-black/50 dark:text-white/50 py-2 px-4'
 								}
 							>
 								{tab}

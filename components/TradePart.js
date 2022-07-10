@@ -8,14 +8,14 @@ export default function TradePart({ owner, piece }) {
 				{' Acquire'}
 			</h2>
 			{JSON.parse(piece).map((player, index) => (
-				<>
+				<div key={index}>
 					{player.position ? (
 						<Link href={`/players/${player.id}`}>
 							<div key={player.id}>
 								<a className="cursor-pointer">
 									{player.name}
 									{player.player ? (
-										<div className="text-sm pl-6 font-light">{`(${player.player}, ${player.position} - ${player.team})`}</div>
+										<div className="text-xs pl-6 font-light">{`(${player.player}, ${player.position} - ${player.team})`}</div>
 									) : (
 										<span className="text-xs pl-1 text-gray-400">
 											{player.position
@@ -29,7 +29,7 @@ export default function TradePart({ owner, piece }) {
 					) : (
 						<span className="block">{player.name}</span>
 					)}
-				</>
+				</div>
 			))}
 		</div>
 	);

@@ -42,6 +42,11 @@ export default function Layout({ children }) {
 		{ id: '/league/bible', name: 'Bible' },
 	];
 
+	const statsLinks = [
+		{ id: '/stats/owners', name: 'Owners' },
+		{ id: '/stats/players', name: 'Players' },
+	];
+
 	const { theme, setTheme } = useTheme();
 	return (
 		<div className="flex flex-col min-h-screen">
@@ -92,11 +97,7 @@ export default function Layout({ children }) {
 										</Link>
 									</li>
 									<li>
-										<Link href="/stats">
-											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
-												Stats
-											</a>
-										</Link>
+										<NavDropdown buttonName={'Stats'} listArray={statsLinks} />
 									</li>
 									<li>
 										<NavDropdown

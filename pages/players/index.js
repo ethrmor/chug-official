@@ -55,8 +55,6 @@ export async function getStaticProps() {
 				`player_id.eq.${playerCards[0]}, player_id.eq.${playerCards[1]}, player_id.eq.${playerCards[2]}, player_id.eq.${playerCards[3]}, player_id.eq.${playerCards[4]}, player_id.eq.${playerCards[5]}, player_id.eq.${playerCards[6]}, player_id.eq.${playerCards[7]}, player_id.eq.${playerCards[8]}, player_id.eq.${playerCards[9]}, player_id.eq.${playerCards[10]}, player_id.eq.${playerCards[11]}`
 			);
 
-		console.log(players);
-
 		return {
 			props: { players },
 		};
