@@ -2,43 +2,12 @@ import Image from 'next/image';
 import { nflTeams } from '@/utils/nflTeams';
 import { supabase } from '@/utils/supabaseClient';
 import { leagueID } from '@/utils/chugLeague';
-import Link from 'next/link';
 import React from 'react';
 import Table from '@/components/CareerTable';
 
 export default function Player({ player }) {
 	const columns = React.useMemo(
 		() => [
-			// {
-			// 	Header: 'Year',
-			// 	accessor: 'year',
-			// 	width: 60,
-			// 	Cell: (e) => (
-			// 		<>
-			// 			<p className="tabular-nums text-center">{e.value}</p>
-			// 		</>
-			// 	),
-			// },
-			// {
-			// 	Header: 'Week',
-			// 	accessor: 'week',
-			// 	width: 50,
-			// 	Cell: (e) => (
-			// 		<>
-			// 			<p className="tabular-nums text-right">{e.value}</p>
-			// 		</>
-			// 	),
-			// },
-			// {
-			// 	Header: 'Owner',
-			// 	accessor: 'owner_id.team',
-			// 	width: 175,
-			// 	Cell: (e) => (
-			// 		<>
-			// 			<p className="">{e.value}</p>
-			// 		</>
-			// 	),
-			// },
 			{
 				Header: 'FP',
 				accessor: 'fantasy_points',
@@ -185,7 +154,7 @@ export default function Player({ player }) {
 					></Image>
 				)}{' '}
 			</div>
-			<div className="flex items-center justify-center py-4 text-2xl font-semibold">
+			<div className="flex items-center justify-center py-4 text-xl font-semibold">
 				<h1 className="">{player.full_name}</h1>
 				<span className="px-2">|</span>
 				<span className="">#{player.number}</span>

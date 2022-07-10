@@ -860,104 +860,51 @@ export default function Stats({ results }) {
 
 	const data = React.useMemo(() => results, [results]);
 
+	const tabs = [
+		'Regular Season',
+		'Advanced',
+		'Playoffs',
+		'Championships',
+		'Overall',
+		'Game Averages',
+	];
+
+	const cols = [
+		columnsRegular,
+		columnsAdvanced,
+		columnsPlayoffs,
+		columnsChampionships,
+		columnsOverall,
+		columnsPPG,
+	];
+
 	return (
 		<div className="flex flex-col">
-			<h1 className="text-3xl mt-2 mb-4">Statistics</h1>
+			<h1 className="text-2xl mt-2 mb-4">Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
 				<Tab.Group>
 					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
-						<Tab
-							className={({ selected }) =>
-								selected
-									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-									: 'text-black/50 dark:text-white/50 pb-2 px-4'
-							}
-						>
-							Regular Season
-						</Tab>
-						<Tab
-							className={({ selected }) =>
-								selected
-									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-									: 'text-black/50 dark:text-white/50 pb-2 px-4'
-							}
-						>
-							Advanced
-						</Tab>
-						<Tab
-							className={({ selected }) =>
-								selected
-									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-									: 'text-black/50 dark:text-white/50 pb-2 px-4'
-							}
-						>
-							Playoffs
-						</Tab>
-						<Tab
-							className={({ selected }) =>
-								selected
-									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-									: 'text-black/50 dark:text-white/50 pb-2 px-4'
-							}
-						>
-							Championships
-						</Tab>
-						<Tab
-							className={({ selected }) =>
-								selected
-									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-									: 'text-black/50 dark:text-white/50 pb-2 px-4'
-							}
-						>
-							Overall
-						</Tab>
-						<Tab
-							className={({ selected }) =>
-								selected
-									? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-									: 'text-black/50 dark:text-white/50 pb-2 px-4'
-							}
-						>
-							Game Averages
-						</Tab>
+						{tabs.map((tab, index) => (
+							<Tab
+								key={index}
+								className={({ selected }) =>
+									selected
+										? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
+										: 'text-black/50 dark:text-white/50 pb-2 px-4'
+								}
+							>
+								{tab}
+							</Tab>
+						))}
 					</Tab.List>
 					<Tab.Panels className="">
-						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-								{/* <h2 className="text-md border-b-2 p-4">Regular Season</h2> */}
-								<Table columns={columnsRegular} data={data} />
-							</div>
-						</Tab.Panel>
-						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-								{/* <h2 className="text-md border-b-2 p-4">Advanced</h2> */}
-								<Table columns={columnsAdvanced} data={data} />
-							</div>
-						</Tab.Panel>
-						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-								{/* <h2 className="text-md border-b-2 p-4">Playoffs</h2> */}
-								<Table columns={columnsPlayoffs} data={data} />
-							</div>
-						</Tab.Panel>
-						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-								{/* <h2 className="text-md border-b-2 p-4">Championships</h2> */}
-								<Table columns={columnsChampionships} data={data} />
-							</div>
-						</Tab.Panel>
-						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-								{/* <h2 className="text-md border-b-2 p-4">Overall</h2> */}
-								<Table columns={columnsOverall} data={data} />
-							</div>
-						</Tab.Panel>
-						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-								{/* <h2 className="text-md border-b-2 p-4">Game Averages</h2> */}
-								<Table columns={columnsPPG} data={data} />
-							</div>
-						</Tab.Panel>
+						{cols.map((col, index) => (
+							<Tab.Panel key={index}>
+								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+									<Table columns={col} data={data} />
+								</div>
+							</Tab.Panel>
+						))}
 					</Tab.Panels>
 				</Tab.Group>
 			</div>
@@ -971,8 +918,6 @@ export async function getStaticProps() {
 			.from('owners_career')
 			.select('*, id (*)')
 			.order('apr_plus', { ascending: false });
-
-		console.log(results);
 
 		return {
 			props: { results },

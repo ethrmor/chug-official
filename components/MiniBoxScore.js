@@ -27,9 +27,9 @@ export default function MiniBoxScore({
 		<>
 			<Link href={`/schedule/${id}`}>
 				<a className="grid lg:grid-cols-[1fr_40%]">
-					<div className="flex flex-col lg:border-r-2 dark:border-[#555555] pr-4">
+					<div className="flex text-sm flex-col justify-center lg:border-r-2 dark:border-[#555555] pr-4">
 						<div
-							className={`flex justify-between items-center p-4 ${
+							className={`flex justify-between items-center px-4 py-2 ${
 								parseFloat(teamPoints) > parseFloat(opponentPoints)
 									? 'font-bold'
 									: null
@@ -57,7 +57,7 @@ export default function MiniBoxScore({
 							</p>
 						</div>
 						<div
-							className={`flex justify-between items-center p-4 ${
+							className={`flex justify-between items-center px-4 py-2 ${
 								parseFloat(teamPoints) < parseFloat(opponentPoints)
 									? 'font-bold'
 									: null
@@ -86,25 +86,26 @@ export default function MiniBoxScore({
 						</div>
 					</div>
 					<div className="lg:flex flex-col hidden pl-4">
-						<h4 className="text-center text-xs">Top Performers</h4>
-						<div className="flex flex-col gap-[3.25rem]">
+						<div className="flex flex-col justify-between h-full p-4">
 							<div className="flex justify-between">
-								<p className="text-sm pt-2.5">
+								<p className="text-sm">
 									<span className="text-sm">{teamShortNames[team]}: </span>
-									<span className="opacity-50 text-sm" ß>
-										{teamPlayerPosition}{' '}
-									</span>
 									<span className="">{teamPlayerName}</span>
+									<span className="opacity-30 text-xs font-semibold">
+										{' '}
+										{teamPlayerPosition}
+									</span>
 								</p>
-								<p className="text-sm pt-2.5">{teamPlayerPoints?.toFixed(2)}</p>
+								<p className="text-sm">{teamPlayerPoints?.toFixed(2)}</p>
 							</div>
 							<div className="flex justify-between">
 								<p className="text-sm">
 									<span className="text-sm">{teamShortNames[opponent]}: </span>
-									<span className="opacity-50 text-sm">
-										{opponentPlayerPosition}{' '}
-									</span>
 									{opponentPlayerName}
+									<span className="opacity-30 text-xs font-semibold">
+										{' '}
+										{opponentPlayerPosition}
+									</span>
 								</p>
 								<p className="text-sm">{opponentPlayerPoints?.toFixed(2)}</p>
 							</div>

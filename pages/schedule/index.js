@@ -40,8 +40,8 @@ export default function Schedule({ results }) {
 
 	return (
 		<>
-			<h1 className="text-3xl mt-2 mb-4">Schedule</h1>
-			<div className="grid md:grid-cols-[300px_1fr] gap-6">
+			<h1 className="text-2xl mt-2 mb-4">Schedule</h1>
+			<div className="grid md:grid-cols-[300px_1fr] gap-6 text-sm">
 				<div className="flex flex-col gap-4 sticky top-20 self-start">
 					<p>Filters</p>
 					<FilterDropdown state={week} setState={setWeek} listArray={weeks} />

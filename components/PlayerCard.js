@@ -21,8 +21,8 @@ export default function PlayerCard({ id }) {
 							></Image>
 						</div>
 						<div className="text-center">
-							<h3 className="text-xl pt-4">{id.full_name}</h3>
-							<h5>
+							<h3 className="text-lg pt-4">{id.full_name}</h3>
+							<h5 className="text-sm">
 								{id.fantasy_positions[0]}
 								{' - '}
 								{id.number}

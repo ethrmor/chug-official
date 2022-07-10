@@ -6,7 +6,7 @@ import Link from 'next/link';
 export default function Manager({ positionsArray, owner }) {
 	return (
 		<>
-			<h1 className="text-4xl mt-2 mb-4">{owner.team}</h1>
+			<h1 className="text-2xl mt-2 mb-4">{owner.team}</h1>
 			<div className="flex flex-col gap-4">
 				<RosterPosition arr={positionsArray[0]} position={'Quarterbacks'} />
 				<RosterPosition arr={positionsArray[1]} position={'Runningbacks'} />

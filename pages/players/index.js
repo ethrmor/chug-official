@@ -6,10 +6,10 @@ export default function Players({ players }) {
 	return (
 		<>
 			<div>
-				<h1 className="text-3xl mt-2 mb-4">Players</h1>
+				<h1 className="text-2xl mt-2 mb-4">Players</h1>
 			</div>
 			<div>
-				<h3 className="text-xl border-b-2 border-[#dddddd] dark:border-[#555555] mb-4">
+				<h3 className="text-md border-b-2 border-[#dddddd] dark:border-[#555555] mb-4">
 					Featured
 				</h3>
 			</div>

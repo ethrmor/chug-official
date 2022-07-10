@@ -6,7 +6,7 @@ import { supabase } from '../../utils/supabaseClient';
 export default function singleGame({ results }) {
 	return (
 		<>
-			<h1 className="text-3xl mt-2 mb-4">
+			<h1 className="text-2xl mt-2 mb-4">
 				{results.year} - Week {results.week}{' '}
 				<span className="text-sm text-blue-500 hover:underline block pt-2">
 					<Link href="/schedule">
@@ -54,7 +54,7 @@ export default function singleGame({ results }) {
 									: '0.00'}
 							</p>
 							<p className="text-sm text-right opacity-70">
-								{results.owner_bb_id.team_points?.toFixed(2) || '0.00'}
+								{results.owner_bb_id?.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
 					</div>
@@ -77,7 +77,7 @@ export default function singleGame({ results }) {
 									: '0.00'}
 							</p>
 							<p className="text-sm text-left opacity-70">
-								{results.opponent_bb_id.team_points?.toFixed(2) || '0.00'}
+								{results.opponent_bb_id?.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
 						<div className="flex items-center gap-6">
