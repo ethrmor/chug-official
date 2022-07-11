@@ -35,16 +35,21 @@ export default function Layout({ children }) {
 		{ id: '/owners/10', name: 'White Panthers' },
 		{ id: '/owners/11', name: '45ers' },
 		{ id: '/owners/12', name: 'Rabbis' },
+		{ id: '/owners/13', name: 'Baba Yagas' },
 	];
 
 	const leagueLinks = [
 		{ id: '/league/trades', name: 'Trades' },
+		{ id: '/league/drafts', name: 'Drafts' },
+		{ id: '/league/allchug', name: 'All-Chug' },
+		{ id: '/league/probowl', name: 'Pro Bowl' },
+		{ id: '/league/records', name: 'Record Book' },
 		{ id: '/league/bible', name: 'Bible' },
 	];
 
 	const statsLinks = [
-		{ id: '/stats/owners', name: 'Owners' },
-		{ id: '/stats/players', name: 'Players' },
+		{ id: '/stats/owners/career', name: 'Owners' },
+		{ id: '/stats/players/career', name: 'Players' },
 	];
 
 	const { theme, setTheme } = useTheme();
@@ -97,6 +102,13 @@ export default function Layout({ children }) {
 										</Link>
 									</li>
 									<li>
+										<Link href="/standings">
+											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
+												Standings
+											</a>
+										</Link>
+									</li>
+									<li>
 										<NavDropdown buttonName={'Stats'} listArray={statsLinks} />
 									</li>
 									<li>
@@ -106,16 +118,9 @@ export default function Layout({ children }) {
 										/>
 									</li>
 									<li>
-										<Link href="/players">
+										<Link href="/news">
 											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
-												Players
-											</a>
-										</Link>
-									</li>
-									<li>
-										<Link href="/supabase">
-											<a className="text-white transition hover:bg-[#222222] p-2 rounded-md">
-												Supabase
+												News
 											</a>
 										</Link>
 									</li>
@@ -210,6 +215,13 @@ export default function Layout({ children }) {
 								</Link>
 							</li>
 							<li>
+								<Link href="/standings">
+									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
+										Standings
+									</a>
+								</Link>
+							</li>
+							<li>
 								<Link href="/league">
 									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
 										League
@@ -217,16 +229,9 @@ export default function Layout({ children }) {
 								</Link>
 							</li>
 							<li>
-								<Link href="/players">
+								<Link href="/news">
 									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
-										Players
-									</a>
-								</Link>
-							</li>
-							<li>
-								<Link href="/supabase">
-									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">
-										Supabase
+										News
 									</a>
 								</Link>
 							</li>

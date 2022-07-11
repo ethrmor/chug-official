@@ -11,7 +11,7 @@ export default function Pagination({
 	setPageSize,
 }) {
 	return (
-		<div className="bg-white dark:bg-[#333333] px-4 py-3 flex items-center justify-between border-t border-gray-200  shadow-md rounded-b-md">
+		<div className="bg-white dark:bg-[#333333] px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 shadow-md rounded-b-md">
 			<div className="flex-1 flex justify-between sm:hidden">
 				<button
 					onClick={() => previousPage()}

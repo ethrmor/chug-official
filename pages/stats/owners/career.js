@@ -885,12 +885,12 @@ export default function Stats({ results }) {
 				<div>
 					<div className="flex text-md border-b border-[#e5e5e5] dark:border-[#444444]">
 						<Link href="/stats/owners/career">
-							<a className="border-b-2 border-red-600 pb-2 px-4 outline-none">
+							<a className="border-b-2 border-red-600 px-4 outline-none pb-3 pt-2">
 								Career
 							</a>
 						</Link>
 						<Link href="/stats/owners/seasons">
-							<a className="text-black/50 dark:text-white/50 pb-2 px-4">
+							<a className="text-black/50 dark:text-white/50 px-4 pb-3 pt-2">
 								Seasons
 							</a>
 						</Link>

@@ -1,21 +1,46 @@
 import Link from 'next/link';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
-import { useTable, useSortBy, useFlexLayout } from 'react-table';
+import { useTable, useSortBy, usePagination, useFlexLayout } from 'react-table';
 import { Tab } from '@headlessui/react';
 import { supabase } from '@/utils/supabaseClient';
+import Pagination from '@/components/Pagination';
+import StatsDropdown from '@/components/StatsDropdown';
+
+const years = [
+	{ year: '', name: 'All Years' },
+	{ year: '2022', name: '2022' },
+	{ year: '2021', name: '2021' },
+	{ year: '2020', name: '2020' },
+];
 
 function Table({ columns, data }) {
-	const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
-		useTable(
-			{
-				columns,
-				data,
-			},
-			useFlexLayout,
-			useSortBy
-		);
+	const {
+		getTableProps,
+		getTableBodyProps,
+		headerGroups,
+		prepareRow,
+		page,
+		canPreviousPage,
+		canNextPage,
+		pageOptions,
+		pageCount,
+		gotoPage,
+		nextPage,
+		previousPage,
+		setPageSize,
+		state: { pageIndex, pageSize },
+	} = useTable(
+		{
+			columns,
+			data,
+			initialState: { pageIndex: 0, pageSize: 10 },
+		},
+		useFlexLayout,
+		useSortBy,
+		usePagination
+	);
 
 	// Render the UI for your table
 	return (
@@ -52,7 +77,7 @@ function Table({ columns, data }) {
 						))}
 					</thead>
 					<tbody {...getTableBodyProps()}>
-						{rows.map((row, i) => {
+						{page.map((row, i) => {
 							prepareRow(row);
 							return (
 								<tr
@@ -73,30 +98,59 @@ function Table({ columns, data }) {
 					</tbody>
 				</table>
 			</div>
+			<Pagination
+				canPreviousPage={canPreviousPage}
+				canNextPage={canNextPage}
+				pageCount={pageCount}
+				pageOptions={pageOptions}
+				pageSize={pageSize}
+				pageIndex={pageIndex}
+				gotoPage={gotoPage}
+				nextPage={nextPage}
+				previousPage={previousPage}
+				setPageSize={setPageSize}
+			/>
 		</>
 	);
 }
 
 export default function Stats({ results }) {
+	const [year, setYear] = useState(years[0]);
+
+	const filtered = !year
+		? results
+		: results.filter((person) => person.year.toString().includes(year.year));
+
 	const columnsRegular = React.useMemo(
 		() => [
 			{
 				Header: 'Team',
-				accessor: 'id.team',
+				accessor: 'owner_id.team',
 				width: 200,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/owners/${e.row?.original?.id.id}`}>
-							<a className="pl-2">{e.row?.original?.id.team}</a>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
 					</>
 				),
 			},
 			{
-				Header: 'Games Played',
+				Header: 'Year',
+				accessor: 'year',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games',
 				accessor: 'regular_season_games_played',
-				width: 110,
+				width: 60,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -107,7 +161,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Wins',
 				accessor: 'regular_season_wins',
-				width: 70,
+				width: 60,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -118,7 +172,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Losses',
 				accessor: 'regular_season_losses',
-				width: 70,
+				width: 60,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -202,7 +256,9 @@ export default function Stats({ results }) {
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
-								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
 							</>
 						),
 					},
@@ -243,14 +299,25 @@ export default function Stats({ results }) {
 		() => [
 			{
 				Header: 'Team',
-				accessor: 'id.team',
+				accessor: 'owner_id.team',
 				width: 200,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/owners/${e.row?.original?.id.id}`}>
-							<a className="pl-2">{e.row?.original?.id.team}</a>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
 					</>
 				),
 			},
@@ -268,7 +335,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'APR+',
 				accessor: 'apr_plus',
-				width: 80,
+				width: 60,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -293,7 +360,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Wins',
 						accessor: 'expected_wins',
-						width: 80,
+						width: 60,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -304,7 +371,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Losses',
 						accessor: 'expected_losses',
-						width: 80,
+						width: 60,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -315,7 +382,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Ties',
 						accessor: 'expected_ties',
-						width: 60,
+						width: 50,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -393,21 +460,32 @@ export default function Stats({ results }) {
 		() => [
 			{
 				Header: 'Team',
-				accessor: 'id.team',
+				accessor: 'owner_id.team',
 				width: 200,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/owners/${e.row?.original?.id.id}`}>
-							<a className="pl-2">{e.row?.original?.id.team}</a>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
 					</>
 				),
 			},
 			{
 				Header: 'Appearances',
 				accessor: 'playoff_app',
-				width: 120,
+				width: 110,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -418,7 +496,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Byes',
 				accessor: 'playoff_bye',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -429,7 +507,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Games Played',
 				accessor: 'playoff_games_played',
-				width: 120,
+				width: 100,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -440,7 +518,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Wins',
 				accessor: 'playoff_wins',
-				width: 100,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -451,7 +529,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Losses',
 				accessor: 'playoff_losses',
-				width: 100,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -516,21 +594,32 @@ export default function Stats({ results }) {
 		() => [
 			{
 				Header: 'Team',
-				accessor: 'id.team',
+				accessor: 'owner_id.team',
 				width: 200,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/owners/${e.row?.original?.id.id}`}>
-							<a className="pl-2">{e.row?.original?.id.team}</a>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
 					</>
 				),
 			},
 			{
 				Header: 'Games Played',
 				accessor: 'championship_games_played',
-				width: 120,
+				width: 110,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -541,7 +630,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Wins',
 				accessor: 'championship_wins',
-				width: 120,
+				width: 110,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -552,7 +641,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Losses',
 				accessor: 'championship_losses',
-				width: 120,
+				width: 110,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -563,7 +652,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Pct.',
 				accessor: 'championship_pct',
-				width: 140,
+				width: 130,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -577,7 +666,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Points For',
 						accessor: 'championship_points_for',
-						width: 160,
+						width: 150,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -588,7 +677,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Points Against',
 						accessor: 'championship_points_against',
-						width: 160,
+						width: 150,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -599,7 +688,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Points Spread',
 						accessor: 'championship_points_spread',
-						width: 160,
+						width: 150,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -617,21 +706,32 @@ export default function Stats({ results }) {
 		() => [
 			{
 				Header: 'Team',
-				accessor: 'id.team',
+				accessor: 'owner_id.team',
 				width: 200,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/owners/${e.row?.original?.id.id}`}>
-							<a className="pl-2">{e.row?.original?.id.team}</a>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
 					</>
 				),
 			},
 			{
 				Header: 'Games Played',
 				accessor: 'overall_games_played',
-				width: 120,
+				width: 100,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -642,7 +742,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Wins',
 				accessor: 'overall_wins',
-				width: 100,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -653,7 +753,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Losses',
 				accessor: 'overall_losses',
-				width: 100,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -675,7 +775,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Pct.',
 				accessor: 'overall_pct',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -729,14 +829,25 @@ export default function Stats({ results }) {
 		() => [
 			{
 				Header: 'Team',
-				accessor: 'id.team',
+				accessor: 'owner_id.team',
 				width: 200,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<Link href={`/owners/${e.row?.original?.id.id}`}>
-							<a className="pl-2">{e.row?.original?.id.team}</a>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 70,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
 					</>
 				),
 			},
@@ -746,7 +857,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Points For',
 						accessor: 'points_for_season_per_game',
-						width: 120,
+						width: 105,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -784,7 +895,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Points For',
 						accessor: 'points_for_playoff_per_game',
-						width: 120,
+						width: 105,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -822,7 +933,7 @@ export default function Stats({ results }) {
 					{
 						Header: 'Points For',
 						accessor: 'points_for_championship_per_game',
-						width: 120,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -882,19 +993,20 @@ export default function Stats({ results }) {
 		<div className="flex flex-col">
 			<h1 className="text-2xl mt-2 mb-4">Owner Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
-				<div>
-					<div className="flex text-md border-b border-[#e5e5e5] dark:border-[#444444]">
+				<div className="flex justify-between text-md border-b border-[#e5e5e5] dark:border-[#444444]">
+					<div className="flex ">
 						<Link href="/stats/owners/career">
-							<a className="text-black/50 dark:text-white/50 pb-2 px-4">
+							<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
 								Career
 							</a>
 						</Link>
 						<Link href="/stats/owners/seasons">
-							<a className="border-b-2 border-red-600 pb-2 px-4 outline-none">
+							<a className="border-b-2 border-red-600 pb-3 pt-2 px-4 outline-none">
 								Seasons
 							</a>
 						</Link>
 					</div>
+					<StatsDropdown state={year} setState={setYear} listArray={years} />
 				</div>
 				<Tab.Group>
 					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
@@ -915,7 +1027,7 @@ export default function Stats({ results }) {
 						{cols.map((col, index) => (
 							<Tab.Panel key={index}>
 								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-									<Table columns={col} data={data} />
+									<Table columns={col} data={filtered} />
 								</div>
 							</Tab.Panel>
 						))}
@@ -929,8 +1041,8 @@ export default function Stats({ results }) {
 export async function getStaticProps() {
 	try {
 		const { data: results } = await supabase
-			.from('owners_career')
-			.select('*, id (*)')
+			.from('owners_seasons')
+			.select('*, owner_id (*)')
 			.order('apr_plus', { ascending: false });
 
 		return {
