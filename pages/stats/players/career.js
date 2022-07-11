@@ -866,7 +866,7 @@ export default function Stats({ results }) {
 		'Playoffs',
 		'Championships',
 		'Overall',
-		'PPG',
+		'Game Averages',
 	];
 
 	const cols = [
@@ -880,8 +880,27 @@ export default function Stats({ results }) {
 
 	return (
 		<div className="flex flex-col">
-			<h1 className="text-2xl mt-2 mb-4">Player Statistics</h1>
+			<h1 className="text-2xl mt-2 mb-4">Players Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+				<div>
+					<div className="flex text-md border-b border-[#e5e5e5] dark:border-[#444444]">
+						<Link href="/stats/players/career">
+							<a className="border-b-2 border-red-600 px-4 outline-none pb-3 pt-2">
+								Career
+							</a>
+						</Link>
+						<Link href="/stats/players/seasons">
+							<a className="text-black/50 dark:text-white/50 px-4 pb-3 pt-2">
+								Seasons
+							</a>
+						</Link>
+						<Link href="/stats/players/games">
+							<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
+								Games
+							</a>
+						</Link>
+					</div>
+				</div>
 				<Tab.Group>
 					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
 						{tabs.map((tab, index) => (
@@ -889,8 +908,8 @@ export default function Stats({ results }) {
 								key={index}
 								className={({ selected }) =>
 									selected
-										? 'border-b-2 border-red-600 pb-2 px-4 outline-none'
-										: 'text-black/50 dark:text-white/50 pb-2 px-4'
+										? 'border-b-2 border-red-600 py-2 px-4 outline-none'
+										: 'text-black/50 dark:text-white/50 py-2 px-4'
 								}
 							>
 								{tab}

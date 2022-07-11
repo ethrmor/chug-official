@@ -35,7 +35,7 @@ function Table({ columns, data }) {
 		{
 			columns,
 			data,
-			initialState: { pageIndex: 0, pageSize: 10 },
+			initialState: { pageIndex: 0, pageSize: 12 },
 		},
 		useFlexLayout,
 		useSortBy,
@@ -969,7 +969,7 @@ export default function Stats({ results }) {
 		[]
 	);
 
-	const data = React.useMemo(() => results, [results]);
+	const data = React.useMemo(() => filtered, [filtered]);
 
 	const tabs = [
 		'Regular Season',
@@ -1027,7 +1027,7 @@ export default function Stats({ results }) {
 						{cols.map((col, index) => (
 							<Tab.Panel key={index}>
 								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-									<Table columns={col} data={filtered} />
+									<Table columns={col} data={data} />
 								</div>
 							</Tab.Panel>
 						))}

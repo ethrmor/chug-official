@@ -45,6 +45,7 @@ export default function Layout({ children }) {
 		{ id: '/league/probowl', name: 'Pro Bowl' },
 		{ id: '/league/records', name: 'Record Book' },
 		{ id: '/league/bible', name: 'Bible' },
+		{ id: '/league/shop', name: 'Shop' },
 	];
 
 	const statsLinks = [
