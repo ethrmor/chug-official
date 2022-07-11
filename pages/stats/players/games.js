@@ -131,11 +131,6 @@ export default function Stats({ results }) {
 	const columnsRegular = React.useMemo(
 		() => [
 			{
-				id: 'expander',
-				width: 0,
-				Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}></span>,
-			},
-			{
 				Header: 'Name',
 				accessor: 'player_name',
 				width: 200,
@@ -150,26 +145,8 @@ export default function Stats({ results }) {
 			},
 			{
 				Header: 'Team',
-				accessor: 'owner',
-				width: 175,
-				Cell: ({ row }) =>
-					row.canExpand ? (
-						<span
-							{...row.getToggleRowExpandedProps({
-								style: {
-									paddingLeft: `${row.depth * 2}rem`,
-								},
-							})}
-						>
-							{row?.original?.subRows.length} Teams
-						</span>
-					) : (
-						<span>
-							{row.original.owner
-								? row?.original?.owner
-								: row?.original?.owner_id.team}
-						</span>
-					),
+				accessor: 'owner_id.team',
+				width: 150,
 			},
 			{
 				Header: 'Position',
@@ -185,6 +162,16 @@ export default function Stats({ results }) {
 				Header: 'Year',
 				accessor: 'year',
 				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Week',
+				accessor: 'week',
+				width: 50,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -523,12 +510,12 @@ export default function Stats({ results }) {
 							</a>
 						</Link>
 						<Link href="/stats/players/seasons">
-							<a className="border-b-2 border-red-600 pb-3 pt-2 px-4 outline-none">
+							<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
 								Seasons
 							</a>
 						</Link>
 						<Link href="/stats/players/games">
-							<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
+							<a className="border-b-2 border-red-600 pb-3 pt-2 px-4 outline-none">
 								Games
 							</a>
 						</Link>
@@ -567,28 +554,10 @@ export default function Stats({ results }) {
 
 export async function getStaticProps() {
 	try {
-		const { data: seasons } = await supabase
-			.from('players_seasons')
-			.select('*')
-			.order('fantasy_points', { ascending: false });
-
-		const { data: details } = await supabase
-			.from('players_details')
+		const { data: results } = await supabase
+			.from('players_games')
 			.select('*, owner_id (*)')
 			.order('fantasy_points', { ascending: false });
-
-		function filterDetails(player) {
-			return details.filter((obj) => {
-				return obj.player_id === player.player_id && obj.year === player.year;
-			});
-		}
-
-		const results = seasons.map((e) => ({
-			...e,
-			subRows: filterDetails(e).length > 1 ? filterDetails(e) : null,
-			owner:
-				filterDetails(e).length < 2 ? filterDetails(e)[0]?.owner_id.team : null,
-		}));
 
 		return {
 			props: { results },

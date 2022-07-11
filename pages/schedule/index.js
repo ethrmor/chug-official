@@ -1,7 +1,7 @@
 import { supabase } from '@/utils/supabaseClient';
 import { useState } from 'react';
-import FilterDropdown from '../../components/FilterDropdown';
-import MiniBoxScore from '../../components/MiniBoxScore';
+import FilterDropdown from '@/components/FilterDropdown';
+import MiniBoxScore from '@/components/MiniBoxScore';
 
 const weeks = [
 	{ week: 1, name: 'Week 1' },
