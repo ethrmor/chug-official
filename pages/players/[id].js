@@ -3,132 +3,8 @@ import { nflTeams } from '@/utils/nflTeams';
 import { supabase } from '@/utils/supabaseClient';
 import { leagueID } from '@/utils/chugLeague';
 import React from 'react';
-import Table from '@/components/CareerTable';
 
 export default function Player({ player }) {
-	const columns = React.useMemo(
-		() => [
-			{
-				Header: 'FP',
-				accessor: 'fantasy_points',
-				width: 50,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Average Season FP',
-				accessor: 'average_fp',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Average Season Rank',
-				accessor: 'season_average_rank',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Average Game FP',
-				accessor: 'average_fp_game',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value.toFixed(2)}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Average Season FP',
-				accessor: 'game_average_rank',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Yards',
-				accessor: 'pass_yards',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'TDs',
-				accessor: 'pass_td',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Int',
-				accessor: 'pass_int',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: '2 Pt',
-				accessor: 'pass_2pt',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Yards',
-				accessor: 'rush_yards',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Tds',
-				accessor: 'rush_td',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: '2 Pt',
-				accessor: 'rush_2pt',
-				width: 70,
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-right">{e.value}</p>
-					</>
-				),
-			},
-		],
-		[]
-	);
-
-	const data = React.useMemo(() => player.career, [player.career]);
 	return (
 		<div className="bg-white dark:bg-[#333333] shadow-md">
 			<div
@@ -198,11 +74,6 @@ export default function Player({ player }) {
 			<div className="p-4">
 				<div>
 					<h3 className="text-2xl">Career</h3>
-					{player.games ? (
-						<Table columns={columns} data={data} />
-					) : (
-						'No Stats Accrued'
-					)}
 				</div>
 			</div>
 		</div>
