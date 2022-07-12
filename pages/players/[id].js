@@ -206,18 +206,20 @@ export default function Player({ player }) {
 }
 
 export async function getStaticPaths() {
-	const res = await fetch('https://ethanrmorris.github.io/v1/players.json');
-	const players = await res.json();
-	const playersArray = Object.values(players);
+	try {
+		const { data: players } = await supabase.from('players').select('*');
 
-	// Get the paths we want to pre-render based on posts
-	const paths = playersArray.map((player) => ({
-		params: { id: player.player_id },
-	}));
+		// Get the paths we want to pre-render based on posts
+		const paths = players.map((player) => ({
+			params: { id: player.player_id.toString() },
+		}));
 
-	// We'll pre-render only these paths at build time.
-	// { fallback: false } means other routes should 404.
-	return { paths, fallback: false };
+		// We'll pre-render only these paths at build time.
+		// { fallback: false } means other routes should 404.
+		return { paths, fallback: false };
+	} catch (err) {
+		console.error(err);
+	}
 }
 
 export async function getStaticProps({ params }) {
@@ -260,6 +262,8 @@ export async function getStaticProps({ params }) {
 			owner: owner[0].slug,
 			asmc: owner[0].team,
 		};
+
+		console.log(player);
 
 		return {
 			props: { player },
