@@ -21,10 +21,8 @@ export default function Manager({ positionsArray, owner }) {
 }
 
 export async function getStaticPaths() {
-	const { data: owners } = await supabase.from('owners').select('*');
-
-	const paths = owners.map((owner) => ({
-		params: { slug: owner.id.toString() },
+	const paths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map((owner) => ({
+		params: { slug: owner.toString() },
 	}));
 
 	return { paths, fallback: false };

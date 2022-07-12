@@ -132,7 +132,11 @@ export default function Player({ player }) {
 	return (
 		<div className="bg-white dark:bg-[#333333] shadow-md">
 			<div
-				style={{ backgroundImage: `url(/player-header-${player.owner}.jpg)` }}
+				style={{
+					backgroundImage: `url(/player-header-${
+						player.owner !== 'none' ? player.owner : 'league'
+					}.jpg)`,
+				}}
 				className={`w-full h-[175px] md:h-[225px] lg:h-[275px] bg-no-repeat bg-cover bg-right shadow-md mt-[-1rem]`}
 			></div>
 			<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-[#333333] rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-purple-900">
@@ -207,15 +211,24 @@ export default function Player({ player }) {
 
 export async function getStaticPaths() {
 	try {
-		const { data: players } = await supabase.from('players').select('*');
+		const rostersRes = await fetch(
+			`https://api.sleeper.app/v1/league/${leagueID}/rosters/`
+		);
+		const rosters = await rostersRes.json();
+		const rostersArray = rosters.map((roster) => roster.players).flat();
+		const rostersList = rostersArray.map((player) => parseInt(player));
 
-		// Get the paths we want to pre-render based on posts
-		const paths = players.map((player) => ({
-			params: { id: player.player_id.toString() },
+		const { data: statsArray } = await supabase
+			.from('players_career')
+			.select('player_id');
+		const statsList = statsArray.map((e) => e.player_id);
+
+		const finalIds = [...new Set([...rostersList, ...statsList])];
+
+		const paths = finalIds.map((player) => ({
+			params: { id: player.toString() },
 		}));
 
-		// We'll pre-render only these paths at build time.
-		// { fallback: false } means other routes should 404.
 		return { paths, fallback: false };
 	} catch (err) {
 		console.error(err);
@@ -231,13 +244,17 @@ export async function getStaticProps({ params }) {
 
 		const playerObj = playerRes[0];
 
+		console.log(playerObj);
+
 		const rosterRes = await fetch(
 			`https://api.sleeper.app/v1/league/${leagueID}/rosters/`
 		);
 		const rosters = await rosterRes.json();
-		const { roster_id } = rosters.find((team) =>
+		const roster = rosters.find((team) =>
 			team.players.includes(playerObj.player_id.toString())
 		);
+
+		const roster_id = roster?.roster_id || 100;
 
 		const { data: career } = await supabase
 			.from('players_career')
@@ -254,6 +271,8 @@ export async function getStaticProps({ params }) {
 			.from('owners')
 			.select('slug, team')
 			.eq('id', roster_id);
+
+		console.log(owner);
 
 		const player = {
 			...playerObj,

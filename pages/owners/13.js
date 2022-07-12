@@ -1,7 +1,8 @@
 export default function Dan() {
 	return (
 		<>
-			<h1>Dan</h1>
+			<h1>Dan&apos;s Team</h1>
+			<h2>No Roster</h2>
 		</>
 	);
 }
