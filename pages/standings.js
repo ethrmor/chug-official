@@ -400,44 +400,134 @@ export default function Stats({ results }) {
 						</Tab.Panel>
 						<Tab.Panel>
 							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md py-2 px-4">
-								<div className="grid grid-cols-4 grid-rows-1 pt-6">
-									<div className="flex justify-between pl-1 pr-3 items-end pb-1 border-b">
-										<h4>
-											<span className="text-xs font-semibold text-black/40 pr-1">
+								<div className="grid grid-cols-4 grid-rows-10 py-8 text-sm">
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-1 row-end-2"></div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-1 row-end-2 border-b px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												1
+											</span>
+											Macdaddys
+										</h2>
+										<p className="tabular-nums">142.44</p>
+									</div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-1 row-end-2"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-1 row-end-2"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-2 row-end-3 border-b px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
 												3
 											</span>
-											Slayton Slayerz
-										</h4>
-										<p className="text-sm">151.31</p>
+											45ers
+										</h2>
+										<p className="tabular-nums">123.50</p>
 									</div>
-									<div>
-										<h4>White Panthers</h4>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-2 row-end-3 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-2 row-end-3 border-b px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												6
+											</span>
+											Goathouse Alums
+										</h2>
+										<p className="tabular-nums">125.42</p>
 									</div>
-									<div>
-										<h4>45ers</h4>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-2 row-end-3"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-3 row-end-4 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-3 row-end-4 border-b border-r px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												6
+											</span>
+											Goathouse Alums
+										</h2>
+										<p className="tabular-nums">151.46</p>
 									</div>
-									<div>
-										<h4>Goathouse Alums</h4>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-3 row-end-4 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-3 row-end-4"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-4 row-end-5 border-b border-r px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												6
+											</span>
+											Goathouse Alums
+										</h2>
+										<p className="tabular-nums">132.90</p>
 									</div>
-
-									<div className="flex justify-between pl-1 pr-3 items-end pb-1 pt-6 border-b border-r">
-										<h4>
-											<span className="text-xs font-semibold text-black/40 pr-1">
-												3
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-4 row-end-5"></div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-4 row-end-5 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-4 row-end-5"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-5 row-end-6"></div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-5 row-end-6"></div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-5 row-end-6 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-5 row-end-6 border-b px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												2
+											</span>
+											Jeff City Leprechauns
+										</h2>
+									</div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-6 row-end 7"></div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-6 row-end 7"></div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-6 row-end-7 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-6 row-end-7"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-7 row-end-8"></div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-7 row-end-8 border-b px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												2
+											</span>
+											Jeff City Leprechauns
+										</h2>
+										<p className="tabular-nums">145.56</p>
+									</div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-7 row-end-8 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-7 row-end-8"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-8 row-end-9 border-b px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												4
+											</span>
+											White Panthers
+										</h2>
+										<p className="tabular-nums">99.50</p>
+									</div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-8 row-end-9 border-r"></div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-8 row-end-9 border-b border-r px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												2
+											</span>
+											Jeff City Leprechauns
+										</h2>
+										<p className="tabular-nums">148.80</p>
+									</div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-8 row-end-9"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-9 row-end-10 border-r"></div>
+									<div className="flex items-end justify-between b-8 col-start-2 col-end-3 row-start-9 row-end-10 border-b border-r px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												5
 											</span>
 											Slayton Slayerz
-										</h4>
-										<p className="text-sm">151.31</p>
+										</h2>
+										<p className="tabular-nums">135.20</p>
 									</div>
-									<div>
-										<h4>White Panthers</h4>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-9 row-end-10"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-9 row-end-10"></div>
+									<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-10 row-end-11 border-b border-r px-2 pb-1">
+										<h2>
+											<span className="text-xs font-bold text-black/40 pr-1">
+												5
+											</span>
+											Slayton Slayerz
+										</h2>
+										<p className="tabular-nums">125.54</p>
 									</div>
-									<div>
-										<h4>45ers</h4>
-									</div>
-									<div>
-										<h4>Goathouse Alums</h4>
-									</div>
+									<div className="flex items-end justify-between h-8 col-start-2 col-end-3 row-start-10 row-end-11"></div>
+									<div className="flex items-end justify-between h-8 col-start-3 col-end-4 row-start-10 row-end-11"></div>
+									<div className="flex items-end justify-between h-8 col-start-4 col-end-5 row-start-10 row-end-11"></div>
 								</div>
 							</div>
 						</Tab.Panel>
