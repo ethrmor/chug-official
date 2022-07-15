@@ -186,7 +186,7 @@ export default function Layout({ children }) {
 			<footer className="bg-[#121212] text-white py-6">
 				<div className="max-w-screen-xl p-4 mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
 					<nav>
-						<ul className="flex items-center gap-2 text-xs group">
+						<ul className="flex md:flex-row flex-col items-center gap-2 text-xs group">
 							<li>
 								<Link href="/">
 									<a className="text-white/60 transition hover:bg-[#222222] p-2 rounded-md">

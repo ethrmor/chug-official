@@ -7,8 +7,8 @@ import Link from 'next/link';
 export default function Home({ owners }) {
 	return (
 		<>
-			<div className="grid grid-cols-[250px_1fr_300px] grid-rows-none auto-rows-min gap-4">
-				<aside className="flex flex-col gap-4">
+			<div className="grid md:grid-cols-[1fr_300px] lg:grid-cols-[250px_1fr_300px] grid-rows-none auto-rows-min gap-4">
+				<aside className="lg:flex flex-col gap-4 hidden">
 					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
 						<h2 className="text-xs p-4 font-semibold border-b">Quick Links</h2>
 						<div className="flex flex-col py-3">
@@ -81,7 +81,17 @@ export default function Home({ owners }) {
 					</div>
 				</aside>
 				<section className="flex flex-col gap-4">
-					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4"></div>
+					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4">
+						<article className="flex flex-1">
+							<Image
+								src={`/article.jpg`}
+								alt={'Article Logo'}
+								width={800}
+								height={467}
+								className="rounded-md"
+							/>
+						</article>
+					</div>
 				</section>
 				<aside className="flex flex-col gap-4">
 					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">

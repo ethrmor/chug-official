@@ -153,8 +153,6 @@ export async function getStaticProps({ params }) {
 			asmc: owner[0].team,
 		};
 
-		console.log(player);
-
 		return {
 			props: { player },
 		};
@@ -162,81 +160,3 @@ export async function getStaticProps({ params }) {
 		console.error(err);
 	}
 }
-
-// export async function getStaticProps({ params }) {
-// 	try {
-// 		const [
-// 			playersRes,
-// 			ownersRes,
-// 			rostersRes,
-// 			careerRes,
-// 			seasonsRes,
-// 			detailsRes,
-// 		] = await Promise.all([
-// 			fetch('https://ethanrmorris.github.io/v1/players.json'),
-// 			fetch('https://ethanrmorris.github.io/v1/owners.json'),
-// 			fetch('https://api.sleeper.app/v1/league/784462448236363776/rosters/'),
-// 			fetch('https://ethanrmorris.github.io/v1/stats/players/career.json'),
-// 			fetch(`https://ethanrmorris.github.io/v1/stats/players/seasons.json`),
-// 			fetch('https://ethanrmorris.github.io/v1/stats/players/details.json'),
-// 		]);
-// 		const [players, owners, rosters, career, seasons, details] =
-// 			await Promise.all([
-// 				playersRes.json(),
-// 				ownersRes.json(),
-// 				rostersRes.json(),
-// 				careerRes.json(),
-// 				seasonsRes.json(),
-// 				detailsRes.json(),
-// 			]);
-
-// 		const idsFromRosters = rosters.map((obj) => obj.players).flat();
-// 		const idsFromStats = career.map((obj) => obj.player_id).flat();
-// 		const idsFromCurrentPlayers = [...idsFromRosters, ...idsFromStats];
-
-// 		const newResults = Object.values(players);
-
-// 		const newerResults = newResults.filter((x) =>
-// 			idsFromCurrentPlayers.includes(x.player_id)
-// 		);
-
-// 		const [lastResults] = newerResults.filter((obj) => {
-// 			return obj.player_id === params.id;
-// 		});
-
-// 		const playerId = lastResults.player_id;
-
-// 		const currentTeam = rosters.find((team) => team.players.includes(playerId));
-
-// 		const currentOwner = currentTeam?.roster_id;
-
-// 		const cleanOwner = owners.find((owner) => owner.id?.includes(currentOwner));
-
-// 		const ownerName = cleanOwner?.slug;
-
-// 		const careerResults = Object.values(career);
-
-// 		const [careerSingle] = careerResults.filter((obj) => {
-// 			return obj.player_id === params.id;
-// 		});
-
-// 		console.log(careerSingle);
-
-// 		// const cleanSingle = [];
-// 		// cleanSingle.push(careerSingle);
-
-// 		const results = {
-// 			...lastResults,
-// 			asmc: ownerName ? ownerName : null,
-// 		};
-
-// 		return {
-// 			props: { results },
-// 		};
-// 	} catch (err) {
-// 		console.error(err);
-// 		return {
-// 			notFound: true,
-// 		};
-// 	}
-// }
