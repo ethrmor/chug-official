@@ -5,14 +5,13 @@ import {
 	useTable,
 	useFlexLayout,
 	usePagination,
-	useSortBy,
 	useExpanded,
 } from 'react-table';
 import { Tab } from '@headlessui/react';
 import { supabase } from '@/utils/supabaseClient';
 import StatsDropdown from '@/components/StatsDropdown';
-import PlayoffBracket from '@/components/PlayoffBracket';
 import Pagination from '@/components/Pagination';
+import { nflTeams } from '@/utils/nflTeams';
 
 const years = [
 	{ year: '2022', name: '2022' },
@@ -42,7 +41,6 @@ function Table({ columns, data }) {
 			initialState: { pageIndex: 0, pageSize: 12 },
 		},
 		useFlexLayout,
-		useSortBy,
 		useExpanded,
 		usePagination
 	);
@@ -123,24 +121,51 @@ export default function Stats({ rookie, startup }) {
 					{
 						Header: 'Overall',
 						accessor: 'overall_pick',
-						width: 70,
+						width: 80,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
 					},
 					{
 						Header: 'Round',
 						accessor: 'round',
-						width: 70,
+						width: 80,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
 					},
 					{
 						Header: 'Pick',
 						accessor: 'pick',
-						width: 70,
+						width: 80,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
 					},
 				],
 			},
 			{
+				Header: 'Franchise',
+				accessor: 'owner_id.team',
+				width: 220,
+				Cell: (e) => (
+					<>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
+						</Link>
+					</>
+				),
+			},
+			{
 				Header: 'Player',
 				accessor: 'player',
-				width: 200,
+				width: 220,
 				Cell: (e) => (
 					<>
 						<Link href={`/players/${e.row?.original?.player_id.player_id}`}>
@@ -150,14 +175,35 @@ export default function Stats({ rookie, startup }) {
 				),
 			},
 			{
+				Header: 'Team',
+				accessor: 'nfl_team',
+				width: 220,
+				Cell: (e) => (
+					<>
+						<p className="">{nflTeams[e.value.toUpperCase()]}</p>
+					</>
+				),
+			},
+			{
 				Header: 'Position',
 				accessor: 'position',
-				width: 100,
+				width: 140,
+				Cell: (e) => (
+					<>
+						<p className="text-center">{e.value}</p>
+					</>
+				),
 			},
+
 			{
 				Header: 'Position Rank',
 				accessor: 'position_rank',
-				width: 100,
+				width: 140,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
 			},
 		],
 		[]
@@ -171,24 +217,51 @@ export default function Stats({ rookie, startup }) {
 					{
 						Header: 'Overall',
 						accessor: 'overall_pick',
-						width: 40,
+						width: 80,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
 					},
 					{
 						Header: 'Round',
 						accessor: 'round',
-						width: 40,
+						width: 80,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
 					},
 					{
 						Header: 'Pick',
 						accessor: 'pick',
-						width: 40,
+						width: 80,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
 					},
 				],
 			},
 			{
+				Header: 'Franchise',
+				accessor: 'owner_id.team',
+				width: 220,
+				Cell: (e) => (
+					<>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
+						</Link>
+					</>
+				),
+			},
+			{
 				Header: 'Player',
 				accessor: 'player',
-				width: 140,
+				width: 220,
 				Cell: (e) => (
 					<>
 						<Link href={`/players/${e.row?.original?.player_id.player_id}`}>
@@ -198,14 +271,35 @@ export default function Stats({ rookie, startup }) {
 				),
 			},
 			{
+				Header: 'Team',
+				accessor: 'nfl_team',
+				width: 220,
+				Cell: (e) => (
+					<>
+						<p className="">{nflTeams[e.value.toUpperCase()]}</p>
+					</>
+				),
+			},
+			{
 				Header: 'Position',
 				accessor: 'position',
-				width: 100,
+				width: 140,
+				Cell: (e) => (
+					<>
+						<p className="text-center">{e.value}</p>
+					</>
+				),
 			},
+
 			{
 				Header: 'Position Rank',
 				accessor: 'position_rank',
-				width: 60,
+				width: 140,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
 			},
 		],
 		[]
@@ -275,7 +369,8 @@ export async function getStaticProps() {
 
 		const { data: startup } = await supabase
 			.from('draft_startup')
-			.select('*, owner_id (*), player_id (*)');
+			.select('*, owner_id (*), player_id (*)')
+			.order('overall_pick', { ascending: true });
 
 		return {
 			props: { rookie, startup },

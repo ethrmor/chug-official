@@ -2,13 +2,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 
 import { ArrowSmDownIcon, ArrowSmUpIcon } from '@heroicons/react/solid';
-import {
-	useTable,
-	useSortBy,
-	usePagination,
-	useFlexLayout,
-	useExpanded,
-} from 'react-table';
+import { useTable, useSortBy, usePagination, useFlexLayout } from 'react-table';
 import { Tab } from '@headlessui/react';
 import { supabase } from '@/utils/supabaseClient';
 import Pagination from '@/components/Pagination';
@@ -45,7 +39,6 @@ function Table({ columns, data }) {
 		},
 		useFlexLayout,
 		useSortBy,
-		useExpanded,
 		usePagination
 	);
 
@@ -64,7 +57,7 @@ function Table({ columns, data }) {
 									<th
 										key={index}
 										className="flex items-center justify-center py-2 text-xs font-normal text-gray-400"
-										{...column.getHeaderProps(column.getSortByToggleProps())}
+										{...column.getHeaderProps()}
 									>
 										{column.render('Header')}
 										<span>
@@ -121,32 +114,44 @@ function Table({ columns, data }) {
 	);
 }
 
-export default function Stats({ results }) {
+export default function Stats({ results, season, playoffs, probowl }) {
 	const [year, setYear] = useState(years[0]);
 
-	const filtered = !year
+	const filteredOverall = !year
 		? results
 		: results.filter((person) => person.year.toString().includes(year.year));
 
-	const columnsRegular = React.useMemo(
+	const filteredRegular = !year
+		? season
+		: season.filter((person) => person.year.toString().includes(year.year));
+
+	const filteredPlayoff = !year
+		? playoffs
+		: playoffs.filter((person) => person.year.toString().includes(year.year));
+
+	const filteredProBowl = !year
+		? probowl
+		: probowl.filter((person) => person.year.toString().includes(year.year));
+
+	const columns = React.useMemo(
 		() => [
 			{
 				Header: 'Name',
 				accessor: 'player_name',
 				width: 200,
-				Cell: ({ row }) =>
-					row.depth === 1 ? null : (
-						<>
-							<Link href={`/players/${row?.original?.player_id}`}>
-								<a>{row?.original?.player_name}</a>
-							</Link>
-						</>
-					),
+				Cell: ({ row }) => (
+					<>
+						<Link href={`/players/${row?.original?.player_id}`}>
+							<a>{row?.original?.player_name}</a>
+						</Link>
+					</>
+				),
 			},
 			{
 				Header: 'Team',
-				accessor: 'owner_id.team',
-				width: 150,
+				accessor: 'owner',
+				width: 175,
+				Cell: ({ row }) => <span>{row?.original?.owner_id?.team}</span>,
 			},
 			{
 				Header: 'Position',
@@ -171,7 +176,7 @@ export default function Stats({ results }) {
 			{
 				Header: 'Week',
 				accessor: 'week',
-				width: 50,
+				width: 60,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -184,7 +189,7 @@ export default function Stats({ results }) {
 				width: 70,
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+						<p className="tabular-nums text-center">{e.value?.toFixed(2)}</p>
 					</>
 				),
 			},
@@ -472,9 +477,9 @@ export default function Stats({ results }) {
 						),
 					},
 					{
-						Header: 'Blocked Kicks',
-						accessor: 'idp_blockedkicks',
-						width: 100,
+						Header: 'Blocks',
+						accessor: 'idp_blockkick',
+						width: 50,
 						Cell: (e) => (
 							<>
 								<p className="tabular-nums text-center">{e.value}</p>
@@ -487,16 +492,14 @@ export default function Stats({ results }) {
 		[]
 	);
 
-	const data = React.useMemo(() => filtered, [filtered]);
+	const dataOverall = React.useMemo(() => filteredOverall, [filteredOverall]);
+	const dataRegular = React.useMemo(() => filteredRegular, [filteredRegular]);
+	const dataPlayoff = React.useMemo(() => filteredPlayoff, [filteredPlayoff]);
+	const dataProBowl = React.useMemo(() => filteredProBowl, [filteredProBowl]);
 
 	const tabs = ['Overall', 'Regular Season', 'Playoffs', 'Pro Bowl'];
 
-	const cols = [
-		// columnsOverall,
-		columnsRegular,
-		// columnsPlayoffs,
-		// columnsProBowl,
-	];
+	const data = [dataOverall, dataRegular, dataPlayoff, dataProBowl];
 
 	return (
 		<div className="flex flex-col">
@@ -538,10 +541,10 @@ export default function Stats({ results }) {
 						))}
 					</Tab.List>
 					<Tab.Panels className="">
-						{cols.map((col, index) => (
+						{data.map((data, index) => (
 							<Tab.Panel key={index}>
 								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-									<Table columns={col} data={data} />
+									<Table columns={columns} data={data} />
 								</div>
 							</Tab.Panel>
 						))}
@@ -559,8 +562,27 @@ export async function getStaticProps() {
 			.select('*, owner_id (*)')
 			.order('fantasy_points', { ascending: false });
 
+		const { data: season } = await supabase
+			.from('players_games')
+			.select('*, owner_id (*)')
+			.lte('week', 14)
+			.order('fantasy_points', { ascending: false });
+
+		const { data: playoffs } = await supabase
+			.from('players_games')
+			.select('*, owner_id (*)')
+			.gte('week', 15)
+			.lte('week', 17)
+			.order('fantasy_points', { ascending: false });
+
+		const { data: probowl } = await supabase
+			.from('players_games')
+			.select('*, owner_id (*)')
+			.eq('week', 18)
+			.order('fantasy_points', { ascending: false });
+
 		return {
-			props: { results },
+			props: { results, season, playoffs, probowl },
 		};
 	} catch (err) {
 		console.error(err);

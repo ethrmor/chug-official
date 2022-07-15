@@ -121,14 +121,37 @@ function Table({ columns, data }) {
 	);
 }
 
-export default function Stats({ results }) {
+export default function Stats({
+	results,
+	seasonResults,
+	playoffResults,
+	probowlResults,
+}) {
 	const [year, setYear] = useState(years[0]);
 
 	const filtered = !year
 		? results
 		: results.filter((person) => person.year.toString().includes(year.year));
 
-	const columnsRegular = React.useMemo(
+	const filteredSeason = !year
+		? seasonResults
+		: seasonResults.filter((person) =>
+				person.year.toString().includes(year.year)
+		  );
+
+	const filteredPlayoff = !year
+		? playoffResults
+		: playoffResults.filter((person) =>
+				person.year.toString().includes(year.year)
+		  );
+
+	const filteredProBowl = !year
+		? probowlResults
+		: probowlResults.filter((person) =>
+				person.year.toString().includes(year.year)
+		  );
+
+	const columnsSeason = React.useMemo(
 		() => [
 			{
 				id: 'expander',
@@ -485,9 +508,9 @@ export default function Stats({ results }) {
 						),
 					},
 					{
-						Header: 'Blocked Kicks',
-						accessor: 'idp_blockedkicks',
-						width: 100,
+						Header: 'Blocks',
+						accessor: 'idp_blockkick',
+						width: 50,
 						Cell: (e) => (
 							<>
 								<p className="tabular-nums text-center">{e.value}</p>
@@ -500,15 +523,1100 @@ export default function Stats({ results }) {
 		[]
 	);
 
-	const data = React.useMemo(() => filtered, [filtered]);
+	const columnsPlayoff = React.useMemo(
+		() => [
+			{
+				Header: 'Name',
+				accessor: 'player_name',
+				width: 200,
+				Cell: ({ row }) => (
+					<>
+						<Link href={`/players/${row?.original?.player_id}`}>
+							<a>{row?.original?.player_name}</a>
+						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Team',
+				accessor: 'owner',
+				width: 175,
+				Cell: ({ row }) => (
+					<span>
+						{row.original.owner
+							? row?.original?.owner
+							: row?.original?.owner_id.team}
+					</span>
+				),
+			},
+			{
+				Header: 'Position',
+				accessor: 'position',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'FP',
+				accessor: 'fantasy_points',
+				width: 70,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Passing',
+				columns: [
+					{
+						Header: 'Yards',
+						accessor: 'pass_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'pass_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Int',
+						accessor: 'pass_int',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'pass_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Rushing',
+				columns: [
+					{
+						Header: 'Yards',
+						accessor: 'rush_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'rush_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'rush_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Receiving',
+				columns: [
+					{
+						Header: 'Rec',
+						accessor: 'rec',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Yards',
+						accessor: 'rec_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'rec_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'rec_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Fumbles',
+				accessor: 'fum_lost',
+				width: 50,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Special Teams',
+				columns: [
+					{
+						Header: 'FF',
+						accessor: 'st_ff',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FR',
+						accessor: 'st_fr',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'st_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Defense',
+				columns: [
+					{
+						Header: 'Solo',
+						accessor: 'idp_solo',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Asst',
+						accessor: 'idp_asst',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TFL',
+						accessor: 'idp_tfl',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'QB Hit',
+						accessor: 'idp_qbhit',
+						width: 60,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Sacks',
+						accessor: 'idp_sack',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'PD',
+						accessor: 'idp_pd',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Int',
+						accessor: 'idp_int',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FF',
+						accessor: 'idp_ff',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FR',
+						accessor: 'idp_fr',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Safety',
+						accessor: 'idp_saf',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'idp_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Blocks',
+						accessor: 'idp_blockkick',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsProBowl = React.useMemo(
+		() => [
+			{
+				Header: 'Name',
+				accessor: 'player_name',
+				width: 200,
+				Cell: ({ row }) => (
+					<>
+						<Link href={`/players/${row?.original?.player_id}`}>
+							<a>{row?.original?.player_name}</a>
+						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Team',
+				accessor: 'owner',
+				width: 175,
+				Cell: ({ row }) => (
+					<span>
+						{row.original.owner
+							? row?.original?.owner
+							: row?.original?.owner_id.team}
+					</span>
+				),
+			},
+			{
+				Header: 'Position',
+				accessor: 'position',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'FP',
+				accessor: 'fantasy_points',
+				width: 70,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Passing',
+				columns: [
+					{
+						Header: 'Yards',
+						accessor: 'pass_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'pass_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Int',
+						accessor: 'pass_int',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'pass_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Rushing',
+				columns: [
+					{
+						Header: 'Yards',
+						accessor: 'rush_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'rush_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'rush_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Receiving',
+				columns: [
+					{
+						Header: 'Rec',
+						accessor: 'rec',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Yards',
+						accessor: 'rec_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'rec_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'rec_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Fumbles',
+				accessor: 'fum_lost',
+				width: 50,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Special Teams',
+				columns: [
+					{
+						Header: 'FF',
+						accessor: 'st_ff',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FR',
+						accessor: 'st_fr',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'st_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Defense',
+				columns: [
+					{
+						Header: 'Solo',
+						accessor: 'idp_solo',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Asst',
+						accessor: 'idp_asst',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TFL',
+						accessor: 'idp_tfl',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'QB Hit',
+						accessor: 'idp_qbhit',
+						width: 60,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Sacks',
+						accessor: 'idp_sack',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'PD',
+						accessor: 'idp_pd',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Int',
+						accessor: 'idp_int',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FF',
+						accessor: 'idp_ff',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FR',
+						accessor: 'idp_fr',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Safety',
+						accessor: 'idp_saf',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'idp_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Blocks',
+						accessor: 'idp_blockkick',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsOverall = React.useMemo(
+		() => [
+			{
+				id: 'expander',
+				width: 0,
+				Cell: ({ row }) => <span {...row.getToggleRowExpandedProps()}></span>,
+			},
+			{
+				Header: 'Name',
+				accessor: 'player_name',
+				width: 200,
+				Cell: ({ row }) =>
+					row.depth === 1 ? null : (
+						<>
+							<Link href={`/players/${row?.original?.player_id}`}>
+								<a>{row?.original?.player_name}</a>
+							</Link>
+						</>
+					),
+			},
+			{
+				Header: 'Team',
+				accessor: 'owner',
+				width: 175,
+				Cell: ({ row }) =>
+					row.canExpand ? (
+						<span
+							{...row.getToggleRowExpandedProps({
+								style: {
+									paddingLeft: `${row.depth * 2}rem`,
+								},
+							})}
+						>
+							{row?.original?.subRows.length} Teams
+						</span>
+					) : (
+						<span>
+							{row.original.owner
+								? row?.original?.owner
+								: row?.original?.owner_id.team}
+						</span>
+					),
+			},
+			{
+				Header: 'Position',
+				accessor: 'position',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'FP',
+				accessor: 'fantasy_points',
+				width: 70,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Passing',
+				columns: [
+					{
+						Header: 'Yards',
+						accessor: 'pass_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'pass_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Int',
+						accessor: 'pass_int',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'pass_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Rushing',
+				columns: [
+					{
+						Header: 'Yards',
+						accessor: 'rush_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'rush_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'rush_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Receiving',
+				columns: [
+					{
+						Header: 'Rec',
+						accessor: 'rec',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Yards',
+						accessor: 'rec_yards',
+						width: 70,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'rec_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: '2 Pt',
+						accessor: 'rec_2pt',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Fumbles',
+				accessor: 'fum_lost',
+				width: 50,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Special Teams',
+				columns: [
+					{
+						Header: 'FF',
+						accessor: 'st_ff',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FR',
+						accessor: 'st_fr',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'st_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Defense',
+				columns: [
+					{
+						Header: 'Solo',
+						accessor: 'idp_solo',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Asst',
+						accessor: 'idp_asst',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TFL',
+						accessor: 'idp_tfl',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'QB Hit',
+						accessor: 'idp_qbhit',
+						width: 60,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Sacks',
+						accessor: 'idp_sack',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'PD',
+						accessor: 'idp_pd',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Int',
+						accessor: 'idp_int',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FF',
+						accessor: 'idp_ff',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'FR',
+						accessor: 'idp_fr',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Safety',
+						accessor: 'idp_saf',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'TD',
+						accessor: 'idp_td',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Blocks',
+						accessor: 'idp_blockkick',
+						width: 50,
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const dataOverall = React.useMemo(() => filtered, [filtered]);
+	const dataSeason = React.useMemo(() => filteredSeason, [filteredSeason]);
+	const dataPlayoff = React.useMemo(() => filteredPlayoff, [filteredPlayoff]);
+	const dataProBowl = React.useMemo(() => filteredProBowl, [filteredProBowl]);
 
 	const tabs = ['Overall', 'Regular Season', 'Playoffs', 'Pro Bowl'];
 
 	const cols = [
-		// columnsOverall,
-		columnsRegular,
-		// columnsPlayoffs,
-		// columnsProBowl,
+		{ cols: columnsOverall, data: dataOverall },
+		{ cols: columnsSeason, data: dataSeason },
+		{ cols: columnsPlayoff, data: dataPlayoff },
+		{ cols: columnsProBowl, data: dataProBowl },
 	];
 
 	return (
@@ -554,7 +1662,7 @@ export default function Stats({ results }) {
 						{cols.map((col, index) => (
 							<Tab.Panel key={index}>
 								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-									<Table columns={col} data={data} />
+									<Table columns={col.cols} data={col.data} />
 								</div>
 							</Tab.Panel>
 						))}
@@ -577,8 +1685,34 @@ export async function getStaticProps() {
 			.select('*, owner_id (*)')
 			.order('fantasy_points', { ascending: false });
 
+		const { data: playoffResults } = await supabase
+			.from('players_seasons_playoff')
+			.select('*, owner_id (*)')
+			.order('fantasy_points', { ascending: false });
+
+		const { data: season } = await supabase
+			.from('players_seasons_season')
+			.select('*')
+			.order('fantasy_points', { ascending: false });
+
+		const { data: seasonDetail } = await supabase
+			.from('players_seasons_season_detail')
+			.select('*, owner_id (*)')
+			.order('fantasy_points', { ascending: false });
+
+		const { data: probowlResults } = await supabase
+			.from('players_seasons_probowl')
+			.select('*, owner_id (*)')
+			.order('fantasy_points', { ascending: false });
+
 		function filterDetails(player) {
 			return details.filter((obj) => {
+				return obj.player_id === player.player_id && obj.year === player.year;
+			});
+		}
+
+		function filterSeasonDetails(player) {
+			return seasonDetail.filter((obj) => {
 				return obj.player_id === player.player_id && obj.year === player.year;
 			});
 		}
@@ -590,8 +1724,18 @@ export async function getStaticProps() {
 				filterDetails(e).length < 2 ? filterDetails(e)[0]?.owner_id.team : null,
 		}));
 
+		const seasonResults = season.map((e) => ({
+			...e,
+			subRows:
+				filterSeasonDetails(e).length > 1 ? filterSeasonDetails(e) : null,
+			owner:
+				filterSeasonDetails(e).length < 2
+					? filterSeasonDetails(e)[0]?.owner_id.team
+					: null,
+		}));
+
 		return {
-			props: { results },
+			props: { results, seasonResults, playoffResults, probowlResults },
 		};
 	} catch (err) {
 		console.error(err);

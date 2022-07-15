@@ -31,4 +31,5 @@ export const nflTeams = {
 	TB: 'Tampa Bay Buccaneers',
 	TEN: 'Tennessee Titans',
 	WAS: 'Washington Commanders',
+	FA: 'Free Agent',
 };
