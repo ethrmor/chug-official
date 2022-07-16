@@ -6,6 +6,18 @@ import { useTable, useSortBy, useFlexLayout, usePagination } from 'react-table';
 import { Tab } from '@headlessui/react';
 import { supabase } from '@/utils/supabaseClient';
 import Pagination from '@/components/Pagination';
+import StatsDropdown from '@/components/StatsDropdown';
+
+const positions = [
+	{ position: '', name: 'All Positions' },
+	{ position: 'QB', name: 'QB' },
+	{ position: 'RB', name: 'RB' },
+	{ position: 'WR', name: 'WR' },
+	{ position: 'TE', name: 'TE' },
+	{ position: 'DL', name: 'DL' },
+	{ position: 'LB', name: 'LB' },
+	{ position: 'DB', name: 'DB' },
+];
 
 function Table({ columns, data }) {
 	const {
@@ -107,6 +119,24 @@ function Table({ columns, data }) {
 }
 
 export default function Stats({ career, season, playoff, probowl }) {
+	const [position, setPosition] = React.useState(positions[0]);
+
+	const filteredOverall = !position
+		? career
+		: career.filter((person) => person.position.includes(position.position));
+
+	const filteredRegular = !position
+		? season
+		: season.filter((person) => person.position.includes(position.position));
+
+	const filteredPlayoff = !position
+		? playoff
+		: playoff.filter((person) => person.position.includes(position.position));
+
+	const filteredProBowl = !position
+		? probowl
+		: probowl.filter((person) => person.position.includes(position.position));
+
 	const columns = React.useMemo(
 		() => [
 			{
@@ -440,36 +470,52 @@ export default function Stats({ career, season, playoff, probowl }) {
 		[]
 	);
 
-	const dataOverall = React.useMemo(() => career, [career]);
-	const dataSeason = React.useMemo(() => season, [season]);
-	const dataPlayoff = React.useMemo(() => playoff, [playoff]);
-	const dataProBowl = React.useMemo(() => probowl, [probowl]);
+	const dataOverall = React.useMemo(() => filteredOverall, [filteredOverall]);
+	const dataRegular = React.useMemo(() => filteredRegular, [filteredRegular]);
+	const dataPlayoff = React.useMemo(() => filteredPlayoff, [filteredPlayoff]);
+	const dataProBowl = React.useMemo(() => filteredProBowl, [filteredProBowl]);
 
 	const tabs = ['Overall', 'Regular Season', 'Playoffs', 'Pro Bowl'];
 
-	const data = [dataOverall, dataSeason, dataPlayoff, dataProBowl];
+	const data = [dataOverall, dataRegular, dataPlayoff, dataProBowl];
 
 	return (
 		<div className="flex flex-col">
 			<h1 className="text-2xl mt-2 mb-4">Players Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+				<div className="md:hidden flex pb-4 pt-2 justify-center">
+					<StatsDropdown
+						state={position}
+						setState={setPosition}
+						listArray={positions}
+					/>
+				</div>
 				<div>
-					<div className="flex text-md border-b border-[#e5e5e5] dark:border-[#444444]">
-						<Link href="/stats/players/career">
-							<a className="border-b-2 border-red-600 px-4 outline-none pb-3 pt-2">
-								Career
-							</a>
-						</Link>
-						<Link href="/stats/players/seasons">
-							<a className="text-black/50 dark:text-white/50 px-4 pb-3 pt-2">
-								Seasons
-							</a>
-						</Link>
-						<Link href="/stats/players/games">
-							<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
-								Games
-							</a>
-						</Link>
+					<div className="flex justify-between text-md border-b border-[#e5e5e5] dark:border-[#444444]">
+						<div className="flex">
+							<Link href="/stats/players/career">
+								<a className="border-b-2 border-red-600 px-4 outline-none pb-3 pt-2">
+									Career
+								</a>
+							</Link>
+							<Link href="/stats/players/seasons">
+								<a className="text-black/50 dark:text-white/50 px-4 pb-3 pt-2">
+									Seasons
+								</a>
+							</Link>
+							<Link href="/stats/players/games">
+								<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
+									Games
+								</a>
+							</Link>
+						</div>
+						<div className="hidden md:flex">
+							<StatsDropdown
+								state={position}
+								setState={setPosition}
+								listArray={positions}
+							/>
+						</div>
 					</div>
 				</div>
 				<Tab.Group>

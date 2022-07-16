@@ -15,6 +15,17 @@ const years = [
 	{ year: '2020', name: '2020' },
 ];
 
+const positions = [
+	{ position: '', name: 'All Positions' },
+	{ position: 'QB', name: 'QB' },
+	{ position: 'RB', name: 'RB' },
+	{ position: 'WR', name: 'WR' },
+	{ position: 'TE', name: 'TE' },
+	{ position: 'DL', name: 'DL' },
+	{ position: 'LB', name: 'LB' },
+	{ position: 'DB', name: 'DB' },
+];
+
 function Table({ columns, data }) {
 	const {
 		getTableProps,
@@ -116,22 +127,39 @@ function Table({ columns, data }) {
 
 export default function Stats({ results, season, playoffs, probowl }) {
 	const [year, setYear] = useState(years[0]);
+	const [position, setPosition] = useState(positions[0]);
 
 	const filteredOverall = !year
 		? results
-		: results.filter((person) => person.year.toString().includes(year.year));
+		: results.filter(
+				(person) =>
+					person.year.toString().includes(year.year) &&
+					person.position.includes(position.position)
+		  );
 
 	const filteredRegular = !year
 		? season
-		: season.filter((person) => person.year.toString().includes(year.year));
+		: season.filter(
+				(person) =>
+					person.year.toString().includes(year.year) &&
+					person.position.includes(position.position)
+		  );
 
 	const filteredPlayoff = !year
 		? playoffs
-		: playoffs.filter((person) => person.year.toString().includes(year.year));
+		: playoffs.filter(
+				(person) =>
+					person.year.toString().includes(year.year) &&
+					person.position.includes(position.position)
+		  );
 
 	const filteredProBowl = !year
 		? probowl
-		: probowl.filter((person) => person.year.toString().includes(year.year));
+		: probowl.filter(
+				(person) =>
+					person.year.toString().includes(year.year) &&
+					person.position.includes(position.position)
+		  );
 
 	const columns = React.useMemo(
 		() => [
@@ -505,6 +533,14 @@ export default function Stats({ results, season, playoffs, probowl }) {
 		<div className="flex flex-col">
 			<h1 className="text-2xl mt-2 mb-4">Player Statistics</h1>
 			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+				<div className="md:hidden flex pb-4 pt-2 justify-center">
+					<StatsDropdown
+						state={position}
+						setState={setPosition}
+						listArray={positions}
+					/>
+					<StatsDropdown state={year} setState={setYear} listArray={years} />
+				</div>
 				<div className="flex justify-between text-md border-b border-[#e5e5e5] dark:border-[#444444]">
 					<div className="flex ">
 						<Link href="/stats/players/career">
@@ -523,7 +559,14 @@ export default function Stats({ results, season, playoffs, probowl }) {
 							</a>
 						</Link>
 					</div>
-					<StatsDropdown state={year} setState={setYear} listArray={years} />
+					<div className="hidden md:flex">
+						<StatsDropdown
+							state={position}
+							setState={setPosition}
+							listArray={positions}
+						/>
+						<StatsDropdown state={year} setState={setYear} listArray={years} />
+					</div>
 				</div>
 				<Tab.Group>
 					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">

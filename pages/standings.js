@@ -276,8 +276,10 @@ export default function Stats({ results, playoffs }) {
 							</div>
 						</Tab.Panel>
 						<Tab.Panel>
-							<div className="bg-white dark:bg-[#333333] rounded-md shadow-md py-2 px-4">
-								<PlayoffBracket data={filteredPlayoffs} />
+							<div className="wrapper overflow-x-auto">
+								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md py-2 px-4">
+									<PlayoffBracket data={filteredPlayoffs} />
+								</div>
 							</div>
 						</Tab.Panel>
 					</Tab.Panels>
