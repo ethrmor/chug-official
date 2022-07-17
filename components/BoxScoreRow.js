@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function BoxScoreRow({ results, index, fantasyPos }) {
 	return (
 		<>
-			<div className="grid grid-cols-[1fr_6rem_1fr] border-b-2 py-4 items-center">
+			<div className="grid grid-cols-[1fr_3rem_1fr] md:grid-cols-[1fr_6rem_1fr] border-b-2 py-4 items-center">
 				{results.team_players[index]?.player_id ? (
 					<Link href={`/players/${results.team_players[index]?.player_id}`}>
 						<a className="flex justify-between items-center gap-4">

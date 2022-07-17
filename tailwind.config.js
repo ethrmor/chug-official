@@ -15,7 +15,7 @@ module.exports = {
 				'dark-text': '#FFFFFF',
 				'dark-text-2': '#999999',
 				'dark-nav': '#202020',
-				'light-bg': '#E6E6E6',
+				'light-bg': '#ECECEC',
 				'light-surface': '#FFFFFF',
 				'light-hover': '#EFEFEF',
 				'light-line': '#DDDDDD',

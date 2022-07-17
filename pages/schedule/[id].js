@@ -15,8 +15,8 @@ export default function singleGame({ results }) {
 				</span>
 			</h1>
 			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4 flex flex-col gap-10">
-				<div className="grid grid-cols-[1fr_6rem_1fr]">
-					<div className="flex justify-between items-center">
+				<div className="grid md:grid-cols-[1fr_6rem_1fr]">
+					<div className="flex gap-6 justify-between items-center">
 						<div className="flex items-center gap-6">
 							<div className="relative w-24 h-24">
 								<Image
@@ -27,8 +27,15 @@ export default function singleGame({ results }) {
 							</div>
 							<div className="">
 								<h2 className="text-xl">
+									<span className="text-xs lg:pl-1 text-light-text-2 dark:text-dark-text-2 lg:hidden block">
+										({results.owner_wins || '0'} - {results.owner_losses || '0'}
+										{!results.owner_ties || results.owner_ties === 0
+											? null
+											: ` - ${results.owner_ties}`}
+										)
+									</span>
 									{results.team_id.team}
-									<span className="text-base pl-1 text-light-text-2 dark:text-dark-text-2">
+									<span className="text-base lg:pl-1 text-light-text-2 dark:text-dark-text-2 hidden lg:inline-block">
 										({results.owner_wins || '0'} - {results.owner_losses || '0'}
 										{!results.owner_ties || results.owner_ties === 0
 											? null
@@ -58,10 +65,10 @@ export default function singleGame({ results }) {
 							</p>
 						</div>
 					</div>
-					<div className="flex items-center justify-center">
+					<div className="flex items-center justify-center py-4 md:py-0">
 						<p>VS</p>
 					</div>
-					<div className="flex justify-between items-center">
+					<div className="flex flex-row-reverse md:flex-row gap-6 justify-between items-center">
 						<div>
 							<p
 								className={
@@ -76,14 +83,14 @@ export default function singleGame({ results }) {
 									? results.opponent_points.toFixed(2)
 									: '0.00'}
 							</p>
-							<p className="text-sm text-left text-light-text-2 dark:text-dark-text-2">
+							<p className="text-sm md:text-left text-right text-light-text-2 dark:text-dark-text-2">
 								{results.opponent_bb_id?.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
-						<div className="flex items-center gap-6">
-							<div className="text-right">
+						<div className="flex flex-row-reverse md:flex-row items-center gap-6">
+							<div className="md:text-right">
 								<h2 className="text-xl">
-									<span className="text-base pr-1 text-light-text-2 dark:text-dark-text-2">
+									<span className="text-xs lg:text-base lg:pr-1 text-light-text-2 dark:text-dark-text-2 block lg:inline-block">
 										({results.opponent_wins || '0'} -{' '}
 										{results.opponent_losses || '0'}
 										{!results.opponent_ties || results.opponent_ties === 0
@@ -106,10 +113,9 @@ export default function singleGame({ results }) {
 					</div>
 				</div>
 				<div>
-					<div className="grid grid-cols-[1fr_6rem_1fr] border-b-2 pb-2">
-						<p className="">Player Name</p>
-						<p className="text-center">Position</p>
-						<p className="text-right">Player Name</p>
+					<div className="grid grid-cols-2 border-b-2 pb-2">
+						<p className="">{results.team_id.team}</p>
+						<p className="text-right">{results.opp_id.team}</p>
 					</div>
 					<BoxScoreRow results={results} index={0} fantasyPos={'QB'} />
 					<BoxScoreRow results={results} index={1} fantasyPos={'RB'} />

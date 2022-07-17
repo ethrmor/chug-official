@@ -39,20 +39,24 @@ export default function Player({ player }) {
 				<span className="px-2">|</span>
 				<span className="">#{player.number}</span>
 			</div>
-			<div className="flex items-center justify-center pb-4 text-md">
-				<p>{player.fantasy_positions[0]}</p>
-				<span className="px-2">|</span>
-				<p>
-					{Math.floor(player.height / 12)}&apos;
-					{player.height - Math.floor(player.height / 12) * 12}&quot;
-				</p>
-				<span className="px-2">|</span>
-				<p>{player.weight} lb</p>
-				<span className="px-2">|</span>
-				<p>Age: {player.age}</p>
-				<span className="px-2">|</span>
-				<p>{player.college}</p>
-				<span className="px-2">|</span>
+			<div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-center pb-4 text-md">
+				<div className="flex">
+					<p>{player.fantasy_positions[0]}</p>
+					<span className="px-2">|</span>
+					<p>
+						{Math.floor(player.height / 12)}&apos;
+						{player.height - Math.floor(player.height / 12) * 12}&quot;
+					</p>
+					<span className="px-2">|</span>
+					<p>{player.weight} lb</p>
+					<span className="px-2 hidden sm:flex">|</span>
+				</div>
+				<div className="flex">
+					<p>Age: {player.age}</p>
+					<span className="px-2">|</span>
+					<p>{player.college}</p>
+					<span className="px-2 hidden sm:flex">|</span>
+				</div>
 				<div className="flex items-center">
 					<div className="relative h-7 w-7">
 						<Image

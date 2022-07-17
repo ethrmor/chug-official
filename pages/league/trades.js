@@ -45,8 +45,8 @@ export default function Trades({ results }) {
 	return (
 		<div>
 			<h1 className="text-2xl mt-2 mb-4">Trades</h1>
-			<div className="grid grid-cols-[300px_1fr] gap-6 text-xs">
-				<div className="flex flex-col gap-4 sticky top-20 self-start">
+			<div className="grid md:grid-cols-[300px_1fr] gap-6 text-xs">
+				<div className="flex flex-col gap-4 sticky top-[3.9rem] opacity-1 md:top-20 self-start z-40 py-4 md:py-0 bg-light-bg dark:bg-dark-bg">
 					<p>Filters</p>
 					<FilterDropdown
 						state={owner}
@@ -60,12 +60,12 @@ export default function Trades({ results }) {
 					{filtered.map((trade) => (
 						<div
 							key={trade.id}
-							className="min-w-[800px] bg-white dark:bg-dark-surface x-auto p-4 shadow-md rounded-md"
+							className="min-w-[300px] bg-white dark:bg-dark-surface x-auto p-4 shadow-md rounded-md"
 						>
 							<p className="text-light-text-2 dark:text-dark-text-2 text-xs pb-2">
 								#{trade.id} - {trade.date}
 							</p>
-							<div className="grid grid-cols-2 gap-6 text-sm">
+							<div className="grid sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2 gap-6 text-sm">
 								<TradePart owner={trade.id_1.team} piece={trade.players_1} />
 								<TradePart owner={trade.id_2.team} piece={trade.players_2} />
 								{trade.owner_3 && (

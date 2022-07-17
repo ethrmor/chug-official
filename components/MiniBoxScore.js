@@ -27,15 +27,15 @@ export default function MiniBoxScore({
 		<>
 			<Link href={`/schedule/${id}`}>
 				<a className="grid lg:grid-cols-[1fr_40%]">
-					<div className="flex text-sm flex-col justify-center lg:border-r-2 dark:bordertext-light-text-2 dark-text-dark-text-2 pr-4">
+					<div className="flex text-sm flex-col justify-center lg:border-r-2 dark:bordertext-light-text-2 dark-text-dark-text-2 md:pr-4">
 						<div
-							className={`flex justify-between items-center px-4 py-2 ${
+							className={`flex justify-between items-center md:px-4 py-2 ${
 								parseFloat(teamPoints) > parseFloat(opponentPoints)
 									? 'font-bold'
 									: null
 							}`}
 						>
-							<div className="flex items-center gap-6">
+							<div className="flex items-center gap-4 md:gap-6">
 								<Image
 									src={`/logo-${teamOwner}.webp`}
 									width={40}
@@ -57,13 +57,13 @@ export default function MiniBoxScore({
 							</p>
 						</div>
 						<div
-							className={`flex justify-between items-center px-4 py-2 ${
+							className={`flex justify-between items-center md:px-4 py-2 ${
 								parseFloat(teamPoints) < parseFloat(opponentPoints)
 									? 'font-bold'
 									: null
 							}`}
 						>
-							<div className="flex items-center gap-6">
+							<div className="flex items-center gap-4 md:gap-6">
 								<Image
 									src={`/logo-${opponentOwner}.webp`}
 									width={40}

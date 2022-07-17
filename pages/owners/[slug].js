@@ -10,6 +10,7 @@ export default function Manager({
 	schedule,
 	career,
 	seasons,
+	currentSeason,
 }) {
 	return (
 		<>
@@ -65,11 +66,52 @@ export default function Manager({
 								{year} Quick Look
 							</h2>
 							<div className="flex flex-col gap-2 p-4">
-								<p className="flex text-xs items-start">Games Played</p>
-								<p className="flex text-xs items-start">Wins</p>
-								<p className="flex text-xs items-start">Losses</p>
-								<p className="flex text-xs items-start">Ties</p>
-								<p className="flex text-xs items-start">Pct.</p>
+								<div className="flex text-sm items-start justify-between">
+									<p>Games Played</p>
+									<p className="text-xl">
+										{currentSeason[0].regular_season_games_played}
+									</p>
+								</div>
+								<div className="flex text-sm items-start justify-between">
+									<p>Wins</p>
+									<p className="text-xl">
+										{currentSeason[0].regular_season_wins}
+									</p>
+								</div>
+								<div className="flex text-sm items-start justify-between">
+									<p>Losses</p>
+									<p className="text-xl">
+										{currentSeason[0].regular_season_losses}
+									</p>
+								</div>
+								{currentSeason[0].regular_season_ties !== 0 && (
+									<div className="flex text-sm items-start justify-between">
+										<p>Ties</p>
+										<p className="text-xl">
+											{currentSeason[0].regular_season_games_played}
+										</p>
+									</div>
+								)}
+
+								<div className="flex text-sm items-start justify-between">
+									<p>Win Pct.</p>
+									<p className="text-xl">
+										{currentSeason[0].regular_season_pct.toString().slice(1) ||
+											'.000'}
+									</p>
+								</div>
+								<div className="flex text-sm items-start justify-between">
+									<p>Points For</p>
+									<p className="text-xl">
+										{currentSeason[0].regular_season_points_for?.toFixed(2)}
+									</p>
+								</div>
+								<div className="flex text-sm items-start justify-between">
+									<p>Points Against</p>
+									<p className="text-xl">
+										{currentSeason[0].regular_season_points_against?.toFixed(2)}
+									</p>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -78,10 +120,14 @@ export default function Manager({
 							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
 								{year} Schedule
 							</h2>
-							<div className="flex flex-col gap-2 p-4">
+							<div className="flex flex-col gap-2 py-4 px-2">
 								{schedule.map((game, index) => (
-									<div className="flex flex-col gap-2" key={index}>
-										<p className="text-sm">
+									<Link
+										href={`/schedule/${game.game_id}`}
+										className="flex flex-col gap-2"
+										key={index}
+									>
+										<a className="text-sm  px-2 hover:bg-light-hover hover:dark:bg-dark-hover round-md">
 											<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 												Week {game.week}
 											</span>
@@ -95,7 +141,7 @@ export default function Manager({
 																: `text-light-text-2 dark:text-dark-text-2 tabular-nums text-right`
 														}
 													>
-														{game.team_points.toFixed(2)}
+														{game.team_points?.toFixed(2) || '0.00'}
 													</span>
 													{' - '}
 													<span
@@ -105,17 +151,12 @@ export default function Manager({
 																: `text-light-text-2 dark:text-dark-text-2 tabular-nums text-right`
 														}
 													>
-														{game.opponent_points.toFixed(2)}
+														{game.opponent_points?.toFixed(2) || '0.00'}
 													</span>
 												</span>
 											</div>
-										</p>
-										<p className="text-sm">
-											<span className="text-light-text-2 dark:text-dark-text-2">
-												{game.date}
-											</span>
-										</p>
-									</div>
+										</a>
+									</Link>
 								))}
 							</div>
 						</div>
@@ -125,9 +166,46 @@ export default function Manager({
 					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
 						<div>
 							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-								Stats
+								Career Stats
 							</h2>
-							<div className="flex flex-col gap-2 p-4"></div>
+							<div className="flex flex-col gap-2 p-4">
+								<div className="grid grid-cols-8 gap-2">
+									<div>
+										<h3>Games Played</h3>
+										<p className="text-xl">
+											{career[0].regular_season_games_played}
+										</p>
+									</div>
+									<div>
+										<h3>Wins</h3>
+										<p className="text-xl">{career[0].regular_season_wins}</p>
+									</div>
+									<div>
+										<h3>Losses</h3>
+										<p className="text-xl">{career[0].regular_season_losses}</p>
+									</div>
+									<div>
+										<h3>Ties</h3>
+										<p className="text-xl">{career[0].regular_season_ties}</p>
+									</div>
+									<div>
+										<h3>Win Pct.</h3>
+										<p className="text-xl">{career[0].regular_season_pct}</p>
+									</div>
+									<div>
+										<h3>Points For</h3>
+										<p className="text-xl">
+											{career[0].regular_season_points_for}
+										</p>
+									</div>
+									<div>
+										<h3>Points Against</h3>
+										<p className="text-xl">
+											{career[0].regular_season_points_against}
+										</p>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
@@ -251,8 +329,7 @@ export async function getStaticProps({ params }) {
 			.from('game_history')
 			.select('*, owner_id (team), opponent_id (team)')
 			.eq('owner_id', parseInt(params.slug))
-			.eq('year', 2021);
-		// .eq('year', year);
+			.eq('year', year);
 
 		const { data: career } = await supabase
 			.from('owners_career')
@@ -264,7 +341,13 @@ export async function getStaticProps({ params }) {
 			.select('*')
 			.eq('owner_id', parseInt(params.slug));
 
-		console.log(seasons);
+		const { data: currentSeason } = await supabase
+			.from('owners_seasons')
+			.select('*')
+			.eq('owner_id', parseInt(params.slug))
+			.eq('year', year);
+
+		console.log(career);
 
 		return {
 			props: {
@@ -273,6 +356,7 @@ export async function getStaticProps({ params }) {
 				schedule,
 				career,
 				seasons,
+				currentSeason,
 			},
 		};
 	} catch (err) {

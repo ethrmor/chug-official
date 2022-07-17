@@ -50,7 +50,7 @@ function Table({ columns, data }) {
 		<>
 			<div className="wrapper overflow-x-auto p-4">
 				<table
-					className="min-w-full text-sm divide-y divide-gray-200 dark:divide-[#555555]"
+					className="min-w-full text-sm divide-y divide-light-line dark:divide-dark-line"
 					{...getTableProps()}
 				>
 					<thead>
@@ -59,7 +59,7 @@ function Table({ columns, data }) {
 								{headerGroup.headers.map((column, index) => (
 									<th
 										key={index}
-										className="flex items-center justify-center py-2 text-xs font-normal text-gray-400"
+										className="flex items-center justify-center py-2 text-xs font-normal text-light-text-2"
 										{...column.getHeaderProps()}
 									>
 										{column.render('Header')}
@@ -74,7 +74,7 @@ function Table({ columns, data }) {
 							return (
 								<tr
 									key={i}
-									className="py-2 border-b last:border-0 dark:border-gray-600 text-sm hover:bg-gray-200 dark:hover:bg-gray-800"
+									className="py-2 border-b last:border-0 dark:border-dark-line text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
 									{...row.getRowProps()}
 								>
 									{row.cells.map((cell, index) => {
@@ -151,18 +151,6 @@ export default function Stats({ rookie, startup }) {
 				],
 			},
 			{
-				Header: 'Franchise',
-				accessor: 'owner_id.team',
-				width: 220,
-				Cell: (e) => (
-					<>
-						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
-							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
-						</Link>
-					</>
-				),
-			},
-			{
 				Header: 'Player',
 				accessor: 'player',
 				width: 220,
@@ -174,6 +162,19 @@ export default function Stats({ rookie, startup }) {
 					</>
 				),
 			},
+			{
+				Header: 'Franchise',
+				accessor: 'owner_id.team',
+				width: 220,
+				Cell: (e) => (
+					<>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
+						</Link>
+					</>
+				),
+			},
+
 			{
 				Header: 'Team',
 				accessor: 'nfl_team',
@@ -323,7 +324,7 @@ export default function Stats({ rookie, startup }) {
 			<h1 className="text-2xl mt-2 mb-4">Drafts</h1>
 			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
 				<Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444] flex justify-between">
+					<Tab.List className="text-sm border-b border-light-line dark:border-dark-line flex justify-between">
 						<div>
 							{tabs.map((tab, index) => (
 								<Tab
