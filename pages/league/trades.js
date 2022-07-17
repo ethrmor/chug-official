@@ -60,9 +60,9 @@ export default function Trades({ results }) {
 					{filtered.map((trade) => (
 						<div
 							key={trade.id}
-							className="min-w-[800px] bg-white dark:bg-[#333333] x-auto p-4 shadow-md rounded-md"
+							className="min-w-[800px] bg-white dark:bg-dark-surface x-auto p-4 shadow-md rounded-md"
 						>
-							<p className="text-gray-400 text-xs pb-2">
+							<p className="text-light-text-2 dark:text-dark-text-2 text-xs pb-2">
 								#{trade.id} - {trade.date}
 							</p>
 							<div className="grid grid-cols-2 gap-6 text-sm">

@@ -1,6 +1,5 @@
 import { leagueID } from '@/utils/chugLeague';
 import { supabase } from '@/utils/supabaseClient';
-import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -9,8 +8,10 @@ export default function Home({ owners }) {
 		<>
 			<div className="grid md:grid-cols-[1fr_300px] lg:grid-cols-[250px_1fr_300px] grid-rows-none auto-rows-min gap-4">
 				<aside className="lg:flex flex-col gap-4 hidden">
-					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-						<h2 className="text-xs p-4 font-semibold border-b">Quick Links</h2>
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+							Quick Links
+						</h2>
 						<div className="flex flex-col py-3">
 							{owners.map((owner) => (
 								<Link key={owner.id} href={`/owners/${owner.id}`}>
@@ -27,8 +28,10 @@ export default function Home({ owners }) {
 							))}
 						</div>
 					</div>
-					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md h-100">
-						<h2 className="text-xs p-4 font-semibold border-b">League Links</h2>
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md h-100">
+						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+							League Links
+						</h2>
 						<div className="flex flex-col py-3">
 							{[
 								{
@@ -81,7 +84,7 @@ export default function Home({ owners }) {
 					</div>
 				</aside>
 				<section className="flex flex-col gap-4">
-					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4">
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4">
 						<article className="flex flex-1">
 							<Image
 								src={`/article.jpg`}
@@ -94,8 +97,10 @@ export default function Home({ owners }) {
 					</div>
 				</section>
 				<aside className="flex flex-col gap-4">
-					<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
-						<h2 className="text-xs p-4 font-semibold border-b">Headlines</h2>
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+							Headlines
+						</h2>
 						<div className="flex flex-col gap-2 p-4 text-sm">
 							<h3>Headline 1</h3>
 							<h3>Headline 2</h3>

@@ -14,7 +14,7 @@ export default function singleGame({ results }) {
 					</Link>
 				</span>
 			</h1>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4 flex flex-col gap-10">
+			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4 flex flex-col gap-10">
 				<div className="grid grid-cols-[1fr_6rem_1fr]">
 					<div className="flex justify-between items-center">
 						<div className="flex items-center gap-6">
@@ -28,7 +28,7 @@ export default function singleGame({ results }) {
 							<div className="">
 								<h2 className="text-xl">
 									{results.team_id.team}
-									<span className="text-base pl-1 opacity-70">
+									<span className="text-base pl-1 text-light-text-2 dark:text-dark-text-2">
 										({results.owner_wins || '0'} - {results.owner_losses || '0'}
 										{!results.owner_ties || results.owner_ties === 0
 											? null
@@ -46,14 +46,14 @@ export default function singleGame({ results }) {
 										? 'text-2xl'
 										: results.owner_points > results.opponent_points
 										? 'text-2xl font-bold'
-										: 'text-2xl opacity-70'
+										: 'text-2xl text-light-text-2 dark:text-dark-text-2'
 								}
 							>
 								{results.owner_points !== 0
 									? results.owner_points.toFixed(2)
 									: '0.00'}
 							</p>
-							<p className="text-sm text-right opacity-70">
+							<p className="text-sm text-right text-light-text-2 dark:text-dark-text-2">
 								{results.owner_bb_id?.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
@@ -69,21 +69,21 @@ export default function singleGame({ results }) {
 										? 'text-2xl'
 										: results.owner_points < results.opponent_points
 										? 'text-2xl font-bold'
-										: 'text-2xl opacity-70'
+										: 'text-2xl text-light-text-2 dark:text-dark-text-2'
 								}
 							>
 								{results.opponent_points !== 0
 									? results.opponent_points.toFixed(2)
 									: '0.00'}
 							</p>
-							<p className="text-sm text-left opacity-70">
+							<p className="text-sm text-left text-light-text-2 dark:text-dark-text-2">
 								{results.opponent_bb_id?.team_points?.toFixed(2) || '0.00'}
 							</p>
 						</div>
 						<div className="flex items-center gap-6">
 							<div className="text-right">
 								<h2 className="text-xl">
-									<span className="text-base pr-1 opacity-70">
+									<span className="text-base pr-1 text-light-text-2 dark:text-dark-text-2">
 										({results.opponent_wins || '0'} -{' '}
 										{results.opponent_losses || '0'}
 										{!results.opponent_ties || results.opponent_ties === 0

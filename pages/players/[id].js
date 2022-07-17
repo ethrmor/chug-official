@@ -6,7 +6,7 @@ import React from 'react';
 
 export default function Player({ player }) {
 	return (
-		<div className="bg-white dark:bg-[#333333] shadow-md">
+		<div className="bg-white dark:bg-dark-surface shadow-md">
 			<div
 				style={{
 					backgroundImage: `url(/player-header-${
@@ -15,7 +15,7 @@ export default function Player({ player }) {
 				}}
 				className={`w-full h-[175px] md:h-[225px] lg:h-[275px] bg-no-repeat bg-cover bg-right shadow-md mt-[-1rem]`}
 			></div>
-			<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-[#333333] rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-purple-900">
+			<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-dark-surface rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-purple-900">
 				{player.years_exp >= 1 ? (
 					<Image
 						src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}

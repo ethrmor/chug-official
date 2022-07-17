@@ -9,7 +9,7 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 					<Link href={`/players/${results.team_players[index]?.player_id}`}>
 						<a className="flex justify-between items-center gap-4">
 							<div className="flex items-center">
-								<div className="relative h-10 w-10 bg-white dark:bg-[#333333] hidden lg:block">
+								<div className="relative h-10 w-10 bg-white dark:bg-dark-surface hidden lg:block">
 									{results.team_players[index]?.player_id ? (
 										<Image
 											src={`https://sleepercdn.com/content/nfl/players/${results.team_players[index]?.player_id}.jpg`}
@@ -31,12 +31,12 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 								<div className="lg:ml-4">
 									<p>
 										{results.team_players[index]?.player_name}
-										<span className="text-xs opacity-30 font-bold">
+										<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 											{'  '}
 											{results.team_players[index]?.position}
 										</span>
 									</p>
-									<p className="text-xs opacity-60">
+									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
 										{results.team_players[index]?.pass_yards
 											? `${results.team_players[index]?.pass_yards} Pa Yds${
 													results.team_players[index]?.pass_td >= 1 ||
@@ -462,7 +462,7 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 				) : (
 					<div className="flex justify-between items-center gap-4">
 						<div className="flex items-center">
-							<div className="relative h-10 w-10 bg-white dark:bg-[#333333] hidden lg:block">
+							<div className="relative h-10 w-10 bg-white dark:bg-dark-surface hidden lg:block">
 								{results.team_players[index]?.player_id ? (
 									<Image
 										src={`https://sleepercdn.com/content/nfl/players/${results.team_players[index]?.player_id}.jpg`}
@@ -484,12 +484,12 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 							<div className="lg:ml-4">
 								<p>
 									{results.team_players[index]?.player_name}
-									<span className="text-xs opacity-30 font-bold">
+									<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 										{'  '}
 										{results.team_players[index]?.position}
 									</span>
 								</p>
-								<p className="text-xs opacity-60">
+								<p className="text-xs text-light-text-2 dark:text-dark-text-2">
 									{results.team_players[index]?.pass_yards
 										? `${results.team_players[index]?.pass_yards} Pa Yds${
 												results.team_players[index]?.pass_td >= 1 ||
@@ -922,13 +922,13 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 							<div className="flex items-center">
 								<div className="lg:mr-4">
 									<p className="text-right">
-										<span className="text-xs opacity-30 font-bold">
+										<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 											{results.opponent_players[index]?.position}
 											{'  '}
 										</span>
 										{results.opponent_players[index]?.player_name}
 									</p>
-									<p className="text-xs opacity-60 text-right">
+									<p className="text-xs text-light-text-2 dark:text-dark-text-2 text-right">
 										{results.opponent_players[index]?.pass_yards
 											? `${results.opponent_players[index]?.pass_yards} Pa Yds${
 													results.opponent_players[index]?.pass_td >= 1 ||
@@ -1346,7 +1346,7 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 											: null}
 									</p>
 								</div>
-								<div className="relative h-10 w-10 bg-white dark:bg-[#333333] hidden lg:block">
+								<div className="relative h-10 w-10 bg-white dark:bg-dark-surface hidden lg:block">
 									{results.opponent_players[index]?.player_id ? (
 										<Image
 											src={`https://sleepercdn.com/content/nfl/players/${results.opponent_players[index]?.player_id}.jpg`}
@@ -1377,13 +1377,13 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 						<div className="flex items-center">
 							<div className="lg:mr-4">
 								<p className="text-right">
-									<span className="text-xs opacity-30 font-bold">
+									<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 										{results.opponent_players[index]?.position}
 										{'  '}
 									</span>
 									{results.opponent_players[index]?.player_name}
 								</p>
-								<p className="text-xs opacity-60 text-right">
+								<p className="text-xs text-light-text-2 dark:text-dark-text-2 text-right">
 									{results.opponent_players[index]?.pass_yards
 										? `${results.opponent_players[index]?.pass_yards} Pa Yds${
 												results.opponent_players[index]?.pass_td >= 1 ||
@@ -1799,7 +1799,7 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 										: null}
 								</p>
 							</div>
-							<div className="relative h-10 w-10 bg-white dark:bg-[#333333] hidden lg:block">
+							<div className="relative h-10 w-10 bg-white dark:bg-dark-surface hidden lg:block">
 								{results.opponent_players[index]?.player_id ? (
 									<Image
 										src={`https://sleepercdn.com/content/nfl/players/${results.opponent_players[index]?.player_id}.jpg`}

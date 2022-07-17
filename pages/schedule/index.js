@@ -54,7 +54,7 @@ export default function Schedule({ results }) {
 					{filtered.map((game) => (
 						<div
 							key={game.id}
-							className="min-w-[400px] bg-white dark:bg-[#333333] p-4 shadow-md rounded-md hover:shadow-lg"
+							className="min-w-[400px] bg-white dark:bg-dark-surface p-4 shadow-md rounded-md hover:shadow-lg"
 						>
 							{game.owner ? (
 								<MiniBoxScore

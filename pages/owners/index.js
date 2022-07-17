@@ -9,7 +9,7 @@ export default function Owners({ results }) {
 				<h1 className="text-2xl mt-2 mb-4">Owners</h1>
 			</div>
 			<div>
-				<h3 className="text-md border-b-2 border-[#dddddd] dark:border-[#555555] mb-4">
+				<h3 className="text-md border-b-2 border-light-line dark:border-dark-line mb-4">
 					Featured
 				</h3>
 			</div>

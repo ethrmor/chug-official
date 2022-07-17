@@ -321,7 +321,7 @@ export default function Stats({ rookie, startup }) {
 	return (
 		<div className="flex flex-col">
 			<h1 className="text-2xl mt-2 mb-4">Drafts</h1>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
 				<Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
 					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444] flex justify-between">
 						<div>
@@ -349,7 +349,7 @@ export default function Stats({ rookie, startup }) {
 					<Tab.Panels className="">
 						{cols.map((col, index) => (
 							<Tab.Panel key={index}>
-								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
 									<Table columns={col.column} data={col.data} />
 								</div>
 							</Tab.Panel>

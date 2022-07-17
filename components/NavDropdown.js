@@ -20,10 +20,10 @@ export default function NavDropdown({ buttonName, listArray }) {
 		<div className="">
 			<Menu as="div" className="relative inline-block text-left">
 				<>
-					<Menu.Button className="inline-flex w-full justify-center rounded-md p-2 font-medium text-white hover:bg-[#222222] focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+					<Menu.Button className="inline-flex w-full justify-center rounded-md p-2 font-medium text-dark-text hover:bg-dark-nav focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
 						{buttonName}
 						<ChevronDownIcon
-							className="ml-2 -mr-1 h-5 w-5 text-violet-200 hover:text-violet-100"
+							className="ml-2 -mr-1 h-5 w-5 text-white"
 							aria-hidden="true"
 						/>
 					</Menu.Button>
@@ -37,7 +37,7 @@ export default function NavDropdown({ buttonName, listArray }) {
 					leaveFrom="transform opacity-100 scale-100"
 					leaveTo="transform opacity-0 scale-95"
 				>
-					<Menu.Items className="absolute right-0 mt-4 w-56 origin-top-right divide-gray-100 rounded-md bg-white dark:bg-[#121212] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+					<Menu.Items className="absolute right-0 mt-4 w-56 origin-top-right rounded-md bg-white dark:bg-dark-bg shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 						<div className="px-1 py-1 ">
 							{listArray.map((item) => (
 								<Menu.Item key={item.id}>
@@ -46,8 +46,8 @@ export default function NavDropdown({ buttonName, listArray }) {
 											href={item.id}
 											className={`${
 												active
-													? 'bg-red-600 dark:bg-[#333333] text-white'
-													: 'text-gray-900 dark:text-white'
+													? 'bg-light-hover dark:bg-dark-nav text-light-text dark:text-dark-text'
+													: 'text-light-text dark:text-dark-text'
 											} group flex w-full items-center rounded-md px-2 py-2 text-sm`}
 										>
 											{item.name}

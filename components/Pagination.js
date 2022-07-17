@@ -11,19 +11,19 @@ export default function Pagination({
 	setPageSize,
 }) {
 	return (
-		<div className="bg-white dark:bg-[#333333] px-4 py-3 flex items-center justify-between border-t border-gray-200 dark:border-gray-700 shadow-md rounded-b-md">
+		<div className="bg-white dark:bg-dark-surface px-4 py-3 flex items-center justify-between border-t border-light-line dark:border-dark-line shadow-md rounded-b-md">
 			<div className="flex-1 flex justify-between sm:hidden">
 				<button
 					onClick={() => previousPage()}
 					disabled={!canPreviousPage}
-					className="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50"
+					className="relative inline-flex items-center px-4 py-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover"
 				>
 					{'Previous'}
 				</button>{' '}
 				<button
 					onClick={() => nextPage()}
 					disabled={!canNextPage}
-					className="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50"
+					className="ml-3 relative inline-flex items-center px-4 py-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover"
 				>
 					{'Next'}
 				</button>
@@ -44,7 +44,7 @@ export default function Pagination({
 							onChange={(e) => {
 								setPageSize(Number(e.target.value));
 							}}
-							className="relative h-[38px] inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50"
+							className="relative h-[38px] inline-flex items-center px-4 py-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover"
 						>
 							{[10, 25, 50, 100, 250].map((pageSize) => (
 								<option key={pageSize} value={pageSize}>
@@ -63,35 +63,35 @@ export default function Pagination({
 								gotoPage(page);
 							}}
 							style={{ width: '60px' }}
-							className="relative hidden md:inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50"
+							className="relative hidden md:inline-flex items-center px-4 py-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover"
 						/>
 					</span>{' '}
 					<div className="flex gap-2">
 						<button
 							onClick={() => gotoPage(0)}
 							disabled={!canPreviousPage}
-							className="relative hidden lg:inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							className="relative hidden lg:inline-flex items-center p-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{'First'}
 						</button>
 						<button
 							onClick={() => previousPage()}
 							disabled={!canPreviousPage}
-							className="relative inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							className="relative inline-flex items-center p-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{'Previous'}
 						</button>
 						<button
 							onClick={() => nextPage()}
 							disabled={!canNextPage}
-							className="relative inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							className="relative inline-flex items-center p-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{'Next'}
 						</button>
 						<button
 							onClick={() => gotoPage(pageCount - 1)}
 							disabled={!canNextPage}
-							className="relative hidden lg:inline-flex items-center p-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
+							className="relative hidden lg:inline-flex items-center p-2 border border-light-line dark:border-dark-line text-sm font-medium rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-light-hover dark:hover:bg-dark-hover disabled:opacity-50 disabled:cursor-not-allowed"
 						>
 							{'Last'}
 						</button>{' '}

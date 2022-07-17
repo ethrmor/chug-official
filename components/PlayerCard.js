@@ -6,7 +6,7 @@ export default function PlayerCard({ id }) {
 		<>
 			<Link href={`/players/${id.player_id}`}>
 				<a>
-					<div className="flex flex-col items-center bg-white dark:bg-[#333333] w-full p-4 rounded-md shadow-md hover:shadow-xl dark:hover:bg-[#2f2f2f]">
+					<div className="flex flex-col items-center bg-white dark:bg-dark-surface w-full p-4 rounded-md shadow-md hover:shadow-xl dark:hover:bg-dark-hover">
 						<div className="relative h-60 w-60">
 							<span
 								style={{ backgroundImage: `url('/logo-${id.owner}.webp')` }}

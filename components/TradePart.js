@@ -17,7 +17,7 @@ export default function TradePart({ owner, piece }) {
 									{player.player ? (
 										<div className="text-xs pl-6 font-light">{`(${player.player}, ${player.position} - ${player.team})`}</div>
 									) : (
-										<span className="text-xs pl-1 text-gray-400">
+										<span className="text-xs pl-1 text-light-text-2 dark:text-dark-text-2">
 											{player.position
 												? ` ${player.position} - ${player.team}`
 												: null}

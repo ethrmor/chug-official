@@ -7,7 +7,7 @@ export default function FilterDropdown({ state, setState, listArray }) {
 		<div className="">
 			<Listbox value={state} onChange={setState}>
 				<div className="relative">
-					<Listbox.Button className="relative inline-flex items-center mr-4 px-4 py-2 border border-gray-300 text-sm font-normal rounded-md text-gray-700 dark:text-white dark:bg-transparent bg-white hover:bg-gray-50">
+					<Listbox.Button className="relative inline-flex items-center mr-4 px-4 py-2 border border-light-line dark:border-dark-line text-sm font-normal rounded-md text-light-text dark:text-white dark:bg-transparent bg-white hover:bg-light-hover">
 						<span className="block truncate text-sm pr-5">{state.name}</span>
 						<span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
 							<SelectorIcon
@@ -22,14 +22,14 @@ export default function FilterDropdown({ state, setState, listArray }) {
 						leaveFrom="opacity-100"
 						leaveTo="opacity-0"
 					>
-						<Listbox.Options className="absolute text-sm max-h-60 mt-1 z-40 overflow-auto rounded-sm bg-white dark:bg-[#333333] shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+						<Listbox.Options className="absolute text-sm max-h-60 mt-1 z-40 overflow-auto rounded-sm bg-white dark:bg-dark-surface shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
 							{listArray.map((person, personIdx) => (
 								<Listbox.Option
 									key={personIdx}
 									className={({ active }) =>
 										`relative cursor-pointer select-none py-2 pl-4 pr-10 ${
 											active
-												? 'bg-red-600 text-white'
+												? 'bg-light-hover text-light-text dark:bg-dark-hover dark:text-dark-text'
 												: 'text-black dark:text-white'
 										}`
 									}

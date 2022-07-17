@@ -6,7 +6,7 @@ export default function OwnerCard({ id }) {
 		<>
 			<Link href={`/owners/${id.id}`}>
 				<a>
-					<div className="flex flex-col items-center bg-white dark:bg-[#333333] w-full p-4 py-8 rounded-md shadow-md hover:shadow-xl dark:hover:bg-[#2f2f2f]">
+					<div className="flex flex-col items-center bg-white dark:bg-dark-surface w-full p-4 py-8 rounded-md shadow-md hover:shadow-xl dark:hover:bg-[#2f2f2f]">
 						<div className="relative h-36 w-36">
 							<Image
 								src={`/logo-${id.slug}.webp`}

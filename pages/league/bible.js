@@ -3,7 +3,7 @@ export default function Bible({ results }) {
 		<>
 			<h1 className="text-2xl mt-2 mb-4">League Bible</h1>
 			<div className="md:grid md:grid-cols-[275px_1fr] md:gap-4 lg:8">
-				<nav className="md:block hidden sticky top-20 self-start bg-white dark:bg-[#333333] rounded-md shadow-md p-4">
+				<nav className="md:block hidden sticky top-20 self-start bg-white dark:bg-dark-surface rounded-md shadow-md p-4">
 					<ul>
 						{results.map((article) => (
 							<li key={article.id} className="py-1 text-sm hover:underline">
@@ -14,7 +14,7 @@ export default function Bible({ results }) {
 						))}
 					</ul>
 				</nav>
-				<div className="bg-white dark:bg-[#333333] rounded-md shadow-md p-4 md:px-12 pt-12">
+				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4 md:px-12 pt-12">
 					{results.map((rule) => (
 						<section
 							key={rule.id}

@@ -27,7 +27,7 @@ export default function MiniBoxScore({
 		<>
 			<Link href={`/schedule/${id}`}>
 				<a className="grid lg:grid-cols-[1fr_40%]">
-					<div className="flex text-sm flex-col justify-center lg:border-r-2 dark:border-[#555555] pr-4">
+					<div className="flex text-sm flex-col justify-center lg:border-r-2 dark:bordertext-light-text-2 dark-text-dark-text-2 pr-4">
 						<div
 							className={`flex justify-between items-center px-4 py-2 ${
 								parseFloat(teamPoints) > parseFloat(opponentPoints)
@@ -91,7 +91,7 @@ export default function MiniBoxScore({
 								<p className="text-sm">
 									<span className="text-sm">{teamShortNames[team]}: </span>
 									<span className="">{teamPlayerName}</span>
-									<span className="opacity-30 text-xs font-semibold">
+									<span className="text-light-text-2 dark-text-dark-text-2 text-xs">
 										{' '}
 										{teamPlayerPosition}
 									</span>
@@ -102,7 +102,7 @@ export default function MiniBoxScore({
 								<p className="text-sm">
 									<span className="text-sm">{teamShortNames[opponent]}: </span>
 									{opponentPlayerName}
-									<span className="opacity-30 text-xs font-semibold">
+									<span className="text-light-text-2 dark-text-dark-text-2 text-xs">
 										{' '}
 										{opponentPlayerPosition}
 									</span>

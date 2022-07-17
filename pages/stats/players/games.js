@@ -58,7 +58,7 @@ function Table({ columns, data }) {
 		<>
 			<div className="wrapper overflow-x-auto p-4">
 				<table
-					className="min-w-full text-sm divide-y divide-gray-200 dark:divide-[#555555]"
+					className="min-w-full text-sm divide-y divide-light-line dark:divide-dark-line"
 					{...getTableProps()}
 				>
 					<thead>
@@ -67,7 +67,7 @@ function Table({ columns, data }) {
 								{headerGroup.headers.map((column, index) => (
 									<th
 										key={index}
-										className="flex items-center justify-center py-2 text-xs font-normal text-gray-400"
+										className="flex items-center justify-center py-2 text-xs font-normal text-light-text-2 dark:text-dark-text-2"
 										{...column.getHeaderProps()}
 									>
 										{column.render('Header')}
@@ -93,7 +93,7 @@ function Table({ columns, data }) {
 							return (
 								<tr
 									key={i}
-									className="py-2 border-b last:border-0 dark:border-gray-600 text-sm hover:bg-gray-200 dark:hover:bg-gray-800"
+									className="py-2 border-b last:border-0 border-light-line dark:border-dark-line text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
 									{...row.getRowProps()}
 								>
 									{row.cells.map((cell, index) => {
@@ -532,7 +532,7 @@ export default function Stats({ results, season, playoffs, probowl }) {
 	return (
 		<div className="flex flex-col">
 			<h1 className="text-2xl mt-2 mb-4">Player Statistics</h1>
-			<div className="bg-white dark:bg-[#333333] rounded-md shadow-md pt-2">
+			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
 				<div className="md:hidden flex pb-4 pt-2 justify-center">
 					<StatsDropdown
 						state={position}
@@ -586,7 +586,7 @@ export default function Stats({ results, season, playoffs, probowl }) {
 					<Tab.Panels className="">
 						{data.map((data, index) => (
 							<Tab.Panel key={index}>
-								<div className="bg-white dark:bg-[#333333] rounded-md shadow-md">
+								<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
 									<Table columns={columns} data={data} />
 								</div>
 							</Tab.Panel>

@@ -1,3 +1,6 @@
+let newDate = new Date();
+export const year = newDate.getFullYear();
+
 export const leagueID = '784462448236363776';
 
 export const teamShortNames = {

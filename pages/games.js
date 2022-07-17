@@ -39,7 +39,7 @@ function Table({ columns, data }) {
 	// Render the UI for your table
 	return (
 		<>
-			<div className="wrapper overflow-x-auto bg-white dark:bg-[#333333] rounded-t-md shadow-md p-4">
+			<div className="wrapper overflow-x-auto bg-white dark:bg-dark-surface rounded-t-md shadow-md p-4">
 				<table
 					{...getTableProps()}
 					className="min-w-full text-sm divide-y divide-gray-200 dark:divide-[#555555]"
