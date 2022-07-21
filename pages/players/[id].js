@@ -15,7 +15,7 @@ export default function Player({ player }) {
 				}}
 				className={`w-full h-[175px] md:h-[225px] lg:h-[275px] bg-no-repeat bg-cover bg-right shadow-md mt-[-1rem]`}
 			></div>
-			<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-dark-surface rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-purple-900">
+			<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-dark-surface rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-light-text-2 dark:border-light-text">
 				{player.years_exp >= 1 ? (
 					<Image
 						src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
@@ -146,8 +146,6 @@ export async function getStaticProps({ params }) {
 			.from('owners')
 			.select('slug, team')
 			.eq('id', roster_id);
-
-		console.log(owner);
 
 		const player = {
 			...playerObj,

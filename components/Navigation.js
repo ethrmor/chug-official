@@ -37,7 +37,7 @@ export default function Navigaton({ owners, league, stats }) {
 						<div className="relative flex items-center justify-between h-16">
 							<div className="absolute inset-y-0 left-0 flex items-center md:hidden">
 								{/* Mobile menu button*/}
-								<Disclosure.Button className="inline-flex p-2 text-white transition bg-dark-surface hover:bg-dark-nav rounded">
+								<Disclosure.Button className="inline-flex p-2 text-white transition bg-dark-surface hover:bg-dark-bg rounded">
 									<span className="sr-only">Open main menu</span>
 									{open ? (
 										<XIcon className="block h-5 w-5" aria-hidden="true" />
@@ -71,7 +71,7 @@ export default function Navigaton({ owners, league, stats }) {
 										<ul className="flex items-center gap-2 text-sm group">
 											<li className="">
 												<Link href="/">
-													<a className="text-white transition hover:bg-dark-nav p-2 rounded-md">
+													<a className="text-white transition hover:bg-dark-bg p-2 rounded-md">
 														Home
 													</a>
 												</Link>
@@ -84,14 +84,14 @@ export default function Navigaton({ owners, league, stats }) {
 											</li>
 											<li>
 												<Link href="/schedule">
-													<a className="text-white transition hover:bg-dark-nav p-2 rounded-md">
+													<a className="text-white transition hover:bg-dark-bg p-2 rounded-md">
 														Schedule
 													</a>
 												</Link>
 											</li>
 											<li>
 												<Link href="/standings">
-													<a className="text-white transition hover:bg-dark-nav p-2 rounded-md">
+													<a className="text-white transition hover:bg-dark-bg p-2 rounded-md">
 														Standings
 													</a>
 												</Link>
@@ -104,7 +104,7 @@ export default function Navigaton({ owners, league, stats }) {
 											</li>
 											<li>
 												<Link href="/news">
-													<a className="text-white transition hover:bg-dark-nav p-2 rounded-md">
+													<a className="text-white transition hover:bg-dark-bg p-2 rounded-md">
 														News
 													</a>
 												</Link>
@@ -116,7 +116,7 @@ export default function Navigaton({ owners, league, stats }) {
 							<div className="absolute inset-y-0 right-0 flex items-center md:static md:inset-auto md:ml-4">
 								<button
 									onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-									className="p-2 text-white transition bg-dark-surface hover:bg-dark-nav rounded"
+									className="p-2 text-white transition bg-dark-surface hover:bg-dark-bg rounded"
 								>
 									<svg
 										xmlns="http://www.w3.org/2000/svg"

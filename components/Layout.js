@@ -55,7 +55,7 @@ export default function Layout({ children }) {
 	return (
 		<div className="flex flex-col min-h-screen">
 			<header
-				className={`bg-dark-bg shadow-md sticky top-0 z-50 ${
+				className={`bg-dark-nav shadow-md sticky top-0 z-50 ${
 					scrolled ? 'shadow-xl' : null
 				}`}
 			>
@@ -68,7 +68,7 @@ export default function Layout({ children }) {
 			<main className="max-w-screen-xl w-full p-4 mx-auto sm:px-6 lg:px-8 flex-grow">
 				{children}
 			</main>
-			<footer className="bg-dark-bg text-light-text py-6">
+			<footer className="bg-dark-nav text-light-text py-6">
 				<div className="max-w-screen-xl p-4 mx-auto sm:px-6 lg:px-8 flex flex-col items-center">
 					<nav>
 						<ul className="flex flex-wrap items-center justify-center gap-2 text-xs group">
