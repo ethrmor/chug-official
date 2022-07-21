@@ -4,6 +4,70 @@ import { supabase } from '@/utils/supabaseClient';
 import Link from 'next/link';
 import Image from 'next/image';
 
+import React from 'react';
+import { useTable, useFlexLayout } from 'react-table';
+import { Tab } from '@headlessui/react';
+
+function Table({ columns, data }) {
+	const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
+		useTable(
+			{
+				columns,
+				data,
+				initialState: { pageIndex: 0, pageSize: 12 },
+			},
+			useFlexLayout
+		);
+
+	// Render the UI for your table
+	return (
+		<>
+			<div className="wrapper overflow-x-auto">
+				<table
+					className="min-w-full text-sm divide-y divide-light-line dark:divide-dark-line"
+					{...getTableProps()}
+				>
+					<thead>
+						{headerGroups.map((headerGroup, index) => (
+							<tr key={index} {...headerGroup.getHeaderGroupProps()}>
+								{headerGroup.headers.map((column, index) => (
+									<th
+										key={index}
+										className="flex items-center justify-center text-xs font-normal text-light-text-2 dark:text-dark-text-2"
+										{...column.getHeaderProps()}
+									>
+										{column.render('Header')}
+									</th>
+								))}
+							</tr>
+						))}
+					</thead>
+					<tbody {...getTableBodyProps()}>
+						{rows.map((row, i) => {
+							prepareRow(row);
+							return (
+								<tr
+									key={i}
+									className="py-2 border-b last:border-0 dark:border-dark-line text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
+									{...row.getRowProps()}
+								>
+									{row.cells.map((cell, index) => {
+										return (
+											<td key={index} {...cell.getCellProps()}>
+												{cell.render('Cell')}
+											</td>
+										);
+									})}
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			</div>
+		</>
+	);
+}
+
 export default function Manager({
 	positionsArray,
 	owner,
@@ -12,14 +76,1571 @@ export default function Manager({
 	seasons,
 	currentSeason,
 }) {
+	const columnsRegular = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">Career</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games',
+				accessor: 'regular_season_games_played',
+				width: 60,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'regular_season_wins',
+				width: 50,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'regular_season_losses',
+				width: 50,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Ties',
+				accessor: 'regular_season_ties',
+				width: 40,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'regular_season_pct',
+				width: 60,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'regular_season_points_for',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'regular_season_points_against',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Spread',
+						accessor: 'regular_season_points_spread',
+						width: 70,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'High',
+						accessor: 'regular_season_game_hi',
+						width: 65,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Low',
+						accessor: 'regular_season_game_lo',
+						width: 65,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Transactions',
+				columns: [
+					{
+						Header: 'Waivers',
+						accessor: 'transactions',
+						width: 60,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Trades',
+						accessor: 'trades',
+						width: 50,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsAdvanced = React.useMemo(
+		() => [
+			{
+				Header: 'APR',
+				accessor: 'apr',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'APR+',
+				accessor: 'apr_plus',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Legacy Score',
+				accessor: 'legacy_score',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Expected',
+				columns: [
+					{
+						Header: 'Wins',
+						accessor: 'expected_wins',
+						width: 80,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Losses',
+						accessor: 'expected_losses',
+						width: 80,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Ties',
+						accessor: 'expected_ties',
+						width: 60,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Pct.',
+						accessor: 'expected_pct',
+						width: 80,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Maximum Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'max_points_for',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Diff.',
+						accessor: 'max_points_diff',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Diff./Game',
+						accessor: 'max_points_diff_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Pct.',
+						accessor: 'max_points_pct',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsPlayoffs = React.useMemo(
+		() => [
+			{
+				Header: 'Appearances',
+				accessor: 'playoff_app',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Byes',
+				accessor: 'playoff_bye',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games Played',
+				accessor: 'playoff_games_played',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'playoff_wins',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'playoff_losses',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'playoff_pct',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'playoff_points_for',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'playoff_points_against',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'playoff_points_spread',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsChampionships = React.useMemo(
+		() => [
+			{
+				Header: 'Games Played',
+				accessor: 'championship_games_played',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'championship_wins',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'championship_losses',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'championship_pct',
+				width: 140,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'championship_points_for',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'championship_points_against',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'championship_points_spread',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsOverall = React.useMemo(
+		() => [
+			{
+				Header: 'Games Played',
+				accessor: 'overall_games_played',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'overall_wins',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'overall_losses',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Ties',
+				accessor: 'overall_ties',
+				width: 90,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'overall_pct',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'overall_points_for',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'overall_points_against',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'overall_points_spread',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsPPG = React.useMemo(
+		() => [
+			{
+				Header: 'Regular Season',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'points_for_season_per_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'points_against_season_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'points_spread_season_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Playoffs',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'points_for_playoff_per_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'points_against_playoff_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'points_spread_playoff_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Championships',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'points_for_championship_per_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'points_against_championship_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'points_spread_championship_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsRegularSeasons = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games',
+				accessor: 'regular_season_games_played',
+				width: 60,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'regular_season_wins',
+				width: 50,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'regular_season_losses',
+				width: 50,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Ties',
+				accessor: 'regular_season_ties',
+				width: 40,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'regular_season_pct',
+				width: 60,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'regular_season_points_for',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'regular_season_points_against',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Spread',
+						accessor: 'regular_season_points_spread',
+						width: 70,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'High',
+						accessor: 'regular_season_game_hi',
+						width: 65,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Low',
+						accessor: 'regular_season_game_lo',
+						width: 65,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Transactions',
+				columns: [
+					{
+						Header: 'Waivers',
+						accessor: 'transactions',
+						width: 60,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Trades',
+						accessor: 'trades',
+						width: 50,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsAdvancedSeasons = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'APR',
+				accessor: 'apr',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'APR+',
+				accessor: 'apr_plus',
+				width: 80,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Legacy Score',
+				accessor: 'legacy_score',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Expected',
+				columns: [
+					{
+						Header: 'Wins',
+						accessor: 'expected_wins',
+						width: 80,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Losses',
+						accessor: 'expected_losses',
+						width: 80,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Ties',
+						accessor: 'expected_ties',
+						width: 60,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Pct.',
+						accessor: 'expected_pct',
+						width: 80,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Maximum Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'max_points_for',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Diff.',
+						accessor: 'max_points_diff',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Diff./Game',
+						accessor: 'max_points_diff_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Pct.',
+						accessor: 'max_points_pct',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsPlayoffsSeasons = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Appearances',
+				accessor: 'playoff_app',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Byes',
+				accessor: 'playoff_bye',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games Played',
+				accessor: 'playoff_games_played',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'playoff_wins',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'playoff_losses',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'playoff_pct',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'playoff_points_for',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'playoff_points_against',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'playoff_points_spread',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsChampionshipsSeasons = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games Played',
+				accessor: 'championship_games_played',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'championship_wins',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'championship_losses',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'championship_pct',
+				width: 140,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'championship_points_for',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'championship_points_against',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'championship_points_spread',
+						width: 160,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsOverallSeasons = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games Played',
+				accessor: 'overall_games_played',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Wins',
+				accessor: 'overall_wins',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Losses',
+				accessor: 'overall_losses',
+				width: 100,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Ties',
+				accessor: 'overall_ties',
+				width: 90,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Pct.',
+				accessor: 'overall_pct',
+				width: 120,
+				sortType: 'basic',
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Points',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'overall_points_for',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'overall_points_against',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'overall_points_spread',
+						width: 150,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">{e.value.toFixed(2)}</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const columnsPPGSeasons = React.useMemo(
+		() => [
+			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 60,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">{e.value}</p>
+					</>
+				),
+			},
+			{
+				Header: 'Regular Season',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'points_for_season_per_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'points_against_season_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'points_spread_season_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Playoffs',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'points_for_playoff_per_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'points_against_playoff_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'points_spread_playoff_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+			{
+				Header: 'Championships',
+				columns: [
+					{
+						Header: 'Points For',
+						accessor: 'points_for_championship_per_game',
+						width: 120,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Against',
+						accessor: 'points_against_championship_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+					{
+						Header: 'Points Spread',
+						accessor: 'points_spread_championship_per_game',
+						width: 100,
+						sortType: 'basic',
+						Cell: (e) => (
+							<>
+								<p className="tabular-nums text-center">
+									{e.value?.toFixed(2)}
+								</p>
+							</>
+						),
+					},
+				],
+			},
+		],
+		[]
+	);
+
+	const data = React.useMemo(() => career, [career]);
+
+	const seasonData = React.useMemo(() => seasons, [seasons]);
+
+	const tabs = [
+		'Regular Season',
+		'Advanced',
+		'Playoffs',
+		'Championships',
+		'Overall',
+		'Game Averages',
+	];
+
+	const cols = [
+		columnsRegular,
+		columnsAdvanced,
+		columnsPlayoffs,
+		columnsChampionships,
+		columnsOverall,
+		columnsPPG,
+	];
+
+	const colsSeasons = [
+		columnsRegularSeasons,
+		columnsAdvancedSeasons,
+		columnsPlayoffsSeasons,
+		columnsChampionshipsSeasons,
+		columnsOverallSeasons,
+		columnsPPGSeasons,
+	];
+
 	return (
-		<>
+		<div>
 			<h1 className="text-2xl mt-2 mb-4">{owner.team}</h1>
 			<div className="grid gap-4 md:grid-cols-[350px_1fr]">
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div className="flex flex-col justify-center items-start py-4 px-4">
-							<div className="relative h-60 w-60 my-4 self-center">
+						<div className="flex flex-col justify-center items-center py-4 px-4">
+							<div className="relative h-60 w-60 my-4">
 								<Image
 									src={`/logo-${owner.slug}.webp`}
 									alt={owner.name}
@@ -28,15 +1649,19 @@ export default function Manager({
 									className="z-0"
 								></Image>
 							</div>
-							<div className="flex flex-col pt-3 pb-3">
-								<p className="py-1">
-									<span className="text-sm">Owner: </span>
-									{owner.name}
-								</p>
-								<p className="py-1">
-									<span className="text-sm">Favorite Team: </span>
-									{owner.favoriteTeam}
-								</p>
+							<div className="flex flex-col items-center pt-3 pb-3">
+								<div className="flex flex-col items-center py-1 ">
+									<p className="text-2xl">{owner.name}</p>
+									<p className="text-sm text-light-text-2 dark:text-dark-text-2">
+										Owner
+									</p>
+								</div>
+								<div className="flex flex-col items-center py-1 ">
+									<p className="text-2xl">{owner.favoriteTeam}</p>
+									<p className="text-sm text-light-text-2 dark:text-dark-text-2">
+										Favorite Team
+									</p>
+								</div>
 							</div>
 							<div className="grid w-full grid-cols-3 place-items-center text-center">
 								<div>
@@ -168,43 +1793,68 @@ export default function Manager({
 							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
 								Career Stats
 							</h2>
-							<div className="flex flex-col gap-2 p-4">
-								<div className="grid grid-cols-8 gap-2">
-									<div>
-										<h3>Games Played</h3>
-										<p className="text-xl">
-											{career[0].regular_season_games_played}
-										</p>
-									</div>
-									<div>
-										<h3>Wins</h3>
-										<p className="text-xl">{career[0].regular_season_wins}</p>
-									</div>
-									<div>
-										<h3>Losses</h3>
-										<p className="text-xl">{career[0].regular_season_losses}</p>
-									</div>
-									<div>
-										<h3>Ties</h3>
-										<p className="text-xl">{career[0].regular_season_ties}</p>
-									</div>
-									<div>
-										<h3>Win Pct.</h3>
-										<p className="text-xl">{career[0].regular_season_pct}</p>
-									</div>
-									<div>
-										<h3>Points For</h3>
-										<p className="text-xl">
-											{career[0].regular_season_points_for}
-										</p>
-									</div>
-									<div>
-										<h3>Points Against</h3>
-										<p className="text-xl">
-											{career[0].regular_season_points_against}
-										</p>
-									</div>
-								</div>
+							<div className="flex flex-col gap-2">
+								<Tab.Group>
+									<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+										{tabs.map((tab, index) => (
+											<Tab
+												style={{ borderColor: owner.primaryColor }}
+												key={index}
+												className={({ selected }) =>
+													selected
+														? 'border-b-2 py-2 px-4 outline-none'
+														: 'text-black/50 dark:text-white/50 py-2 px-4'
+												}
+											>
+												{tab}
+											</Tab>
+										))}
+									</Tab.List>
+									<Tab.Panels className="px-4">
+										{cols.map((col, index) => (
+											<Tab.Panel key={index}>
+												<div className="bg-white dark:bg-dark-surface rounded-md">
+													<Table columns={col} data={data} />
+												</div>
+											</Tab.Panel>
+										))}
+									</Tab.Panels>
+								</Tab.Group>
+							</div>
+						</div>
+					</div>
+					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<div>
+							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+								Season Stats
+							</h2>
+							<div className="flex flex-col gap-2">
+								<Tab.Group>
+									<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+										{tabs.map((tab, index) => (
+											<Tab
+												style={{ borderColor: owner.primaryColor }}
+												key={index}
+												className={({ selected }) =>
+													selected
+														? 'border-b-2 py-2 px-4 outline-none'
+														: 'text-black/50 dark:text-white/50 py-2 px-4'
+												}
+											>
+												{tab}
+											</Tab>
+										))}
+									</Tab.List>
+									<Tab.Panels className="px-4">
+										{colsSeasons.map((col, index) => (
+											<Tab.Panel key={index}>
+												<div className="bg-white dark:bg-dark-surface rounded-md ">
+													<Table columns={col} data={seasonData} />
+												</div>
+											</Tab.Panel>
+										))}
+									</Tab.Panels>
+								</Tab.Group>
 							</div>
 						</div>
 					</div>
@@ -247,7 +1897,7 @@ export default function Manager({
 					</div>
 				</div>
 			</div>
-		</>
+		</div>
 	);
 }
 

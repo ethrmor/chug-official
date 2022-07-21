@@ -68,7 +68,7 @@ export default function singleGame({ results }) {
 					<div className="flex items-center justify-center py-4 md:py-0">
 						<p>VS</p>
 					</div>
-					<div className="flex flex-row-reverse md:flex-row gap-6 justify-between items-center">
+					<div className="flex flex-row-reverse md:flex-row md:gap-6 justify-between items-center">
 						<div>
 							<p
 								className={

@@ -38,7 +38,7 @@ function Table({ columns, data }) {
 								{headerGroup.headers.map((column, index) => (
 									<th
 										key={index}
-										className="flex items-center justify-center py-2 text-xs font-normal text-light-text-2 dark:text-dark-text-2"
+										className="flex items-center justify-center  text-xs font-normal text-light-text-2 dark:text-dark-text-2"
 										{...column.getHeaderProps()}
 									>
 										{column.render('Header')}
@@ -53,7 +53,7 @@ function Table({ columns, data }) {
 							return (
 								<tr
 									key={i}
-									className="py-2 border-b last:border-0 dark:border-dark-line text-sm hover:bg-gray-200 dark:hover:bg-gray-800"
+									className="py-2 border-b last:border-0 dark:border-dark-line text-sm hover:bg-light-hover dark:hover:bg-dark-hover"
 									{...row.getRowProps()}
 								>
 									{row.cells.map((cell, index) => {

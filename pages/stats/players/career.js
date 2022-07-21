@@ -60,7 +60,7 @@ function Table({ columns, data }) {
 								{headerGroup.headers.map((column, index) => (
 									<th
 										key={index}
-										className="flex items-center justify-center py-2 text-xs font-normal text-light-text-2 dark:text-dark-text-2"
+										className="flex items-center justify-center text-xs font-normal text-light-text-2 dark:text-dark-text-2"
 										{...column.getHeaderProps(column.getSortByToggleProps())}
 									>
 										{column.render('Header')}

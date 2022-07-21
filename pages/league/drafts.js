@@ -248,18 +248,6 @@ export default function Stats({ rookie, startup }) {
 				],
 			},
 			{
-				Header: 'Franchise',
-				accessor: 'owner_id.team',
-				width: 220,
-				Cell: (e) => (
-					<>
-						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
-							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
-						</Link>
-					</>
-				),
-			},
-			{
 				Header: 'Player',
 				accessor: 'player',
 				width: 220,
@@ -267,6 +255,18 @@ export default function Stats({ rookie, startup }) {
 					<>
 						<Link href={`/players/${e.row?.original?.player_id.player_id}`}>
 							<a className="pl-2">{e.row?.original?.player}</a>
+						</Link>
+					</>
+				),
+			},
+			{
+				Header: 'Franchise',
+				accessor: 'owner_id.team',
+				width: 220,
+				Cell: (e) => (
+					<>
+						<Link href={`/owners/${e.row?.original?.owner_id.id}`}>
+							<a className="pl-2">{e.row?.original?.owner_id.team}</a>
 						</Link>
 					</>
 				),
