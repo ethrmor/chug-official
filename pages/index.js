@@ -1,9 +1,11 @@
 import { leagueID } from '@/utils/chugLeague';
 import { supabase } from '@/utils/supabaseClient';
+import fs from 'fs';
+import matter from 'gray-matter';
 import Image from 'next/image';
 import Link from 'next/link';
 
-export default function Home({ owners }) {
+export default function Home({ owners, posts }) {
 	return (
 		<>
 			<div className="grid md:grid-cols-[1fr_300px] lg:grid-cols-[250px_1fr_300px] grid-rows-none auto-rows-min gap-4">
@@ -87,10 +89,11 @@ export default function Home({ owners }) {
 					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4">
 						<article className="flex flex-1">
 							<Image
-								src={`/article.jpg`}
+								src={`/${posts[0].frontmatter.socialImage}`}
 								alt={'Article Logo'}
-								width={800}
-								height={467}
+								width={900}
+								height={500}
+								objectFit="cover"
 								className="rounded-md"
 							/>
 						</article>
@@ -122,9 +125,28 @@ export async function getStaticProps() {
 			.lte('id', 12)
 			.order('id', { ascending: true });
 
+		const files = fs.readdirSync('posts');
+		const rawPosts = files.map((fileName) => {
+			const slug = fileName.replace('.md', '');
+			const readFile = fs.readFileSync(`posts/${fileName}`, 'utf-8');
+			const { data: frontmatter } = matter(readFile);
+
+			return {
+				slug,
+				frontmatter,
+			};
+		});
+
+		const posts = rawPosts.sort((a, b) => {
+			return new Date(b.frontmatter.date) - new Date(a.frontmatter.date);
+		});
+
+		console.log(posts);
+
 		return {
 			props: {
 				owners,
+				posts,
 			},
 		};
 	} catch (err) {

@@ -154,20 +154,18 @@ export default function Navigaton({ owners, league, stats }) {
 						leaveFrom="transform opacity-100 scale-100"
 						leaveTo="transform opacity-0 scale-95"
 					>
-						<Disclosure.Panel className="sm:hidden">
+						<Disclosure.Panel className="md:hidden">
 							<div className="px-2 pt-2 pb-3 space-y-1">
 								<div className="flex flex-col mt-6 space-y-1">
 									<Disclosure.Button as={MyLink} href="/">
 										<a className="flex items-center px-4 py-2 text-white rounded-md hover:bg-dark-nav">
-											<span className="ml-3 text-sm font-medium">Home</span>
+											<span className="ml-3 text-sm">Home</span>
 										</a>
 									</Disclosure.Button>
 
 									<details className="group">
 										<summary className="flex items-center px-4 py-2 text-white rounded-lg cursor-pointer hover:bg-dark-nav">
-											<span className="ml-3 text-sm font-medium">
-												Franchises
-											</span>
+											<span className="ml-3 text-sm">Franchises</span>
 
 											<span className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180">
 												<svg
@@ -193,10 +191,7 @@ export default function Navigaton({ owners, league, stats }) {
 													key={owner.id}
 												>
 													<a className="flex items-center px-4 py-2 text-white rounded-md hover:bg-dark-nav">
-														<span className="ml-3 text-sm font-medium">
-															{' '}
-															{owner.name}{' '}
-														</span>
+														<span className="ml-3 text-sm"> {owner.name} </span>
 													</a>
 												</Disclosure.Button>
 											))}
@@ -205,21 +200,19 @@ export default function Navigaton({ owners, league, stats }) {
 
 									<Disclosure.Button as={MyLink} href="/schedule">
 										<a className="flex items-center px-4 py-2 text-white rounded-md hover:bg-dark-nav">
-											<span className="ml-3 text-sm font-medium">Schedule</span>
+											<span className="ml-3 text-sm">Schedule</span>
 										</a>
 									</Disclosure.Button>
 
 									<Disclosure.Button as={MyLink} href="/standings">
 										<a className="flex items-center px-4 py-2 text-white rounded-md hover:bg-dark-nav">
-											<span className="ml-3 text-sm font-medium">
-												Standings
-											</span>
+											<span className="ml-3 text-sm">Standings</span>
 										</a>
 									</Disclosure.Button>
 
 									<details className="group">
 										<summary className="flex items-center px-4 py-2 text-white rounded-lg cursor-pointer hover:bg-dark-nav">
-											<span className="ml-3 text-sm font-medium"> Stats </span>
+											<span className="ml-3 text-sm"> Stats </span>
 
 											<span className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180">
 												<svg
@@ -245,10 +238,7 @@ export default function Navigaton({ owners, league, stats }) {
 													key={owner.id}
 												>
 													<a className="flex items-center px-4 py-2 text-white rounded-md hover:bg-dark-nav">
-														<span className="ml-3 text-sm font-medium">
-															{' '}
-															{owner.name}{' '}
-														</span>
+														<span className="ml-3 text-sm"> {owner.name} </span>
 													</a>
 												</Disclosure.Button>
 											))}
@@ -257,7 +247,7 @@ export default function Navigaton({ owners, league, stats }) {
 
 									<details className="group">
 										<summary className="flex items-center px-4 py-2 text-white rounded-lg cursor-pointer hover:bg-dark-nav">
-											<span className="ml-3 text-sm font-medium"> League </span>
+											<span className="ml-3 text-sm"> League </span>
 
 											<span className="ml-auto transition duration-300 shrink-0 group-open:-rotate-180">
 												<svg
@@ -283,10 +273,7 @@ export default function Navigaton({ owners, league, stats }) {
 													key={owner.id}
 												>
 													<a className="flex items-center px-4 py-2 text-white rounded-md hover:bg-dark-nav">
-														<span className="ml-3 text-sm font-medium">
-															{' '}
-															{owner.name}{' '}
-														</span>
+														<span className="ml-3 text-sm"> {owner.name} </span>
 													</a>
 												</Disclosure.Button>
 											))}

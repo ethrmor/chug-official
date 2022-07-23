@@ -245,9 +245,19 @@ export default function Manager({
 	const columnsAdvanced = React.useMemo(
 		() => [
 			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">Career</p>
+					</>
+				),
+			},
+			{
 				Header: 'APR',
 				accessor: 'apr',
-				width: 80,
+				width: 70,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -258,7 +268,7 @@ export default function Manager({
 			{
 				Header: 'APR+',
 				accessor: 'apr_plus',
-				width: 80,
+				width: 60,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -269,7 +279,7 @@ export default function Manager({
 			{
 				Header: 'Legacy Score',
 				accessor: 'legacy_score',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -283,7 +293,7 @@ export default function Manager({
 					{
 						Header: 'Wins',
 						accessor: 'expected_wins',
-						width: 80,
+						width: 50,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -294,7 +304,7 @@ export default function Manager({
 					{
 						Header: 'Losses',
 						accessor: 'expected_losses',
-						width: 80,
+						width: 50,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -305,7 +315,7 @@ export default function Manager({
 					{
 						Header: 'Ties',
 						accessor: 'expected_ties',
-						width: 60,
+						width: 40,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -316,11 +326,13 @@ export default function Manager({
 					{
 						Header: 'Pct.',
 						accessor: 'expected_pct',
-						width: 80,
+						width: 60,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
-								<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+								<p className="tabular-nums text-center">
+									{e.value.toFixed(3).toString().slice(1)}
+								</p>
 							</>
 						),
 					},
@@ -352,9 +364,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Diff./Game',
+						Header: 'Game Diff',
 						accessor: 'max_points_diff_game',
-						width: 120,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -365,7 +377,7 @@ export default function Manager({
 					{
 						Header: 'Points Pct.',
 						accessor: 'max_points_pct',
-						width: 100,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -382,9 +394,19 @@ export default function Manager({
 	const columnsPlayoffs = React.useMemo(
 		() => [
 			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">Career</p>
+					</>
+				),
+			},
+			{
 				Header: 'Appearances',
 				accessor: 'playoff_app',
-				width: 120,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -395,7 +417,7 @@ export default function Manager({
 			{
 				Header: 'Byes',
 				accessor: 'playoff_bye',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -404,9 +426,9 @@ export default function Manager({
 				),
 			},
 			{
-				Header: 'Games Played',
+				Header: 'Games',
 				accessor: 'playoff_games_played',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -417,7 +439,7 @@ export default function Manager({
 			{
 				Header: 'Wins',
 				accessor: 'playoff_wins',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -428,7 +450,7 @@ export default function Manager({
 			{
 				Header: 'Losses',
 				accessor: 'playoff_losses',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -439,11 +461,13 @@ export default function Manager({
 			{
 				Header: 'Pct.',
 				accessor: 'playoff_pct',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -453,7 +477,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'playoff_points_for',
-						width: 120,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -464,7 +488,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'playoff_points_against',
-						width: 120,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -473,9 +497,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'playoff_points_spread',
-						width: 100,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -492,9 +516,19 @@ export default function Manager({
 	const columnsChampionships = React.useMemo(
 		() => [
 			{
-				Header: 'Games Played',
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">Career</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games',
 				accessor: 'championship_games_played',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -505,7 +539,7 @@ export default function Manager({
 			{
 				Header: 'Wins',
 				accessor: 'championship_wins',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -516,7 +550,7 @@ export default function Manager({
 			{
 				Header: 'Losses',
 				accessor: 'championship_losses',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -527,11 +561,13 @@ export default function Manager({
 			{
 				Header: 'Pct.',
 				accessor: 'championship_pct',
-				width: 140,
+				width: 120,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -541,7 +577,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'championship_points_for',
-						width: 160,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -552,7 +588,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'championship_points_against',
-						width: 160,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -561,9 +597,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'championship_points_spread',
-						width: 160,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -580,9 +616,19 @@ export default function Manager({
 	const columnsOverall = React.useMemo(
 		() => [
 			{
-				Header: 'Games Played',
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">Career</p>
+					</>
+				),
+			},
+			{
+				Header: 'Games',
 				accessor: 'overall_games_played',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -593,7 +639,7 @@ export default function Manager({
 			{
 				Header: 'Wins',
 				accessor: 'overall_wins',
-				width: 100,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -604,17 +650,6 @@ export default function Manager({
 			{
 				Header: 'Losses',
 				accessor: 'overall_losses',
-				width: 100,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Ties',
-				accessor: 'overall_ties',
 				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
@@ -630,7 +665,9 @@ export default function Manager({
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -640,7 +677,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'overall_points_for',
-						width: 150,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -651,7 +688,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'overall_points_against',
-						width: 150,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -660,9 +697,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'overall_points_spread',
-						width: 150,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -679,12 +716,22 @@ export default function Manager({
 	const columnsPPG = React.useMemo(
 		() => [
 			{
+				Header: 'Year',
+				accessor: 'year',
+				width: 45,
+				Cell: (e) => (
+					<>
+						<p className="tabular-nums text-center">Career</p>
+					</>
+				),
+			},
+			{
 				Header: 'Regular Season',
 				columns: [
 					{
 						Header: 'Points For',
 						accessor: 'points_for_season_per_game',
-						width: 120,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -697,7 +744,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'points_against_season_per_game',
-						width: 100,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -708,9 +755,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'points_spread_season_per_game',
-						width: 100,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -728,7 +775,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'points_for_playoff_per_game',
-						width: 120,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -741,7 +788,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'points_against_playoff_per_game',
-						width: 100,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -752,9 +799,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'points_spread_playoff_per_game',
-						width: 100,
+						width: 75,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -772,7 +819,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'points_for_championship_per_game',
-						width: 120,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -785,7 +832,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'points_against_championship_per_game',
-						width: 100,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -796,9 +843,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'points_spread_championship_per_game',
-						width: 100,
+						width: 75,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -985,7 +1032,7 @@ export default function Manager({
 			{
 				Header: 'Year',
 				accessor: 'year',
-				width: 60,
+				width: 45,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -995,7 +1042,7 @@ export default function Manager({
 			{
 				Header: 'APR',
 				accessor: 'apr',
-				width: 80,
+				width: 70,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1006,7 +1053,7 @@ export default function Manager({
 			{
 				Header: 'APR+',
 				accessor: 'apr_plus',
-				width: 80,
+				width: 60,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1017,7 +1064,7 @@ export default function Manager({
 			{
 				Header: 'Legacy Score',
 				accessor: 'legacy_score',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1031,7 +1078,7 @@ export default function Manager({
 					{
 						Header: 'Wins',
 						accessor: 'expected_wins',
-						width: 80,
+						width: 50,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1042,7 +1089,7 @@ export default function Manager({
 					{
 						Header: 'Losses',
 						accessor: 'expected_losses',
-						width: 80,
+						width: 50,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1053,7 +1100,7 @@ export default function Manager({
 					{
 						Header: 'Ties',
 						accessor: 'expected_ties',
-						width: 60,
+						width: 40,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1064,11 +1111,13 @@ export default function Manager({
 					{
 						Header: 'Pct.',
 						accessor: 'expected_pct',
-						width: 80,
+						width: 60,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
-								<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+								<p className="tabular-nums text-center">
+									{e.value.toFixed(3).toString().slice(1)}
+								</p>
 							</>
 						),
 					},
@@ -1100,9 +1149,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Diff./Game',
+						Header: 'Game Diff',
 						accessor: 'max_points_diff_game',
-						width: 120,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1113,7 +1162,7 @@ export default function Manager({
 					{
 						Header: 'Points Pct.',
 						accessor: 'max_points_pct',
-						width: 100,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1132,7 +1181,7 @@ export default function Manager({
 			{
 				Header: 'Year',
 				accessor: 'year',
-				width: 60,
+				width: 45,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -1142,7 +1191,7 @@ export default function Manager({
 			{
 				Header: 'Appearances',
 				accessor: 'playoff_app',
-				width: 120,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1153,7 +1202,7 @@ export default function Manager({
 			{
 				Header: 'Byes',
 				accessor: 'playoff_bye',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1162,9 +1211,9 @@ export default function Manager({
 				),
 			},
 			{
-				Header: 'Games Played',
+				Header: 'Games',
 				accessor: 'playoff_games_played',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1175,7 +1224,7 @@ export default function Manager({
 			{
 				Header: 'Wins',
 				accessor: 'playoff_wins',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1186,7 +1235,7 @@ export default function Manager({
 			{
 				Header: 'Losses',
 				accessor: 'playoff_losses',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1197,11 +1246,13 @@ export default function Manager({
 			{
 				Header: 'Pct.',
 				accessor: 'playoff_pct',
-				width: 100,
+				width: 80,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -1211,7 +1262,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'playoff_points_for',
-						width: 120,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1222,7 +1273,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'playoff_points_against',
-						width: 120,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1231,9 +1282,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'playoff_points_spread',
-						width: 100,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1252,7 +1303,7 @@ export default function Manager({
 			{
 				Header: 'Year',
 				accessor: 'year',
-				width: 60,
+				width: 45,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -1260,9 +1311,9 @@ export default function Manager({
 				),
 			},
 			{
-				Header: 'Games Played',
+				Header: 'Games',
 				accessor: 'championship_games_played',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1273,7 +1324,7 @@ export default function Manager({
 			{
 				Header: 'Wins',
 				accessor: 'championship_wins',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1284,7 +1335,7 @@ export default function Manager({
 			{
 				Header: 'Losses',
 				accessor: 'championship_losses',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1295,11 +1346,13 @@ export default function Manager({
 			{
 				Header: 'Pct.',
 				accessor: 'championship_pct',
-				width: 140,
+				width: 120,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -1309,7 +1362,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'championship_points_for',
-						width: 160,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1320,7 +1373,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'championship_points_against',
-						width: 160,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1329,9 +1382,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'championship_points_spread',
-						width: 160,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1350,7 +1403,7 @@ export default function Manager({
 			{
 				Header: 'Year',
 				accessor: 'year',
-				width: 60,
+				width: 45,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -1358,9 +1411,9 @@ export default function Manager({
 				),
 			},
 			{
-				Header: 'Games Played',
+				Header: 'Games',
 				accessor: 'overall_games_played',
-				width: 120,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1371,7 +1424,7 @@ export default function Manager({
 			{
 				Header: 'Wins',
 				accessor: 'overall_wins',
-				width: 100,
+				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
@@ -1382,17 +1435,6 @@ export default function Manager({
 			{
 				Header: 'Losses',
 				accessor: 'overall_losses',
-				width: 100,
-				sortType: 'basic',
-				Cell: (e) => (
-					<>
-						<p className="tabular-nums text-center">{e.value}</p>
-					</>
-				),
-			},
-			{
-				Header: 'Ties',
-				accessor: 'overall_ties',
 				width: 90,
 				sortType: 'basic',
 				Cell: (e) => (
@@ -1408,7 +1450,9 @@ export default function Manager({
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -1418,7 +1462,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'overall_points_for',
-						width: 150,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1429,7 +1473,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'overall_points_against',
-						width: 150,
+						width: 140,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1438,9 +1482,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'overall_points_spread',
-						width: 150,
+						width: 100,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1459,7 +1503,7 @@ export default function Manager({
 			{
 				Header: 'Year',
 				accessor: 'year',
-				width: 60,
+				width: 45,
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">{e.value}</p>
@@ -1472,7 +1516,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'points_for_season_per_game',
-						width: 120,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1485,7 +1529,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'points_against_season_per_game',
-						width: 100,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1496,9 +1540,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'points_spread_season_per_game',
-						width: 100,
+						width: 80,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1516,7 +1560,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'points_for_playoff_per_game',
-						width: 120,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1529,7 +1573,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'points_against_playoff_per_game',
-						width: 100,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1540,9 +1584,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'points_spread_playoff_per_game',
-						width: 100,
+						width: 75,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1560,7 +1604,7 @@ export default function Manager({
 					{
 						Header: 'Points For',
 						accessor: 'points_for_championship_per_game',
-						width: 120,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1573,7 +1617,7 @@ export default function Manager({
 					{
 						Header: 'Points Against',
 						accessor: 'points_against_championship_per_game',
-						width: 100,
+						width: 90,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1584,9 +1628,9 @@ export default function Manager({
 						),
 					},
 					{
-						Header: 'Points Spread',
+						Header: 'Spread',
 						accessor: 'points_spread_championship_per_game',
-						width: 100,
+						width: 75,
 						sortType: 'basic',
 						Cell: (e) => (
 							<>
@@ -1636,7 +1680,7 @@ export default function Manager({
 	return (
 		<div>
 			<h1 className="text-2xl mt-2 mb-4">{owner.team}</h1>
-			<div className="grid gap-4 md:grid-cols-[350px_1fr]">
+			<div className="grid gap-4 md:grid-cols-[350px_auto]">
 				<div className="flex flex-col gap-4">
 					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
 						<div className="flex flex-col justify-center items-center py-4 px-4">
@@ -1787,7 +1831,7 @@ export default function Manager({
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-col gap-4">
+				<div className="flex flex-col gap-4 min-w-0">
 					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
 						<div>
 							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
@@ -1813,7 +1857,7 @@ export default function Manager({
 									<Tab.Panels className="px-4">
 										{cols.map((col, index) => (
 											<Tab.Panel key={index}>
-												<div className="bg-white dark:bg-dark-surface rounded-md">
+												<div className="bg-white dark:bg-dark-surface rounded-md pt-2 pb-4">
 													<Table columns={col} data={data} />
 												</div>
 											</Tab.Panel>
@@ -1848,7 +1892,7 @@ export default function Manager({
 									<Tab.Panels className="px-4">
 										{colsSeasons.map((col, index) => (
 											<Tab.Panel key={index}>
-												<div className="bg-white dark:bg-dark-surface rounded-md ">
+												<div className="bg-white dark:bg-dark-surface rounded-md pt-2 pb-4">
 													<Table columns={col} data={seasonData} />
 												</div>
 											</Tab.Panel>
@@ -1996,8 +2040,6 @@ export async function getStaticProps({ params }) {
 			.select('*')
 			.eq('owner_id', parseInt(params.slug))
 			.eq('year', year);
-
-		console.log(career);
 
 		return {
 			props: {

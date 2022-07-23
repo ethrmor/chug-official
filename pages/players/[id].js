@@ -119,8 +119,6 @@ export async function getStaticProps({ params }) {
 
 		const playerObj = playerRes[0];
 
-		console.log(playerObj);
-
 		const rosterRes = await fetch(
 			`https://api.sleeper.app/v1/league/${leagueID}/rosters/`
 		);
