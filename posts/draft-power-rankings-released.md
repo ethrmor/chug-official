@@ -2,7 +2,7 @@
 title: 'Draft Power Rankings Released'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'The ASMC released the league-voted power rankings for the startup draft through eight rounds. The Goathouse Alums earned the top spot through eight rounds.'
+desc: 'Goathouse Alums earn the top spot'
 socialImage: news/draft-rankings.jpg
 thumbnailImage: news/draft-rankings.jpg
 date: '2020-06-15'

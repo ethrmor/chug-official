@@ -1,9 +1,9 @@
 ---
-title: "White Panthers' Adams on the move to catch passes from Russell Wilson"
+title: "White Panthers' Adams On The Move"
 author: 'The Commish'
 authorImage: 'ethan'
 metaTitle: "White Panthers' Adams on the move to catch passes from Russell Wilson"
-metaDesc: 'Macdaddys send multiple future assets to White Panthers for WR Adams'
+desc: 'Macdaddys send multiple future assets'
 socialImage: news/wp-adams.jpg
 thumbnailImage: news/wp-adams.jpg
 date: '2021-03-21'

@@ -2,7 +2,7 @@
 title: '2020 Projected Standings'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'The ASMC released the projected standings for the upcoming 2020 season.'
+desc: 'Projected standings for the upcoming 2020 season'
 socialImage: news/2020-projected-standings.jpg
 thumbnailImage: news/2020-projected-standings.jpg
 date: '2020-07-06'

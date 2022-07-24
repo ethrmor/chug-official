@@ -86,29 +86,189 @@ export default function Home({ owners, posts }) {
 					</div>
 				</aside>
 				<section className="flex flex-col gap-4">
-					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4">
-						<article className="flex flex-1">
-							<Image
-								src={`/${posts[0].frontmatter.socialImage}`}
-								alt={'Article Logo'}
-								width={900}
-								height={500}
-								objectFit="cover"
-								className="rounded-md"
-							/>
-						</article>
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4 flex flex-col gap-4">
+						<div className="flex flex-col gap-4">
+							<Link href={`/news/${posts[0].slug}`}>
+								<a className="group cursor-pointer text-white rounded-md hover:shadow-md">
+									<article className="grid grid-cols-1 rounded-md">
+										<div className="relative">
+											<Image
+												src={`/${posts[0].frontmatter.thumbnailImage}`}
+												alt={'Article Logo'}
+												width={900}
+												height={500}
+												objectFit="cover"
+												className="rounded-md group-hover:scale-105 transition group:duraction-300"
+											/>
+											<div className="absolute top-1/2 left-0 right-0 bottom-0 bg-gradient-to-t from-black to-transparent rounded-md">
+												<div className="absolute bottom-0 pb-4 pl-4">
+													<h2 className="text-md sm:text-lg lg:text-2xl group-hover:underline">
+														{posts[0].frontmatter.title}
+													</h2>
+													<p className="text-light-text-2 hidden sm:block sm:text-sm">
+														{posts[0].frontmatter.desc}
+													</p>
+												</div>
+											</div>
+										</div>
+									</article>
+								</a>
+							</Link>
+						</div>
+						<div className="flex flex-col sm:flex-row gap-4">
+							<div className="border dark:border-dark-line rounded-md hover:shadow-md">
+								<Link href={`/news/${posts[1].slug}`}>
+									<a className="cursor-pointer">
+										<article className="grid grid-cols-1 rounded-t-md">
+											<div className="relative">
+												<Image
+													src={`/${posts[1].frontmatter.thumbnailImage}`}
+													alt={'Article Logo'}
+													width={900}
+													height={500}
+													objectFit="cover"
+													className="rounded-t-md"
+												/>
+
+												<div className="p-4">
+													<h2 className="text-md pb-1">
+														{posts[1].frontmatter.title}
+													</h2>
+													<p className="text-light-text-2 hidden sm:block sm:text-sm">
+														{posts[1].frontmatter.desc}
+													</p>
+												</div>
+											</div>
+										</article>
+									</a>
+								</Link>
+							</div>
+							<div className="border dark:border-dark-line rounded-md hover:shadow-md">
+								<Link href={`/news/${posts[2].slug}`}>
+									<a className="cursor-pointer">
+										<article className="grid grid-cols-1 rounded-t-md">
+											<div className="relative">
+												<Image
+													src={`/${posts[2].frontmatter.thumbnailImage}`}
+													alt={'Article Logo'}
+													width={900}
+													height={500}
+													objectFit="cover"
+													className="rounded-t-md"
+												/>
+
+												<div className="p-4">
+													<h2 className="text-md pb-1">
+														{posts[2].frontmatter.title}
+													</h2>
+													<p className="text-light-text-2 hidden sm:block sm:text-sm">
+														{posts[2].frontmatter.desc}
+													</p>
+												</div>
+											</div>
+										</article>
+									</a>
+								</Link>
+							</div>
+						</div>
+						<div className="hidden sm:block border dark:border-dark-line rounded-md hover:shadow-md">
+							<Link href={`/news/${posts[3].slug}`}>
+								<a className="cursor-pointer">
+									<article className="grid grid-cols-3 rounded-l-md">
+										<div className="relative">
+											<Image
+												src={`/${posts[3].frontmatter.thumbnailImage}`}
+												alt={'Article Logo'}
+												width={900}
+												height={500}
+												objectFit="cover"
+												layout="responsive"
+												className="rounded-l-md"
+											/>
+										</div>
+										<div className="col-span-2 p-4">
+											<h2 className="text-md">{posts[3].frontmatter.title}</h2>
+											<p className="text-light-text-2 text-xs">
+												{posts[3].frontmatter.desc}
+											</p>
+										</div>
+									</article>
+								</a>
+							</Link>
+						</div>
+						<div className="hidden sm:block border dark:border-dark-line rounded-md hover:shadow-md">
+							<Link href={`/news/${posts[4].slug}`}>
+								<a className="cursor-pointer">
+									<article className="grid grid-cols-3 rounded-l-md">
+										<div className="relative">
+											<Image
+												src={`/${posts[4].frontmatter.thumbnailImage}`}
+												alt={'Article Logo'}
+												width={900}
+												height={500}
+												objectFit="cover"
+												layout="responsive"
+												className="rounded-l-md"
+											/>
+										</div>
+										<div className="col-span-2 p-4">
+											<h2 className="text-md">{posts[4].frontmatter.title}</h2>
+											<p className="text-light-text-2 text-xs">
+												{posts[4].frontmatter.desc}
+											</p>
+										</div>
+									</article>
+								</a>
+							</Link>
+						</div>
+						<div className="hidden sm:block border dark:border-dark-line rounded-md hover:shadow-md">
+							<Link href={`/news/${posts[5].slug}`}>
+								<a className="cursor-pointer">
+									<article className="grid grid-cols-3 rounded-l-md">
+										<div className="relative">
+											<Image
+												src={`/${posts[5].frontmatter.thumbnailImage}`}
+												alt={'Article Logo'}
+												width={900}
+												height={500}
+												objectFit="cover"
+												layout="responsive"
+												className="rounded-l-md"
+											/>
+										</div>
+										<div className="col-span-2 p-4">
+											<h2 className="text-md">{posts[5].frontmatter.title}</h2>
+											<p className="text-light-text-2 text-xs">
+												{posts[5].frontmatter.desc}
+											</p>
+										</div>
+									</article>
+								</a>
+							</Link>
+						</div>
+					</div>
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+							Latest Headlines
+						</h2>
+						<div className="flex flex-col gap-4 p-4 text-sm">
+							<p>Test</p>
+						</div>
 					</div>
 				</section>
 				<aside className="flex flex-col gap-4">
 					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
 						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-							Headlines
+							Latest Headlines
 						</h2>
-						<div className="flex flex-col gap-2 p-4 text-sm">
-							<h3>Headline 1</h3>
-							<h3>Headline 2</h3>
-							<h3>Headline 3</h3>
-							<h3>Headline 4</h3>
+						<div className="flex flex-col gap-4 p-4 text-sm">
+							{[1, 2, 3, 4, 5, 6, 7].map((title) => (
+								<Link href={`/news/${posts[title].slug}`} key={title}>
+									<a className="cursor-pointer hover:underline">
+										{posts[title].frontmatter.title}
+									</a>
+								</Link>
+							))}
 						</div>
 					</div>
 				</aside>
@@ -140,8 +300,6 @@ export async function getStaticProps() {
 		const posts = rawPosts.sort((a, b) => {
 			return new Date(b.frontmatter.date) - new Date(a.frontmatter.date);
 		});
-
-		console.log(posts);
 
 		return {
 			props: {

@@ -2,7 +2,7 @@
 title: 'Chug Illustrated Vol. 1'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'The ASMC releases the first ever Chug Illustrated magazine.'
+desc: 'The first ever Chug Illustrated magazine'
 thumbnailImage: news/chug-1.jpg
 date: '2020-10-29'
 tags:

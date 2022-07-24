@@ -2,7 +2,7 @@
 title: 'Chug League Debuts New Website'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'Chug League rolls out new hub for all things ASMC'
+desc: 'The new hub for all things ASMC'
 socialImage: news/site.jpg
 thumbnailImage: news/site.jpg
 date: '2022-08-04'

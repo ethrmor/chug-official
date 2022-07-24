@@ -2,7 +2,7 @@
 title: 'Startup Draft Recap & Reactions'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'A detailed wrap up of the 2020 ASMC Startup Draft. Includes a breakdown for each team&apos;s draft.'
+desc: 'A detailed wrap up of the Startup Draft'
 socialImage: news/2020-recap.jpg
 thumbnailImage: news/2020-recap.jpg
 date: '2020-07-13'

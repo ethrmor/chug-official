@@ -2,7 +2,7 @@
 title: 'Updated Draft Power Rankings Released'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'The ASMC released the league-voted power rankings for the startup draft. The Direwolves took over the top spot through sixteen rounds.'
+desc: 'Direwolves take over the top spot'
 socialImage: news/updated-draft-rankings.jpg
 thumbnailImage: news/updated-draft-rankings.jpg
 date: '2020-07-01'

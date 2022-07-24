@@ -2,7 +2,7 @@
 title: '2020 Projected Win Totals'
 author: 'The Commish'
 authorImage: 'ethan'
-desc: 'The ASMC released the projected win totals for the upcoming 2020 season.'
+desc: 'Projected win totals for the upcoming 2020 season'
 socialImage: news/2020-projected-wins.jpg
 thumbnailImage: news/2020-projected-wins.jpg
 date: '2020-07-06'
