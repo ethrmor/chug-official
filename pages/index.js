@@ -569,13 +569,23 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 									key={player.player_id}
 								>
 									<div className="relative h-16 w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-text-2 dark:border-light-text">
-										<Image
-											src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
-											alt="Player Name"
-											layout="fill"
-											objectFit="cover"
-											className="rounded-full"
-										/>
+										{player.player_id ? (
+											<Image
+												src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
+												alt={player.full_name}
+												layout="fill"
+												objectFit="cover"
+												className="rounded-full"
+											></Image>
+										) : (
+											<Image
+												src={`https://sleepercdn.com/images/v2/icons/player_default.webp`}
+												alt={player.full_name}
+												layout="fill"
+												objectFit="cover"
+												className="rounded-full"
+											></Image>
+										)}
 									</div>
 									<div className="flex flex-col">
 										<div>
@@ -635,7 +645,7 @@ export async function getStaticProps() {
 		const { data: playersArray } = await supabase
 			.from('players_seasons_season')
 			.select('player_id, player_name, position, fpg')
-			.match({ year: 2021, rank_ppg_year: 1 });
+			.match({ year: year, rank_ppg_year: 1 });
 
 		const rosterRes = await fetch(
 			`https://api.sleeper.app/v1/league/${leagueID}/rosters/`
@@ -665,25 +675,25 @@ export async function getStaticProps() {
 		);
 
 		const qb = rosters.find((team) =>
-			team.players.includes(quarterbacks.player_id.toString())
+			team?.players?.includes(quarterbacks?.player_id?.toString())
 		);
 		const rb = rosters.find((team) =>
-			team.players.includes(runningbacks.player_id.toString())
+			team?.players?.includes(runningbacks?.player_id?.toString())
 		);
 		const wr = rosters.find((team) =>
-			team.players.includes(widereceivers.player_id.toString())
+			team?.players?.includes(widereceivers?.player_id?.toString())
 		);
 		const te = rosters.find((team) =>
-			team.players.includes(tightends.player_id.toString())
+			team?.players?.includes(tightends?.player_id?.toString())
 		);
 		const dl = rosters.find((team) =>
-			team.players.includes(defensiveliners.player_id.toString())
+			team?.players?.includes(defensiveliners?.player_id?.toString())
 		);
 		const lb = rosters.find((team) =>
-			team.players.includes(linebackers.player_id.toString())
+			team?.players?.includes(linebackers?.player_id?.toString())
 		);
 		const db = rosters.find((team) =>
-			team.players.includes(defensivebackers.player_id.toString())
+			team?.players?.includes(defensivebackers?.player_id?.toString())
 		);
 
 		const qb_id = qb?.roster_id - 1 || 100;
@@ -695,16 +705,40 @@ export async function getStaticProps() {
 		const db_id = db?.roster_id - 1 || 100;
 
 		const players = [
-			{ ...quarterbacks, team: owners[qb_id].team, owner: owners[qb_id].id },
-			{ ...runningbacks, team: owners[rb_id].team, owner: owners[rb_id].id },
-			{ ...widereceivers, team: owners[wr_id].team, owner: owners[wr_id].id },
-			{ ...tightends, team: owners[te_id].team, owner: owners[te_id].id },
-			{ ...defensiveliners, team: owners[dl_id].team, owner: owners[dl_id].id },
-			{ ...linebackers, team: owners[lb_id].team, owner: owners[lb_id].id },
+			{
+				...quarterbacks,
+				team: owners[qb_id]?.team || null,
+				owner: owners[qb_id]?.id || null,
+			},
+			{
+				...runningbacks,
+				team: owners[rb_id]?.team || null,
+				owner: owners[rb_id]?.id || null,
+			},
+			{
+				...widereceivers,
+				team: owners[wr_id]?.team || null,
+				owner: owners[wr_id]?.id || null,
+			},
+			{
+				...tightends,
+				team: owners[te_id]?.team || null,
+				owner: owners[te_id]?.id || null,
+			},
+			{
+				...defensiveliners,
+				team: owners[dl_id]?.team || null,
+				owner: owners[dl_id]?.id || null,
+			},
+			{
+				...linebackers,
+				team: owners[lb_id]?.team || null,
+				owner: owners[lb_id]?.id || null,
+			},
 			{
 				...defensivebackers,
-				team: owners[db_id].team,
-				owner: owners[db_id].id,
+				team: owners[db_id]?.team || null,
+				owner: owners[db_id]?.id || null,
 			},
 		];
 
@@ -723,6 +757,8 @@ export async function getStaticProps() {
 		const posts = rawPosts.sort((a, b) => {
 			return new Date(b.frontmatter.date) - new Date(a.frontmatter.date);
 		});
+
+		console.log(players);
 
 		return {
 			props: {

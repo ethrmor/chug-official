@@ -139,7 +139,9 @@ export default function Manager({
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
@@ -924,7 +926,9 @@ export default function Manager({
 				sortType: 'basic',
 				Cell: (e) => (
 					<>
-						<p className="tabular-nums text-center">{e.value.toFixed(3)}</p>
+						<p className="tabular-nums text-center">
+							{e.value.toFixed(3).toString().slice(1)}
+						</p>
 					</>
 				),
 			},
