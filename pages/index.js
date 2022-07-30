@@ -575,10 +575,10 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 						<div className="flex flex-col gap-4 p-4 pb-2 text-sm">
 							{players.map((player) => (
 								<div
-									className="flex gap-4 items-center border-b last:border-0 border-[#eeeeee] pb-2"
+									className="flex gap-4 items-center border-b last:border-0 border-light-line dark:border-dark-line pb-2"
 									key={player.player_id}
 								>
-									<div className="relative h-16 w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-text-2 dark:border-light-text">
+									<div className="relative h-16 w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-line dark:border-dark-line">
 										{player.player_id ? (
 											<Image
 												src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
