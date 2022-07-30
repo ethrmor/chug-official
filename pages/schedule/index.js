@@ -2,6 +2,7 @@ import { supabase } from '@/utils/supabaseClient';
 import { useState } from 'react';
 import FilterDropdown from '@/components/FilterDropdown';
 import MiniBoxScore from '@/components/MiniBoxScore';
+import { currentWeek } from '@/utils/chugLeague';
 
 const weeks = [
 	{ week: 1, name: 'Week 1' },
@@ -31,7 +32,7 @@ const years = [
 ];
 
 export default function Schedule({ results }) {
-	const [week, setWeek] = useState(weeks[0]);
+	const [week, setWeek] = useState(weeks[currentWeek - 1]);
 	const [year, setYear] = useState(years[0]);
 
 	const filtered = !year

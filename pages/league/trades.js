@@ -7,7 +7,7 @@ import FilterDropdown from '@/components/FilterDropdown';
 
 const owners = [
 	{ owner: '', name: 'All Teams' },
-	{ owner: 'ethan', name: 'Silverbacks' },
+	{ owner: 'ethan', name: 'River City Redbirds' },
 	{ owner: 'jacob', name: 'Slayton Slayerz' },
 	{ owner: 'scott', name: 'Outkasts' },
 	{ owner: 'morgan', name: 'Direwolves' },
@@ -18,7 +18,8 @@ const owners = [
 	{ owner: 'caleb', name: 'Jeff City Leprechauns' },
 	{ owner: 'cameron', name: 'White Panthers' },
 	{ owner: 'shawn', name: '45ers' },
-	{ owner: 'clint', name: 'TBD' },
+	{ owner: 'clint', name: 'Rabbis' },
+	{ owner: 'dan', name: 'Baba Yagas' },
 ];
 
 const years = [

@@ -22,7 +22,7 @@ export default function Layout({ children }) {
 	let year = newDate.getFullYear();
 
 	const ownerLinks = [
-		{ id: '/owners/1', name: 'Silverbacks' },
+		{ id: '/owners/1', name: 'River City Redbirds' },
 		{ id: '/owners/2', name: 'Slayton Slayerz' },
 		{ id: '/owners/3', name: 'Outkasts' },
 		{ id: '/owners/4', name: 'Direwolves' },

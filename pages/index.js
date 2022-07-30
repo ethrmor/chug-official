@@ -1,4 +1,4 @@
-import { leagueID, year } from '@/utils/chugLeague';
+import { leagueID, year, currentWeek } from '@/utils/chugLeague';
 import { supabase } from '@/utils/supabaseClient';
 import React from 'react';
 import { useTable, useFlexLayout } from 'react-table';
@@ -6,7 +6,43 @@ import fs from 'fs';
 import matter from 'gray-matter';
 import Image from 'next/image';
 import Link from 'next/link';
-import { reactStrictMode } from 'next.config';
+import { Tab } from '@headlessui/react';
+
+const weeks = [
+	{ week: 0, name: 'Preseason' },
+	{ week: 1, name: 'Week 1' },
+	{ week: 2, name: 'Week 2' },
+	{ week: 3, name: 'Week 3' },
+	{ week: 4, name: 'Week 4' },
+	{ week: 5, name: 'Week 5' },
+	{ week: 6, name: 'Week 6' },
+	{ week: 7, name: 'Week 7' },
+	{ week: 8, name: 'Week 8' },
+	{ week: 9, name: 'Week 9' },
+	{ week: 10, name: 'Week 10' },
+	{ week: 11, name: 'Week 11' },
+	{ week: 12, name: 'Week 12' },
+	{ week: 13, name: 'Week 13' },
+	{ week: 14, name: 'Week 14' },
+	{ week: 15, name: 'Wildcard' },
+	{ week: 16, name: 'Semis' },
+	{ week: 17, name: 'Chug Cup' },
+	{ week: 18, name: 'Pro Bowl' },
+];
+
+function getWeekArray(week) {
+	if (week === 1) {
+		return [week, week + 1];
+	}
+
+	if (week > 1 && week < 18) {
+		return [week - 1, week, week + 1];
+	}
+
+	if (week === 18) {
+		return [week - 1, week];
+	}
+}
 
 function Table({ columns, data }) {
 	const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
@@ -68,7 +104,7 @@ function Table({ columns, data }) {
 	);
 }
 
-export default function Home({ owners, posts, standings, players }) {
+export default function Home({ owners, posts, standings, players, schedule }) {
 	const columns = React.useMemo(
 		() => [
 			{
@@ -435,15 +471,104 @@ export default function Home({ owners, posts, standings, players }) {
 					</div>
 					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
 						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+							Schedule
+						</h2>
+						<div className="flex flex-col gap-4 pb-2 text-sm">
+							<Tab.Group defaultIndex={currentWeek === 1 ? 0 : 1}>
+								<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+									{getWeekArray(currentWeek).map((tab, index) => (
+										<Tab
+											key={index}
+											className={({ selected }) =>
+												selected
+													? `border-b-2 border-red-600 py-2 px-4 outline-none ${
+															currentWeek - 1 === 0 || currentWeek === 18
+																? 'w-1/2'
+																: 'w-1/3'
+													  }`
+													: `text-black/50 dark:text-white/50 py-2 px-4 ${
+															currentWeek - 1 === 0 || currentWeek === 18
+																? 'w-1/2'
+																: 'w-1/3'
+													  }`
+											}
+										>
+											{weeks[tab].name}
+										</Tab>
+									))}
+								</Tab.List>
+								<Tab.Panels className="">
+									{getWeekArray(currentWeek).map((tab, index) => (
+										<Tab.Panel key={index}>
+											<div className="bg-white dark:bg-dark-surface px-4">
+												{schedule
+													.filter((week) => week.week === tab)
+													.map((game, i) => (
+														<div key={i} className="py-2">
+															<div
+																className={`flex justify-between pb-1 tabular-nums ${
+																	game.owner_points > game.opponent_points
+																		? 'font-bold'
+																		: ''
+																}`}
+															>
+																<div className="flex gap-2">
+																	<Image
+																		src={`/logo-${game.owner_id.slug}.webp`}
+																		alt={game.owner_id.name}
+																		width={20}
+																		height={20}
+																	/>
+																	<Link href={`/owners/${game.owner_id.id}`}>
+																		<a className="hover:underline">
+																			<p>{game.owner_id.team}</p>
+																		</a>
+																	</Link>
+																</div>
+																<p>{game.owner_points.toFixed(2)}</p>
+															</div>
+															<div
+																className={`flex justify-between pb-1 tabular-nums ${
+																	game.owner_points < game.opponent_points
+																		? 'font-bold'
+																		: ''
+																}`}
+															>
+																<div className="flex gap-2">
+																	<Image
+																		src={`/logo-${game.opponent_id.slug}.webp`}
+																		alt={game.opponent_id.name}
+																		width={20}
+																		height={20}
+																	/>
+																	<Link href={`/owners/${game.opponent_id.id}`}>
+																		<a className="hover:underline">
+																			<p>{game.opponent_id.team}</p>
+																		</a>
+																	</Link>
+																</div>
+																<p>{game.opponent_points.toFixed(2)}</p>
+															</div>
+														</div>
+													))}
+											</div>
+										</Tab.Panel>
+									))}
+								</Tab.Panels>
+							</Tab.Group>
+						</div>
+					</div>
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
 							League Leaders
 						</h2>
 						<div className="flex flex-col gap-4 p-4 pb-2 text-sm">
 							{players.map((player) => (
 								<div
 									className="flex gap-4 items-center border-b last:border-0 border-[#eeeeee] pb-2"
-									key={player.id}
+									key={player.player_id}
 								>
-									<div className="relative h-6 w-6 md:h-16 md:w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-text-2 dark:border-light-text">
+									<div className="relative h-16 w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-text-2 dark:border-light-text">
 										<Image
 											src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
 											alt="Player Name"
@@ -452,15 +577,18 @@ export default function Home({ owners, posts, standings, players }) {
 											className="rounded-full"
 										/>
 									</div>
-									<div className="flex flex-col gap-1">
+									<div className="flex flex-col">
 										<div>
 											<Link href={`/players/${player.player_id}`}>
-												<a>
+												<a className="hover:underline">
 													<h4 className="text-base">{player.player_name}</h4>
 												</a>
 											</Link>
 											<p className="text-xs text-light-text-2 dark:text-dark-text-2">
-												{player.team} <span>&bull; {player.position}</span>
+												<Link href={`/owners/${player.owner}`}>
+													<a className="hover:underline">{player.team}</a>
+												</Link>{' '}
+												<span>&bull; {player.position}</span>
 											</p>
 										</div>
 										<p className="text-xl">
@@ -491,6 +619,18 @@ export async function getStaticProps() {
 			.eq('year', year)
 			.order('regular_season_wins', { ascending: false })
 			.order('regular_season_points_for', { ascending: false });
+
+		const { data: schedule } = await supabase
+			.from('game_box_score')
+			.select(
+				'week, owner_id (*), owner_points, opponent_id (*), opponent_points'
+			)
+			.eq('year', year)
+			.or(
+				`week.eq.${currentWeek},week.eq.${currentWeek + 1},week.eq.${
+					currentWeek - 1
+				}`
+			);
 
 		const { data: playersArray } = await supabase
 			.from('players_seasons_season')
@@ -555,13 +695,17 @@ export async function getStaticProps() {
 		const db_id = db?.roster_id - 1 || 100;
 
 		const players = [
-			{ ...quarterbacks, team: owners[qb_id].team },
-			{ ...runningbacks, team: owners[rb_id].team },
-			{ ...widereceivers, team: owners[wr_id].team },
-			{ ...tightends, team: owners[te_id].team },
-			{ ...defensiveliners, team: owners[dl_id].team },
-			{ ...linebackers, team: owners[lb_id].team },
-			{ ...defensivebackers, team: owners[db_id].team },
+			{ ...quarterbacks, team: owners[qb_id].team, owner: owners[qb_id].id },
+			{ ...runningbacks, team: owners[rb_id].team, owner: owners[rb_id].id },
+			{ ...widereceivers, team: owners[wr_id].team, owner: owners[wr_id].id },
+			{ ...tightends, team: owners[te_id].team, owner: owners[te_id].id },
+			{ ...defensiveliners, team: owners[dl_id].team, owner: owners[dl_id].id },
+			{ ...linebackers, team: owners[lb_id].team, owner: owners[lb_id].id },
+			{
+				...defensivebackers,
+				team: owners[db_id].team,
+				owner: owners[db_id].id,
+			},
 		];
 
 		const files = fs.readdirSync('posts');
@@ -586,6 +730,7 @@ export async function getStaticProps() {
 				posts,
 				standings,
 				players,
+				schedule,
 			},
 		};
 	} catch (err) {

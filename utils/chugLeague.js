@@ -1,10 +1,12 @@
-let newDate = new Date();
-export const year = newDate.getFullYear();
+export const currentWeek = 1;
 
 export const leagueID = '784462448236363776';
 
+let newDate = new Date();
+export const year = newDate.getFullYear();
+
 export const teamShortNames = {
-	Silverbacks: 'SIL',
+	'River City Redbirds': 'RC',
 	'Slayton Slayerz': 'SLZ',
 	Outkasts: 'OUT',
 	Direwolves: 'DIR',
@@ -12,7 +14,7 @@ export const teamShortNames = {
 	'Quarantine Cowboys': 'QC',
 	'Kingston Kraken': 'KNG',
 	'Goathouse Alums': 'GHA',
-	'Jeff City Leprechauns': 'JCL',
+	'Jeff City Leprechauns': 'JC',
 	'White Panthers': 'WP',
 	'45ers': '45',
 	Rabbis: 'RAB',
