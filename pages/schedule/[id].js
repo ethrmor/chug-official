@@ -8,11 +8,6 @@ export default function singleGame({ results }) {
 		<>
 			<h1 className="text-2xl mt-2 mb-4">
 				{results.year} - Week {results.week}{' '}
-				<span className="text-sm text-blue-500 hover:underline block pt-2">
-					<Link href="/schedule">
-						<a>Back to Schedule</a>
-					</Link>
-				</span>
 			</h1>
 			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md p-4 flex flex-col gap-10">
 				<div className="grid md:grid-cols-[1fr_6rem_1fr]">
@@ -34,7 +29,9 @@ export default function singleGame({ results }) {
 											: ` - ${results.owner_ties}`}
 										)
 									</span>
-									{results.team_id.team}
+									<Link href={`/owners/${results.team_id.id}`}>
+										<a className="hover:underline">{results.team_id.team}</a>
+									</Link>
 									<span className="text-base lg:pl-1 text-light-text-2 dark:text-dark-text-2 hidden lg:inline-block">
 										({results.owner_wins || '0'} - {results.owner_losses || '0'}
 										{!results.owner_ties || results.owner_ties === 0
@@ -98,7 +95,9 @@ export default function singleGame({ results }) {
 											: ` - ${results.opponent_ties}`}
 										)
 									</span>
-									{results.opp_id.team}
+									<Link href={`/owners/${results.opp_id.id}`}>
+										<a className="hover:underline">{results.opp_id.team}</a>
+									</Link>
 								</h2>
 								<h3 className="text-sm">{results.opp_id.name}</h3>
 							</div>
@@ -113,7 +112,7 @@ export default function singleGame({ results }) {
 					</div>
 				</div>
 				<div>
-					<div className="grid grid-cols-2 border-b-2 pb-2">
+					<div className="grid grid-cols-2 border-b-2 border-light-line dark:border-dark-line pb-2">
 						<p className="">{results.team_id.team}</p>
 						<p className="text-right">{results.opp_id.team}</p>
 					</div>

@@ -22,7 +22,7 @@ const weeks = [
 	{ week: 15, name: 'Wildcard Weekend' },
 	{ week: 16, name: 'Semi Finals' },
 	{ week: 17, name: 'Chug Cup Final' },
-	{ week: 18, name: 'Pro Bowl' },
+	// { week: 18, name: 'Pro Bowl' },
 ];
 
 const years = [
@@ -32,7 +32,8 @@ const years = [
 ];
 
 export default function Schedule({ results }) {
-	const [week, setWeek] = useState(weeks[currentWeek - 1]);
+	// const [week, setWeek] = useState(weeks[currentWeek - 1]);
+	const [week, setWeek] = useState(weeks[0]);
 	const [year, setYear] = useState(years[0]);
 
 	const filtered = !year

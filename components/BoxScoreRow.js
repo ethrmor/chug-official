@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function BoxScoreRow({ results, index, fantasyPos }) {
 	return (
 		<>
-			<div className="grid grid-cols-[1fr_3rem_1fr] md:grid-cols-[1fr_6rem_1fr] border-b-2 py-4 items-center">
+			<div className="grid grid-cols-[1fr_3rem_1fr] md:grid-cols-[1fr_6rem_1fr] border-b-2 border-light-line dark:border-dark-line py-4 items-center">
 				{results.team_players[index]?.player_id ? (
 					<Link href={`/players/${results.team_players[index]?.player_id}`}>
 						<a className="flex justify-between items-center gap-4">
@@ -30,7 +30,9 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 								</div>
 								<div className="lg:ml-4">
 									<p>
-										{results.team_players[index]?.player_name}
+										<span className="hover:underline">
+											{results.team_players[index]?.player_name}
+										</span>
 										<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 											{'  '}
 											{results.team_players[index]?.position}
@@ -483,7 +485,9 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 							</div>
 							<div className="lg:ml-4">
 								<p>
-									{results.team_players[index]?.player_name}
+									<span className="hover:underline">
+										{results.team_players[index]?.player_name}
+									</span>
 									<span className="text-xs text-light-text-2 dark:text-dark-text-2">
 										{'  '}
 										{results.team_players[index]?.position}
@@ -926,7 +930,9 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 											{results.opponent_players[index]?.position}
 											{'  '}
 										</span>
-										{results.opponent_players[index]?.player_name}
+										<span className="hover:underline">
+											{results.opponent_players[index]?.player_name}
+										</span>
 									</p>
 									<p className="text-xs text-light-text-2 dark:text-dark-text-2 text-right">
 										{results.opponent_players[index]?.pass_yards
@@ -1381,7 +1387,9 @@ export default function BoxScoreRow({ results, index, fantasyPos }) {
 										{results.opponent_players[index]?.position}
 										{'  '}
 									</span>
-									{results.opponent_players[index]?.player_name}
+									<span className="hover:underline">
+										{results.opponent_players[index]?.player_name}
+									</span>
 								</p>
 								<p className="text-xs text-light-text-2 dark:text-dark-text-2 text-right">
 									{results.opponent_players[index]?.pass_yards

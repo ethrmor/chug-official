@@ -504,51 +504,61 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 												{schedule
 													.filter((week) => week.week === tab)
 													.map((game, i) => (
-														<div key={i} className="py-2">
-															<div
-																className={`flex justify-between pb-1 tabular-nums ${
-																	game.owner_points > game.opponent_points
-																		? 'font-bold'
-																		: ''
-																}`}
-															>
-																<div className="flex gap-2">
-																	<Image
-																		src={`/logo-${game.owner_id.slug}.webp`}
-																		alt={game.owner_id.name}
-																		width={20}
-																		height={20}
-																	/>
-																	<Link href={`/owners/${game.owner_id.id}`}>
-																		<a className="hover:underline">
-																			<p>{game.owner_id.team}</p>
-																		</a>
-																	</Link>
-																</div>
-																<p>{game.owner_points.toFixed(2)}</p>
-															</div>
-															<div
-																className={`flex justify-between pb-1 tabular-nums ${
-																	game.owner_points < game.opponent_points
-																		? 'font-bold'
-																		: ''
-																}`}
-															>
-																<div className="flex gap-2">
-																	<Image
-																		src={`/logo-${game.opponent_id.slug}.webp`}
-																		alt={game.opponent_id.name}
-																		width={20}
-																		height={20}
-																	/>
-																	<Link href={`/owners/${game.opponent_id.id}`}>
-																		<a className="hover:underline">
-																			<p>{game.opponent_id.team}</p>
-																		</a>
-																	</Link>
-																</div>
-																<p>{game.opponent_points.toFixed(2)}</p>
-															</div>
+														<div key={i}>
+															<Link href={`/schedule/${game.id}`}>
+																<a>
+																	<div className="py-2">
+																		<div
+																			className={`flex justify-between pb-1 tabular-nums ${
+																				game.owner_points > game.opponent_points
+																					? 'font-bold'
+																					: ''
+																			}`}
+																		>
+																			<div className="flex gap-2">
+																				<Image
+																					src={`/logo-${game.owner_id.slug}.webp`}
+																					alt={game.owner_id.name}
+																					width={20}
+																					height={20}
+																				/>
+																				<Link
+																					href={`/owners/${game.owner_id.id}`}
+																				>
+																					<a className="hover:underline">
+																						<p>{game.owner_id.team}</p>
+																					</a>
+																				</Link>
+																			</div>
+																			<p>{game.owner_points.toFixed(2)}</p>
+																		</div>
+																		<div
+																			className={`flex justify-between pb-1 tabular-nums ${
+																				game.owner_points < game.opponent_points
+																					? 'font-bold'
+																					: ''
+																			}`}
+																		>
+																			<div className="flex gap-2">
+																				<Image
+																					src={`/logo-${game.opponent_id.slug}.webp`}
+																					alt={game.opponent_id.name}
+																					width={20}
+																					height={20}
+																				/>
+																				<Link
+																					href={`/owners/${game.opponent_id.id}`}
+																				>
+																					<a className="hover:underline">
+																						<p>{game.opponent_id.team}</p>
+																					</a>
+																				</Link>
+																			</div>
+																			<p>{game.opponent_points.toFixed(2)}</p>
+																		</div>
+																	</div>
+																</a>
+															</Link>
 														</div>
 													))}
 											</div>
@@ -633,7 +643,7 @@ export async function getStaticProps() {
 		const { data: schedule } = await supabase
 			.from('game_box_score')
 			.select(
-				'week, owner_id (*), owner_points, opponent_id (*), opponent_points'
+				'id, week, owner_id (*), owner_points, opponent_id (*), opponent_points'
 			)
 			.eq('year', year)
 			.or(
@@ -757,8 +767,6 @@ export async function getStaticProps() {
 		const posts = rawPosts.sort((a, b) => {
 			return new Date(b.frontmatter.date) - new Date(a.frontmatter.date);
 		});
-
-		console.log(players);
 
 		return {
 			props: {

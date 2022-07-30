@@ -11,7 +11,7 @@ export default function News({ posts }) {
 				{posts.map(({ slug, frontmatter }) => (
 					<div
 						key={slug}
-						className="border border-gray-200 rounded-md shadow-md overflow-hidden flex flex-col"
+						className="dark:bg-dark-surface dark:hover:bg-dark-hover hover:shadow-xl rounded-md shadow-md overflow-hidden flex flex-col"
 					>
 						<Link href={`/news/${slug}`}>
 							<a>

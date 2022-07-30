@@ -20,7 +20,7 @@ export default function NavDropdown({ buttonName, listArray }) {
 		<div className="">
 			<Menu as="div" className="relative inline-block text-left">
 				<>
-					<Menu.Button className="inline-flex w-full justify-center rounded-md p-2 font-medium text-dark-text hover:bg-dark-bg focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+					<Menu.Button className="inline-flex w-full justify-center rounded-md p-2 text-dark-text hover:bg-dark-bg focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
 						{buttonName}
 						<ChevronDownIcon
 							className="ml-2 -mr-1 h-5 w-5 text-white"

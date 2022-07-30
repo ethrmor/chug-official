@@ -1713,19 +1713,19 @@ export default function Manager({
 							</div>
 							<div className="grid w-full grid-cols-3 place-items-center text-center">
 								<div>
-									<h3 className="text-2xl">{career[0].regular_season_wins}</h3>
+									<h3 className="text-2xl">{career[0]?.regular_season_wins}</h3>
 									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
 										Career Wins
 									</p>
 								</div>
 								<div>
-									<h3 className="text-2xl">{career[0].apr}</h3>
+									<h3 className="text-2xl">{career[0]?.apr}</h3>
 									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
 										Career APR
 									</p>
 								</div>
 								<div>
-									<h3 className="text-2xl">{career[0].legacy_score}</h3>
+									<h3 className="text-2xl">{career[0]?.legacy_score}</h3>
 									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
 										Legacy Score
 									</p>
@@ -1741,48 +1741,50 @@ export default function Manager({
 							<div className="flex flex-col gap-2 p-4">
 								<div className="flex text-sm items-start justify-between">
 									<p>Games Played</p>
-									<p className="text-xl">
-										{currentSeason[0].regular_season_games_played}
+									<p className="text-xl tabular-nums">
+										{currentSeason[0]?.regular_season_games_played}
 									</p>
 								</div>
 								<div className="flex text-sm items-start justify-between">
 									<p>Wins</p>
-									<p className="text-xl">
-										{currentSeason[0].regular_season_wins}
+									<p className="text-xl tabular-nums">
+										{currentSeason[0]?.regular_season_wins}
 									</p>
 								</div>
 								<div className="flex text-sm items-start justify-between">
 									<p>Losses</p>
-									<p className="text-xl">
-										{currentSeason[0].regular_season_losses}
+									<p className="text-xl tabular-nums">
+										{currentSeason[0]?.regular_season_losses}
 									</p>
 								</div>
-								{currentSeason[0].regular_season_ties !== 0 && (
+								{currentSeason[0]?.regular_season_ties !== 0 && (
 									<div className="flex text-sm items-start justify-between">
 										<p>Ties</p>
-										<p className="text-xl">
-											{currentSeason[0].regular_season_games_played}
+										<p className="text-xl tabular-nums">
+											{currentSeason[0]?.regular_season_games_played}
 										</p>
 									</div>
 								)}
 
 								<div className="flex text-sm items-start justify-between">
 									<p>Win Pct.</p>
-									<p className="text-xl">
-										{currentSeason[0].regular_season_pct.toString().slice(1) ||
+									<p className="text-xl tabular-nums">
+										{currentSeason[0]?.regular_season_pct.toString().slice(1) ||
 											'.000'}
 									</p>
 								</div>
 								<div className="flex text-sm items-start justify-between">
 									<p>Points For</p>
-									<p className="text-xl">
-										{currentSeason[0].regular_season_points_for?.toFixed(2)}
+									<p className="text-xl tabular-nums">
+										{currentSeason[0]?.regular_season_points_for?.toFixed(2)}
 									</p>
 								</div>
 								<div className="flex text-sm items-start justify-between">
 									<p>Points Against</p>
-									<p className="text-xl">
-										{currentSeason[0].regular_season_points_against?.toFixed(2)}
+									<p className="text-xl tabular-nums">
+										{currentSeason[0]?.regular_season_points_against?.toFixed(
+											2
+										)}
 									</p>
 								</div>
 							</div>
