@@ -481,7 +481,7 @@ export default function Stats({ career, season, playoff, probowl }) {
 
 	return (
 		<div className="flex flex-col">
-			<h1 className="text-2xl mt-2 mb-4">Players Statistics</h1>
+			<h1 className="text-2xl mt-2 mb-4">Player Statistics</h1>
 			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
 				<div className="md:hidden flex pb-4 pt-2 justify-center">
 					<StatsDropdown

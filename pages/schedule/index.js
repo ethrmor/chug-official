@@ -32,8 +32,7 @@ const years = [
 ];
 
 export default function Schedule({ results }) {
-	// const [week, setWeek] = useState(weeks[currentWeek - 1]);
-	const [week, setWeek] = useState(weeks[0]);
+	const [week, setWeek] = useState(weeks[currentWeek - 1]);
 	const [year, setYear] = useState(years[0]);
 
 	const filtered = !year

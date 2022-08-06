@@ -573,50 +573,51 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 							League Leaders
 						</h2>
 						<div className="flex flex-col gap-4 p-4 pb-2 text-sm">
-							{players.map((player) => (
-								<div
-									className="flex gap-4 items-center border-b last:border-0 border-light-line dark:border-dark-line pb-2"
-									key={player.player_id}
-								>
-									<div className="relative h-16 w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-line dark:border-dark-line">
-										{player.player_id ? (
-											<Image
-												src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
-												alt={player.full_name}
-												layout="fill"
-												objectFit="cover"
-												className="rounded-full"
-											></Image>
-										) : (
-											<Image
-												src={`https://sleepercdn.com/images/v2/icons/player_default.webp`}
-												alt={player.full_name}
-												layout="fill"
-												objectFit="cover"
-												className="rounded-full"
-											></Image>
-										)}
-									</div>
-									<div className="flex flex-col">
-										<div>
-											<Link href={`/players/${player.player_id}`}>
-												<a className="hover:underline">
-													<h4 className="text-base">{player.player_name}</h4>
-												</a>
-											</Link>
-											<p className="text-xs text-light-text-2 dark:text-dark-text-2">
-												<Link href={`/owners/${player.owner}`}>
-													<a className="hover:underline">{player.team}</a>
-												</Link>{' '}
-												<span>&bull; {player.position}</span>
+							{players[0].player_id &&
+								players.map((player) => (
+									<div
+										className="flex gap-4 items-center border-b last:border-0 border-light-line dark:border-dark-line pb-2"
+										key={player.player_id}
+									>
+										<div className="relative h-16 w-16 bg-white dark:bg-dark-surface rounded-full border-2 border-light-line dark:border-dark-line">
+											{player.player_id ? (
+												<Image
+													src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
+													alt={player.full_name}
+													layout="fill"
+													objectFit="cover"
+													className="rounded-full"
+												></Image>
+											) : (
+												<Image
+													src={`https://sleepercdn.com/images/v2/icons/player_default.webp`}
+													alt={player.full_name}
+													layout="fill"
+													objectFit="cover"
+													className="rounded-full"
+												></Image>
+											)}
+										</div>
+										<div className="flex flex-col">
+											<div>
+												<Link href={`/players/${player.player_id}`}>
+													<a className="hover:underline">
+														<h4 className="text-base">{player.player_name}</h4>
+													</a>
+												</Link>
+												<p className="text-xs text-light-text-2 dark:text-dark-text-2">
+													<Link href={`/owners/${player.owner}`}>
+														<a className="hover:underline">{player.team}</a>
+													</Link>{' '}
+													<span>&bull; {player.position}</span>
+												</p>
+											</div>
+											<p className="text-xl">
+												{player.fpg} <span className="text-xs">PPG</span>
 											</p>
 										</div>
-										<p className="text-xl">
-											{player.fpg} <span className="text-xs">PPG</span>
-										</p>
 									</div>
-								</div>
-							))}
+								))}
 						</div>
 					</div>
 				</aside>

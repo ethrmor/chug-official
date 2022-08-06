@@ -1,9 +1,9 @@
-export const currentWeek = 17;
+export const currentWeek = 1;
 
 export const leagueID = '784462448236363776';
 
 let newDate = new Date();
-export const year = newDate.getFullYear() - 1;
+export const year = newDate.getFullYear();
 
 export const teamShortNames = {
 	'River City Redbirds': 'RC',
