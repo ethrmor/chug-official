@@ -1,10 +1,19 @@
 import Link from 'next/link';
 import OwnerCard from '@/components/OwnerCard';
 import { supabase } from '@/utils/supabaseClient';
+import Head from 'next/head';
 
 export default function Owners({ results }) {
 	return (
 		<>
+			<Head>
+				<title>Owners | Chug League</title>
+				<meta
+					property="og:title"
+					content={`Owners | Chug League`}
+					key="title"
+				/>
+			</Head>
 			<div>
 				<h1 className="text-2xl mt-2 mb-4">Owners</h1>
 			</div>

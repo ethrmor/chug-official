@@ -7,6 +7,7 @@ import { Tab } from '@headlessui/react';
 import { supabase } from '@/utils/supabaseClient';
 import Pagination from '@/components/Pagination';
 import StatsDropdown from '@/components/StatsDropdown';
+import Head from 'next/head';
 
 const years = [
 	{ year: '', name: 'All Years' },
@@ -990,51 +991,61 @@ export default function Stats({ results }) {
 	];
 
 	return (
-		<div className="flex flex-col">
-			<h1 className="text-2xl mt-2 mb-4">Owner Statistics</h1>
-			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
-				<div className="flex justify-between text-md border-b border-[#e5e5e5] dark:border-[#444444]">
-					<div className="flex ">
-						<Link href="/stats/owners/career">
-							<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
-								Career
-							</a>
-						</Link>
-						<Link href="/stats/owners/seasons">
-							<a className="border-b-2 border-red-600 pb-3 pt-2 px-4 outline-none">
-								Seasons
-							</a>
-						</Link>
+		<>
+			<Head>
+				<title>Owner Seasons Statistics | Chug League</title>
+				<meta
+					property="og:title"
+					content={`Owner Seasons Statistics | Chug League`}
+					key="title"
+				/>
+			</Head>
+			<div className="flex flex-col">
+				<h1 className="text-2xl mt-2 mb-4">Owner Statistics</h1>
+				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
+					<div className="flex justify-between text-md border-b border-[#e5e5e5] dark:border-[#444444]">
+						<div className="flex ">
+							<Link href="/stats/owners/career">
+								<a className="text-black/50 dark:text-white/50 pb-3 pt-2 px-4">
+									Career
+								</a>
+							</Link>
+							<Link href="/stats/owners/seasons">
+								<a className="border-b-2 border-red-600 pb-3 pt-2 px-4 outline-none">
+									Seasons
+								</a>
+							</Link>
+						</div>
+						<StatsDropdown state={year} setState={setYear} listArray={years} />
 					</div>
-					<StatsDropdown state={year} setState={setYear} listArray={years} />
+					<Tab.Group>
+						<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+							{tabs.map((tab, index) => (
+								<Tab
+									key={index}
+									className={({ selected }) =>
+										selected
+											? 'border-b-2 border-red-600 py-2 px-4 outline-none'
+											: 'text-black/50 dark:text-white/50 py-2 px-4'
+									}
+								>
+									{tab}
+								</Tab>
+							))}
+						</Tab.List>
+						<Tab.Panels className="">
+							{cols.map((col, index) => (
+								<Tab.Panel key={index}>
+									<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+										<Table columns={col} data={data} />
+									</div>
+								</Tab.Panel>
+							))}
+						</Tab.Panels>
+					</Tab.Group>
 				</div>
-				<Tab.Group>
-					<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
-						{tabs.map((tab, index) => (
-							<Tab
-								key={index}
-								className={({ selected }) =>
-									selected
-										? 'border-b-2 border-red-600 py-2 px-4 outline-none'
-										: 'text-black/50 dark:text-white/50 py-2 px-4'
-								}
-							>
-								{tab}
-							</Tab>
-						))}
-					</Tab.List>
-					<Tab.Panels className="">
-						{cols.map((col, index) => (
-							<Tab.Panel key={index}>
-								<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-									<Table columns={col} data={data} />
-								</div>
-							</Tab.Panel>
-						))}
-					</Tab.Panels>
-				</Tab.Group>
 			</div>
-		</div>
+		</>
 	);
 }
 

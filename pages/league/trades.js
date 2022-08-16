@@ -4,6 +4,7 @@ import { supabase } from '@/utils/supabaseClient';
 
 import TradePart from '@/components/TradePart';
 import FilterDropdown from '@/components/FilterDropdown';
+import Head from 'next/head';
 
 const owners = [
 	{ owner: '', name: 'All Teams' },
@@ -45,6 +46,14 @@ export default function Trades({ results }) {
 
 	return (
 		<div>
+			<Head>
+				<title>Trades | Chug League</title>
+				<meta
+					property="og:title"
+					content={`Trades | Chug League`}
+					key="title"
+				/>
+			</Head>
 			<h1 className="text-2xl mt-2 mb-4">Trades</h1>
 			<div className="grid md:grid-cols-[300px_1fr] gap-6 text-xs">
 				<div className="flex flex-col gap-4 sticky top-[3.9rem] opacity-1 md:top-20 self-start z-40 py-4 md:py-0 bg-light-bg dark:bg-dark-bg">

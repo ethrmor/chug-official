@@ -1,6 +1,12 @@
+import Head from 'next/head';
+
 export default function Bible({ results }) {
 	return (
 		<>
+			<Head>
+				<title>Bible | Chug League</title>
+				<meta property="og:title" content={`Bible | Chug League`} key="title" />
+			</Head>
 			<h1 className="text-2xl mt-2 mb-4">League Bible</h1>
 			<div className="md:grid md:grid-cols-[275px_1fr] md:gap-4 lg:8">
 				<nav className="md:block hidden sticky top-20 self-start bg-white dark:bg-dark-surface rounded-md shadow-md p-4">

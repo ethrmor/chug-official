@@ -3,6 +3,7 @@ import { useState } from 'react';
 import FilterDropdown from '@/components/FilterDropdown';
 import MiniBoxScore from '@/components/MiniBoxScore';
 import { currentWeek } from '@/utils/chugLeague';
+import Head from 'next/head';
 
 const weeks = [
 	{ week: 1, name: 'Week 1' },
@@ -41,6 +42,14 @@ export default function Schedule({ results }) {
 
 	return (
 		<>
+			<Head>
+				<title>Schedule | Chug League</title>
+				<meta
+					property="og:title"
+					content={`Schedule | Chug League`}
+					key="title"
+				/>
+			</Head>
 			<h1 className="text-2xl mt-2 mb-4">Schedule</h1>
 			<div className="grid md:grid-cols-[300px_1fr] gap-6 text-sm">
 				<div className="flex flex-col gap-4 sticky top-[3.9rem] opacity-1 md:top-20 self-start z-40 py-4 md:py-0 bg-light-bg dark:bg-dark-bg">

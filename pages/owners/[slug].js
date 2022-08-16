@@ -7,6 +7,7 @@ import Image from 'next/image';
 import React from 'react';
 import { useTable, useFlexLayout } from 'react-table';
 import { Tab } from '@headlessui/react';
+import Head from 'next/head';
 
 function Table({ columns, data }) {
 	const { getTableProps, getTableBodyProps, headerGroups, prepareRow, rows } =
@@ -1682,272 +1683,285 @@ export default function Manager({
 	];
 
 	return (
-		<div>
-			<h1 className="text-2xl mt-2 mb-4">{owner.team}</h1>
-			<div className="grid gap-4 md:grid-cols-[350px_auto]">
-				<div className="flex flex-col gap-4">
-					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div className="flex flex-col justify-center items-center py-4 px-4">
-							<div className="relative h-60 w-60 my-4">
-								<Image
-									src={`/logo-${owner.slug}.webp`}
-									alt={owner.name}
-									layout="fill"
-									objectFit="cover"
-									className="z-0"
-								></Image>
-							</div>
-							<div className="flex flex-col items-center pt-3 pb-3">
-								<div className="flex flex-col items-center py-1 ">
-									<p className="text-2xl">{owner.name}</p>
-									<p className="text-sm text-light-text-2 dark:text-dark-text-2">
-										Owner
-									</p>
+		<>
+			<Head>
+				<title>{owner.name} | Chug League</title>
+				<meta
+					property="og:title"
+					content={`${owner.name} | Chug League`}
+					key="title"
+				/>
+			</Head>
+			<div>
+				<h1 className="text-2xl mt-2 mb-4">{owner.team}</h1>
+				<div className="grid gap-4 md:grid-cols-[350px_auto]">
+					<div className="flex flex-col gap-4">
+						<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
+							<div className="flex flex-col justify-center items-center py-4 px-4">
+								<div className="relative h-60 w-60 my-4">
+									<Image
+										src={`/logo-${owner.slug}.webp`}
+										alt={owner.name}
+										layout="fill"
+										objectFit="cover"
+										className="z-0"
+									></Image>
 								</div>
-								<div className="flex flex-col items-center py-1 ">
-									<p className="text-2xl">{owner.favoriteTeam}</p>
-									<p className="text-sm text-light-text-2 dark:text-dark-text-2">
-										Favorite Team
-									</p>
+								<div className="flex flex-col items-center pt-3 pb-3">
+									<div className="flex flex-col items-center py-1 ">
+										<p className="text-2xl">{owner.name}</p>
+										<p className="text-sm text-light-text-2 dark:text-dark-text-2">
+											Owner
+										</p>
+									</div>
+									<div className="flex flex-col items-center py-1 ">
+										<p className="text-2xl">{owner.favoriteTeam}</p>
+										<p className="text-sm text-light-text-2 dark:text-dark-text-2">
+											Favorite Team
+										</p>
+									</div>
 								</div>
-							</div>
-							<div className="grid w-full grid-cols-3 place-items-center text-center">
-								<div>
-									<h3 className="text-2xl">{career[0]?.regular_season_wins}</h3>
-									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
-										Career Wins
-									</p>
-								</div>
-								<div>
-									<h3 className="text-2xl">{career[0]?.apr}</h3>
-									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
-										Career APR
-									</p>
-								</div>
-								<div>
-									<h3 className="text-2xl">{career[0]?.legacy_score}</h3>
-									<p className="text-xs text-light-text-2 dark:text-dark-text-2">
-										Legacy Score
-									</p>
+								<div className="grid w-full grid-cols-3 place-items-center text-center">
+									<div>
+										<h3 className="text-2xl">
+											{career[0]?.regular_season_wins}
+										</h3>
+										<p className="text-xs text-light-text-2 dark:text-dark-text-2">
+											Career Wins
+										</p>
+									</div>
+									<div>
+										<h3 className="text-2xl">{career[0]?.apr}</h3>
+										<p className="text-xs text-light-text-2 dark:text-dark-text-2">
+											Career APR
+										</p>
+									</div>
+									<div>
+										<h3 className="text-2xl">{career[0]?.legacy_score}</h3>
+										<p className="text-xs text-light-text-2 dark:text-dark-text-2">
+											Legacy Score
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="flex flex-col gap-2 bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div>
-							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-								{year} Quick Look
-							</h2>
-							<div className="flex flex-col gap-2 p-4">
-								<div className="flex text-sm items-start justify-between">
-									<p>Games Played</p>
-									<p className="text-xl tabular-nums">
-										{currentSeason[0]?.regular_season_games_played}
-									</p>
-								</div>
-								<div className="flex text-sm items-start justify-between">
-									<p>Wins</p>
-									<p className="text-xl tabular-nums">
-										{currentSeason[0]?.regular_season_wins}
-									</p>
-								</div>
-								<div className="flex text-sm items-start justify-between">
-									<p>Losses</p>
-									<p className="text-xl tabular-nums">
-										{currentSeason[0]?.regular_season_losses}
-									</p>
-								</div>
-								{currentSeason[0]?.regular_season_ties !== 0 && (
+						<div className="flex flex-col gap-2 bg-white dark:bg-dark-surface rounded-md shadow-md">
+							<div>
+								<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+									{year} Quick Look
+								</h2>
+								<div className="flex flex-col gap-2 p-4">
 									<div className="flex text-sm items-start justify-between">
-										<p>Ties</p>
+										<p>Games Played</p>
 										<p className="text-xl tabular-nums">
 											{currentSeason[0]?.regular_season_games_played}
 										</p>
 									</div>
-								)}
+									<div className="flex text-sm items-start justify-between">
+										<p>Wins</p>
+										<p className="text-xl tabular-nums">
+											{currentSeason[0]?.regular_season_wins}
+										</p>
+									</div>
+									<div className="flex text-sm items-start justify-between">
+										<p>Losses</p>
+										<p className="text-xl tabular-nums">
+											{currentSeason[0]?.regular_season_losses}
+										</p>
+									</div>
+									{currentSeason[0]?.regular_season_ties !== 0 && (
+										<div className="flex text-sm items-start justify-between">
+											<p>Ties</p>
+											<p className="text-xl tabular-nums">
+												{currentSeason[0]?.regular_season_games_played}
+											</p>
+										</div>
+									)}
 
-								<div className="flex text-sm items-start justify-between">
-									<p>Win Pct.</p>
-									<p className="text-xl tabular-nums">
-										{currentSeason[0]?.regular_season_pct.toString().slice(1) ||
-											'.000'}
-									</p>
-								</div>
-								<div className="flex text-sm items-start justify-between">
-									<p>Points For</p>
-									<p className="text-xl tabular-nums">
-										{currentSeason[0]?.regular_season_points_for?.toFixed(2)}
-									</p>
-								</div>
-								<div className="flex text-sm items-start justify-between">
-									<p>Points Against</p>
-									<p className="text-xl tabular-nums">
-										{currentSeason[0]?.regular_season_points_against?.toFixed(
-											2
-										)}
-									</p>
+									<div className="flex text-sm items-start justify-between">
+										<p>Win Pct.</p>
+										<p className="text-xl tabular-nums">
+											{currentSeason[0]?.regular_season_pct
+												.toString()
+												.slice(1) || '.000'}
+										</p>
+									</div>
+									<div className="flex text-sm items-start justify-between">
+										<p>Points For</p>
+										<p className="text-xl tabular-nums">
+											{currentSeason[0]?.regular_season_points_for?.toFixed(2)}
+										</p>
+									</div>
+									<div className="flex text-sm items-start justify-between">
+										<p>Points Against</p>
+										<p className="text-xl tabular-nums">
+											{currentSeason[0]?.regular_season_points_against?.toFixed(
+												2
+											)}
+										</p>
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
-					<div className="flex flex-col gap-2 bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div>
-							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-								{year} Schedule
-							</h2>
-							<div className="flex flex-col gap-2 py-4 px-2">
-								{schedule.map((game, index) => (
-									<Link
-										href={`/schedule/${game.game_id}`}
-										className="flex flex-col gap-2"
-										key={index}
-									>
-										<a className="text-sm  px-2 hover:bg-light-hover hover:dark:bg-dark-hover round-md">
-											<span className="text-xs text-light-text-2 dark:text-dark-text-2">
-												Week {game.week}
-											</span>
-											<div className="flex justify-between">
-												<span className="">vs {game.opponent_id.team}</span>
-												<span>
-													<span
-														className={
-															game.team_points > game.opponent_points
-																? `text-light-text dark:text-dark-text tabular-nums text-right`
-																: `text-light-text-2 dark:text-dark-text-2 tabular-nums text-right`
-														}
-													>
-														{game.team_points?.toFixed(2) || '0.00'}
-													</span>
-													{' - '}
-													<span
-														className={
-															game.team_points < game.opponent_points
-																? `text-light-text dark:text-dark-text tabular-nums text-right`
-																: `text-light-text-2 dark:text-dark-text-2 tabular-nums text-right`
-														}
-													>
-														{game.opponent_points?.toFixed(2) || '0.00'}
-													</span>
+						<div className="flex flex-col gap-2 bg-white dark:bg-dark-surface rounded-md shadow-md">
+							<div>
+								<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+									{year} Schedule
+								</h2>
+								<div className="flex flex-col gap-2 py-4 px-2">
+									{schedule.map((game, index) => (
+										<Link
+											href={`/schedule/${game.game_id}`}
+											className="flex flex-col gap-2"
+											key={index}
+										>
+											<a className="text-sm  px-2 hover:bg-light-hover hover:dark:bg-dark-hover round-md">
+												<span className="text-xs text-light-text-2 dark:text-dark-text-2">
+													Week {game.week}
 												</span>
-											</div>
-										</a>
-									</Link>
-								))}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="flex flex-col gap-4 min-w-0">
-					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div>
-							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-								Career Stats
-							</h2>
-							<div className="flex flex-col gap-2">
-								<Tab.Group>
-									<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
-										{tabs.map((tab, index) => (
-											<Tab
-												style={{ borderColor: owner.primaryColor }}
-												key={index}
-												className={({ selected }) =>
-													selected
-														? 'border-b-2 py-2 px-4 outline-none'
-														: 'text-black/50 dark:text-white/50 py-2 px-4'
-												}
-											>
-												{tab}
-											</Tab>
-										))}
-									</Tab.List>
-									<Tab.Panels className="px-4">
-										{cols.map((col, index) => (
-											<Tab.Panel key={index}>
-												<div className="bg-white dark:bg-dark-surface rounded-md pt-2 pb-4">
-													<Table columns={col} data={data} />
+												<div className="flex justify-between">
+													<span className="">vs {game.opponent_id.team}</span>
+													<span>
+														<span
+															className={
+																game.team_points > game.opponent_points
+																	? `text-light-text dark:text-dark-text tabular-nums text-right`
+																	: `text-light-text-2 dark:text-dark-text-2 tabular-nums text-right`
+															}
+														>
+															{game.team_points?.toFixed(2) || '0.00'}
+														</span>
+														{' - '}
+														<span
+															className={
+																game.team_points < game.opponent_points
+																	? `text-light-text dark:text-dark-text tabular-nums text-right`
+																	: `text-light-text-2 dark:text-dark-text-2 tabular-nums text-right`
+															}
+														>
+															{game.opponent_points?.toFixed(2) || '0.00'}
+														</span>
+													</span>
 												</div>
-											</Tab.Panel>
-										))}
-									</Tab.Panels>
-								</Tab.Group>
+											</a>
+										</Link>
+									))}
+								</div>
 							</div>
 						</div>
 					</div>
-					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div>
-							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-								Season Stats
-							</h2>
-							<div className="flex flex-col gap-2">
-								<Tab.Group>
-									<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
-										{tabs.map((tab, index) => (
-											<Tab
-												style={{ borderColor: owner.primaryColor }}
-												key={index}
-												className={({ selected }) =>
-													selected
-														? 'border-b-2 py-2 px-4 outline-none'
-														: 'text-black/50 dark:text-white/50 py-2 px-4'
-												}
-											>
-												{tab}
-											</Tab>
-										))}
-									</Tab.List>
-									<Tab.Panels className="px-4">
-										{colsSeasons.map((col, index) => (
-											<Tab.Panel key={index}>
-												<div className="bg-white dark:bg-dark-surface rounded-md pt-2 pb-4">
-													<Table columns={col} data={seasonData} />
-												</div>
-											</Tab.Panel>
-										))}
-									</Tab.Panels>
-								</Tab.Group>
+					<div className="flex flex-col gap-4 min-w-0">
+						<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
+							<div>
+								<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+									Career Stats
+								</h2>
+								<div className="flex flex-col gap-2">
+									<Tab.Group>
+										<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+											{tabs.map((tab, index) => (
+												<Tab
+													style={{ borderColor: owner.primaryColor }}
+													key={index}
+													className={({ selected }) =>
+														selected
+															? 'border-b-2 py-2 px-4 outline-none'
+															: 'text-black/50 dark:text-white/50 py-2 px-4'
+													}
+												>
+													{tab}
+												</Tab>
+											))}
+										</Tab.List>
+										<Tab.Panels className="px-4">
+											{cols.map((col, index) => (
+												<Tab.Panel key={index}>
+													<div className="bg-white dark:bg-dark-surface rounded-md pt-2 pb-4">
+														<Table columns={col} data={data} />
+													</div>
+												</Tab.Panel>
+											))}
+										</Tab.Panels>
+									</Tab.Group>
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
-						<div>
-							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-								Roster
-							</h2>
-							<div className="flex flex-col gap-2 p-4">
-								<RosterPosition
-									arr={positionsArray[0]}
-									position={'Quarterbacks'}
-								/>
-								<RosterPosition
-									arr={positionsArray[1]}
-									position={'Runningbacks'}
-								/>
-								<RosterPosition
-									arr={positionsArray[2]}
-									position={'Wide Receivers'}
-								/>
-								<RosterPosition
-									arr={positionsArray[3]}
-									position={'Tight Ends'}
-								/>
-								<RosterPosition
-									arr={positionsArray[4]}
-									position={'Defensive Line'}
-								/>
-								<RosterPosition
-									arr={positionsArray[5]}
-									position={'Linebackers'}
-								/>
-								<RosterPosition
-									arr={positionsArray[6]}
-									position={'Defensive Backs'}
-								/>
+						<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
+							<div>
+								<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+									Season Stats
+								</h2>
+								<div className="flex flex-col gap-2">
+									<Tab.Group>
+										<Tab.List className="text-sm border-b border-[#e5e5e5] dark:border-[#444444]">
+											{tabs.map((tab, index) => (
+												<Tab
+													style={{ borderColor: owner.primaryColor }}
+													key={index}
+													className={({ selected }) =>
+														selected
+															? 'border-b-2 py-2 px-4 outline-none'
+															: 'text-black/50 dark:text-white/50 py-2 px-4'
+													}
+												>
+													{tab}
+												</Tab>
+											))}
+										</Tab.List>
+										<Tab.Panels className="px-4">
+											{colsSeasons.map((col, index) => (
+												<Tab.Panel key={index}>
+													<div className="bg-white dark:bg-dark-surface rounded-md pt-2 pb-4">
+														<Table columns={col} data={seasonData} />
+													</div>
+												</Tab.Panel>
+											))}
+										</Tab.Panels>
+									</Tab.Group>
+								</div>
+							</div>
+						</div>
+						<div className="flex flex-col bg-white dark:bg-dark-surface rounded-md shadow-md">
+							<div>
+								<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+									Roster
+								</h2>
+								<div className="flex flex-col gap-2 p-4">
+									<RosterPosition
+										arr={positionsArray[0]}
+										position={'Quarterbacks'}
+									/>
+									<RosterPosition
+										arr={positionsArray[1]}
+										position={'Runningbacks'}
+									/>
+									<RosterPosition
+										arr={positionsArray[2]}
+										position={'Wide Receivers'}
+									/>
+									<RosterPosition
+										arr={positionsArray[3]}
+										position={'Tight Ends'}
+									/>
+									<RosterPosition
+										arr={positionsArray[4]}
+										position={'Defensive Line'}
+									/>
+									<RosterPosition
+										arr={positionsArray[5]}
+										position={'Linebackers'}
+									/>
+									<RosterPosition
+										arr={positionsArray[6]}
+										position={'Defensive Backs'}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

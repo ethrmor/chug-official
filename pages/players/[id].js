@@ -12,6 +12,7 @@ import {
 	useSortBy,
 	useTable,
 } from 'react-table';
+import Head from 'next/head';
 
 function PagTable({ columns, data }) {
 	const {
@@ -1551,164 +1552,180 @@ export default function Player({ player }) {
 	const dataGames = React.useMemo(() => player.games, [player.games]);
 
 	return (
-		<div className="flex flex-col gap-4">
-			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-				<div
-					style={{
-						backgroundImage: `url(/player-header-${
-							player.owner !== 'none' ? player.owner : 'league'
-						}.jpg)`,
-					}}
-					className={`w-full h-[175px] md:h-[225px] lg:h-[275px] bg-no-repeat bg-cover bg-right shadow-md mt-[-1rem]`}
-				></div>
-				<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-dark-surface rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-light-text-2 dark:border-light-text">
-					{player.years_exp >= 1 ? (
-						<Image
-							src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
-							alt={player.full_name}
-							layout="fill"
-							objectFit="cover"
-							className="rounded-full"
-						></Image>
-					) : (
-						<Image
-							src={`https://sleepercdn.com/images/v2/icons/player_default.webp`}
-							alt={player.full_name}
-							layout="fill"
-							objectFit="cover"
-							className="rounded-full"
-						></Image>
-					)}{' '}
-				</div>
-				<div className="flex items-center justify-center py-4 text-xl font-semibold">
-					<h1 className="">{player.full_name}</h1>
-					<span className="px-2">|</span>
-					<span className="">#{player.number}</span>
-				</div>
-				<div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-center pb-4 text-md">
-					<div className="flex">
-						<p>{player.fantasy_positions[0]}</p>
-						<span className="px-2">|</span>
-						<p>
-							{Math.floor(player.height / 12)}&apos;
-							{player.height - Math.floor(player.height / 12) * 12}&quot;
-						</p>
-						<span className="px-2">|</span>
-						<p>{player.weight} lb</p>
-						<span className="px-2 hidden sm:flex">|</span>
-					</div>
-					<div className="flex">
-						<p>Age: {player.age}</p>
-						<span className="px-2">|</span>
-						<p>{player.college}</p>
-						<span className="px-2 hidden sm:flex">|</span>
-					</div>
-					<div className="flex items-center">
-						<div className="relative h-7 w-7">
+		<>
+			<Head>
+				<title>{player.full_name} | Chug League</title>
+				<meta
+					property="og:title"
+					content={`${player.full_name} | Chug League`}
+					key="title"
+				/>
+			</Head>
+			<div className="flex flex-col gap-4">
+				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+					<div
+						style={{
+							backgroundImage: `url(/player-header-${
+								player.owner !== 'none' ? player.owner : 'league'
+							}.jpg)`,
+						}}
+						className={`w-full h-[175px] md:h-[225px] lg:h-[275px] bg-no-repeat bg-cover bg-right shadow-md mt-[-1rem]`}
+					></div>
+					<div className="relative h-24 w-24 md:h-36 md:w-36 bg-white dark:bg-dark-surface rounded-full mt-[-4rem] md:mt-[-6rem] mx-auto border-2 border-light-text-2 dark:border-light-text">
+						{player.years_exp >= 1 ? (
 							<Image
-								src={
-									player.team
-										? `https://sleepercdn.com/images/team_logos/nfl/${player.team.toLowerCase()}.png`
-										: `/logo.webp`
-								}
-								alt="Team Logo"
+								src={`https://sleepercdn.com/content/nfl/players/${player.player_id}.jpg`}
+								alt={player.full_name}
 								layout="fill"
-								objectFit="contain"
+								objectFit="cover"
+								className="rounded-full"
 							></Image>
+						) : (
+							<Image
+								src={`https://sleepercdn.com/images/v2/icons/player_default.webp`}
+								alt={player.full_name}
+								layout="fill"
+								objectFit="cover"
+								className="rounded-full"
+							></Image>
+						)}{' '}
+					</div>
+					<div className="flex items-center justify-center py-4 text-xl font-semibold">
+						<h1 className="">{player.full_name}</h1>
+						<span className="px-2">|</span>
+						<span className="">#{player.number}</span>
+					</div>
+					<div className="flex flex-col sm:flex-row gap-2 sm:gap-0 items-center justify-center pb-4 text-md">
+						<div className="flex">
+							<p>{player.fantasy_positions[0]}</p>
+							<span className="px-2">|</span>
+							<p>
+								{Math.floor(player.height / 12)}&apos;
+								{player.height - Math.floor(player.height / 12) * 12}&quot;
+							</p>
+							<span className="px-2">|</span>
+							<p>{player.weight} lb</p>
+							<span className="px-2 hidden sm:flex">|</span>
 						</div>
-						<p className="pl-2">
-							{nflTeams[player.team] ? nflTeams[player.team] : 'Free Agent'}
-						</p>
+						<div className="flex">
+							<p>Age: {player.age}</p>
+							<span className="px-2">|</span>
+							<p>{player.college}</p>
+							<span className="px-2 hidden sm:flex">|</span>
+						</div>
+						<div className="flex items-center">
+							<div className="relative h-7 w-7">
+								<Image
+									src={
+										player.team
+											? `https://sleepercdn.com/images/team_logos/nfl/${player.team.toLowerCase()}.png`
+											: `/logo.webp`
+									}
+									alt="Team Logo"
+									layout="fill"
+									objectFit="contain"
+								></Image>
+							</div>
+							<p className="pl-2">
+								{nflTeams[player.team] ? nflTeams[player.team] : 'Free Agent'}
+							</p>
+						</div>
 					</div>
 				</div>
+				{player.career[0]?.games_played > 0 ? (
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<div>
+							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+								Career
+							</h2>
+							<div className="flex flex-col gap-4">
+								<div>
+									<div className="bg-white dark:bg-dark-surface">
+										{player.career[0].position === 'QB' ||
+										player.career[0].position === 'RB' ||
+										player.career[0].position === 'WR' ||
+										player.career[0].position === 'TE' ? (
+											<Table columns={columnsOffense} data={dataCareer} />
+										) : (
+											<Table columns={columnsDefense} data={dataCareer} />
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				) : (
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<div>
+							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+								Stats
+							</h2>
+							<div className="flex flex-col gap-4">
+								<p className="p-4 text-sm">No Stats Accrued</p>
+							</div>
+						</div>
+					</div>
+				)}
+				{player.career[0]?.games_played > 0 && (
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<div>
+							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+								Seasons
+							</h2>
+							<div className="flex flex-col gap-4">
+								<div>
+									<div className="bg-white dark:bg-dark-surface">
+										{player.career[0].position === 'QB' ||
+										player.career[0].position === 'RB' ||
+										player.career[0].position === 'WR' ||
+										player.career[0].position === 'TE' ? (
+											<SeasonTable
+												columns={columnsOffenseSeason}
+												data={dataSeason}
+											/>
+										) : (
+											<SeasonTable
+												columns={columnsDefenseSeason}
+												data={dataSeason}
+											/>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
+				{player.career[0]?.games_played > 0 && (
+					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+						<div>
+							<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
+								Games
+							</h2>
+							<div className="flex flex-col gap-4">
+								<div>
+									<div className="bg-white dark:bg-dark-surface">
+										{player.career[0].position === 'QB' ||
+										player.career[0].position === 'RB' ||
+										player.career[0].position === 'WR' ||
+										player.career[0].position === 'TE' ? (
+											<PagTable
+												columns={columnsOffenseGames}
+												data={dataGames}
+											/>
+										) : (
+											<PagTable
+												columns={columnsDefenseGames}
+												data={dataGames}
+											/>
+										)}
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				)}
 			</div>
-			{player.career[0]?.games_played > 0 ? (
-				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-					<div>
-						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-							Career
-						</h2>
-						<div className="flex flex-col gap-4">
-							<div>
-								<div className="bg-white dark:bg-dark-surface">
-									{player.career[0].position === 'QB' ||
-									player.career[0].position === 'RB' ||
-									player.career[0].position === 'WR' ||
-									player.career[0].position === 'TE' ? (
-										<Table columns={columnsOffense} data={dataCareer} />
-									) : (
-										<Table columns={columnsDefense} data={dataCareer} />
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			) : (
-				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-					<div>
-						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-							Stats
-						</h2>
-						<div className="flex flex-col gap-4">
-							<p className="p-4 text-sm">No Stats Accrued</p>
-						</div>
-					</div>
-				</div>
-			)}
-			{player.career[0]?.games_played > 0 && (
-				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-					<div>
-						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-							Seasons
-						</h2>
-						<div className="flex flex-col gap-4">
-							<div>
-								<div className="bg-white dark:bg-dark-surface">
-									{player.career[0].position === 'QB' ||
-									player.career[0].position === 'RB' ||
-									player.career[0].position === 'WR' ||
-									player.career[0].position === 'TE' ? (
-										<SeasonTable
-											columns={columnsOffenseSeason}
-											data={dataSeason}
-										/>
-									) : (
-										<SeasonTable
-											columns={columnsDefenseSeason}
-											data={dataSeason}
-										/>
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			)}
-			{player.career[0]?.games_played > 0 && (
-				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-					<div>
-						<h2 className="text-xs p-4 font-semibold border-b dark:border-b-dark-line">
-							Games
-						</h2>
-						<div className="flex flex-col gap-4">
-							<div>
-								<div className="bg-white dark:bg-dark-surface">
-									{player.career[0].position === 'QB' ||
-									player.career[0].position === 'RB' ||
-									player.career[0].position === 'WR' ||
-									player.career[0].position === 'TE' ? (
-										<PagTable columns={columnsOffenseGames} data={dataGames} />
-									) : (
-										<PagTable columns={columnsDefenseGames} data={dataGames} />
-									)}
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			)}
-		</div>
+		</>
 	);
 }
 

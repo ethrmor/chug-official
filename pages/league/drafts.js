@@ -12,6 +12,7 @@ import { supabase } from '@/utils/supabaseClient';
 import StatsDropdown from '@/components/StatsDropdown';
 import Pagination from '@/components/Pagination';
 import { nflTeams } from '@/utils/nflTeams';
+import Head from 'next/head';
 
 const years = [
 	{ year: '2022', name: '2022' },
@@ -320,45 +321,55 @@ export default function Stats({ rookie, startup }) {
 	const [selectedIndex, setSelectedIndex] = useState();
 
 	return (
-		<div className="flex flex-col">
-			<h1 className="text-2xl mt-2 mb-4">Drafts</h1>
-			<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
-				<Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
-					<Tab.List className="text-sm border-b border-light-line dark:border-dark-line flex justify-between">
-						<div>
-							{tabs.map((tab, index) => (
-								<Tab
-									key={index}
-									className={({ selected }) =>
-										selected
-											? 'border-b-2 border-red-600 pt-2 pb-4 px-4 outline-none'
-											: 'text-black/50 dark:text-white/50 py-2 px-4'
-									}
-								>
-									{tab}
-								</Tab>
+		<>
+			<Head>
+				<title>Drafts | Chug League</title>
+				<meta
+					property="og:title"
+					content={`Drafts | Chug League`}
+					key="title"
+				/>
+			</Head>
+			<div className="flex flex-col">
+				<h1 className="text-2xl mt-2 mb-4">Drafts</h1>
+				<div className="bg-white dark:bg-dark-surface rounded-md shadow-md pt-2">
+					<Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
+						<Tab.List className="text-sm border-b border-light-line dark:border-dark-line flex justify-between">
+							<div>
+								{tabs.map((tab, index) => (
+									<Tab
+										key={index}
+										className={({ selected }) =>
+											selected
+												? 'border-b-2 border-red-600 pt-2 pb-4 px-4 outline-none'
+												: 'text-black/50 dark:text-white/50 py-2 px-4'
+										}
+									>
+										{tab}
+									</Tab>
+								))}
+							</div>
+							{selectedIndex !== 1 && (
+								<StatsDropdown
+									state={year}
+									setState={setYear}
+									listArray={years}
+								/>
+							)}
+						</Tab.List>
+						<Tab.Panels className="">
+							{cols.map((col, index) => (
+								<Tab.Panel key={index}>
+									<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
+										<Table columns={col.column} data={col.data} />
+									</div>
+								</Tab.Panel>
 							))}
-						</div>
-						{selectedIndex !== 1 && (
-							<StatsDropdown
-								state={year}
-								setState={setYear}
-								listArray={years}
-							/>
-						)}
-					</Tab.List>
-					<Tab.Panels className="">
-						{cols.map((col, index) => (
-							<Tab.Panel key={index}>
-								<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
-									<Table columns={col.column} data={col.data} />
-								</div>
-							</Tab.Panel>
-						))}
-					</Tab.Panels>
-				</Tab.Group>
+						</Tab.Panels>
+					</Tab.Group>
+				</div>
 			</div>
-		</div>
+		</>
 	);
 }
 

@@ -1,10 +1,19 @@
 import PlayerCard from '../../components/PlayerCard';
 
 import { supabase } from '@/utils/supabaseClient';
+import Head from 'next/head';
 
 export default function Players({ players }) {
 	return (
 		<>
+			<Head>
+				<title>Players | Chug League</title>
+				<meta
+					property="og:title"
+					content={`Players | Chug League`}
+					key="title"
+				/>
+			</Head>
 			<div>
 				<h1 className="text-2xl mt-2 mb-4">Players</h1>
 			</div>

@@ -1,4 +1,5 @@
 import BoxScoreRow from '@/components/BoxScoreRow';
+import Head from 'next/head';
 import Image from 'next/image';
 import Link from 'next/link';
 import { supabase } from '../../utils/supabaseClient';
@@ -6,6 +7,16 @@ import { supabase } from '../../utils/supabaseClient';
 export default function singleGame({ results }) {
 	return (
 		<>
+			<Head>
+				<title>
+					{results.year} - Week {results.week} | Chug League
+				</title>
+				<meta
+					property="og:title"
+					content={`${results.year} - Week ${results.week} | Chug League`}
+					key="title"
+				/>
+			</Head>
 			<h1 className="text-2xl mt-2 mb-4">
 				{results.year} - Week {results.week}{' '}
 			</h1>

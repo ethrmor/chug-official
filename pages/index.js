@@ -7,6 +7,7 @@ import matter from 'gray-matter';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Tab } from '@headlessui/react';
+import Head from 'next/head';
 
 const weeks = [
 	{ week: 0, name: 'Preseason' },
@@ -193,6 +194,10 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 
 	return (
 		<>
+			<Head>
+				<title>Home | Chug League</title>
+				<meta property="og:title" content={`Home | Chug League`} key="title" />
+			</Head>
 			<div className="grid md:grid-cols-[1fr_300px] lg:grid-cols-[250px_1fr_300px] grid-rows-none auto-rows-min gap-4">
 				<aside className="lg:flex flex-col gap-4 hidden">
 					<div className="bg-white dark:bg-dark-surface rounded-md shadow-md">
