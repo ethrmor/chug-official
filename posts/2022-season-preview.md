@@ -377,20 +377,20 @@ _Finish_: 12th
 
 ## Season Projections
 
-| Rank | Franchise             | Wins | Losses | Pct. |      PF |      PA |
-| :--: | --------------------- | :--: | :----: | ---: | ------: | ------: |
-|  1   | River City Redbirds   |  10  |   4    | .714 | 2311.91 | 1943.01 |
-|  2   | Direwolves            |  10  |   4    | .714 | 2197.49 | 1881.76 |
-|  3   | Outkasts              |  9   |   5    | .643 | 2067.66 | 1839.01 |
-|  4   | Slayton Slayerz       |  9   |   5    | .643 | 2084.18 | 1934.69 |
-|  5   | Jeff City Leprechauns |  8   |   6    | .571 | 1991.19 | 1763.30 |
-|  6   | 45ers                 |  8   |   6    | .571 | 1933.87 | 1830.77 |
-|  7   | Kingston Kraken       |  7   |   7    | .500 | 1998.33 | 1904.37 |
-|  8   | Goathouse Alums       |  7   |   7    | .500 | 1954.99 | 2019.71 |
-|  9   | Quarantine Cowboys    |  6   |   8    | .429 | 1811.39 | 1944.47 |
-|  10  | White Panthers        |  5   |   9    | .357 | 1876.67 | 2187.84 |
-|  11  | Unorthodox Rabbis     |  3   |   11   | .214 | 1720.97 | 2111.14 |
-|  12  | Macdaddys             |  2   |   12   | .143 | 1348.10 | 1936.68 |
+| Franchise             | Wins | Loss | Pct. |      PF |
+| --------------------- | :--: | :--: | ---: | ------: |
+| River City Redbirds   |  10  |  4   | .714 | 2311.91 |
+| Direwolves            |  10  |  4   | .714 | 2197.49 |
+| Outkasts              |  9   |  5   | .643 | 2067.66 |
+| Slayton Slayerz       |  9   |  5   | .643 | 2084.18 |
+| Jeff City Leprechauns |  8   |  6   | .571 | 1991.19 |
+| 45ers                 |  8   |  6   | .571 | 1933.87 |
+| Kingston Kraken       |  7   |  7   | .500 | 1998.33 |
+| Goathouse Alums       |  7   |  7   | .500 | 1954.99 |
+| Quarantine Cowboys    |  6   |  8   | .429 | 1811.39 |
+| White Panthers        |  5   |  9   | .357 | 1876.67 |
+| Unorthodox Rabbis     |  3   |  11  | .214 | 1720.97 |
+| Macdaddys             |  2   |  12  | .143 | 1348.10 |
 
 ## Playoff Projections
 
