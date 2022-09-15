@@ -104,8 +104,9 @@ export async function getStaticProps() {
 		const { data: results } = await supabase
 			.from('game_box_score')
 			.select(
-				'*, owner_id (slug, team), opponent_id (slug, team), owner_player_id (player_name, position), opponent_player_id (player_name, position)'
-			);
+				'*, owner_id (slug, team), opponent_id (slug, team), owner_player_id (player_name, position), opponent_player_id (player_name, position), difference'
+			)
+			.order('difference');
 
 		return {
 			props: { results },

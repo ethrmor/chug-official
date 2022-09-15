@@ -649,19 +649,20 @@ export async function getStaticProps() {
 		const { data: schedule } = await supabase
 			.from('game_box_score')
 			.select(
-				'id, week, owner_id (*), owner_points, opponent_id (*), opponent_points'
+				'id, week, owner_id (*), owner_points, opponent_id (*), opponent_points, difference'
 			)
 			.eq('year', year)
 			.or(
 				`week.eq.${currentWeek},week.eq.${currentWeek + 1},week.eq.${
 					currentWeek - 1
 				}`
-			);
+			)
+			.order('difference');
 
 		const { data: playersArray } = await supabase
-			.from('players_seasons_season')
-			.select('player_id, player_name, position, fpg')
-			.match({ year: year, rank_ppg_year: 1 });
+			.from('league_leaders')
+			.select('id, player_id, player_name, position, fpg')
+			.order('id');
 
 		const rosterRes = await fetch(
 			`https://api.sleeper.app/v1/league/${leagueID}/rosters/`
@@ -712,13 +713,15 @@ export async function getStaticProps() {
 			team?.players?.includes(defensivebackers?.player_id?.toString())
 		);
 
-		const qb_id = qb?.roster_id - 1 || 100;
-		const rb_id = rb?.roster_id - 1 || 100;
-		const wr_id = wr?.roster_id - 1 || 100;
-		const te_id = te?.roster_id - 1 || 100;
-		const dl_id = dl?.roster_id - 1 || 100;
-		const lb_id = lb?.roster_id - 1 || 100;
-		const db_id = db?.roster_id - 1 || 100;
+		const qb_id = qb?.roster_id - 1; // || 100
+		const rb_id = rb?.roster_id - 1; // || 100
+		const wr_id = wr?.roster_id - 1; // || 100
+		const te_id = te?.roster_id - 1; // || 100
+		const dl_id = dl?.roster_id - 1; // || 100
+		const lb_id = lb?.roster_id - 1; // || 100
+		const db_id = db?.roster_id - 1; // || 100
+
+		console.log(wr_id);
 
 		const players = [
 			{

@@ -119,7 +119,7 @@ function Table({ columns, data }) {
 	);
 }
 
-export default function Stats({ career, season, playoff, probowl }) {
+export default function Stats({ career, season, playoff }) {
 	const [position, setPosition] = React.useState(positions[0]);
 
 	const filteredOverall = !position
@@ -133,10 +133,6 @@ export default function Stats({ career, season, playoff, probowl }) {
 	const filteredPlayoff = !position
 		? playoff
 		: playoff.filter((person) => person.position.includes(position.position));
-
-	const filteredProBowl = !position
-		? probowl
-		: probowl.filter((person) => person.position.includes(position.position));
 
 	const columns = React.useMemo(
 		() => [
@@ -474,11 +470,10 @@ export default function Stats({ career, season, playoff, probowl }) {
 	const dataOverall = React.useMemo(() => filteredOverall, [filteredOverall]);
 	const dataRegular = React.useMemo(() => filteredRegular, [filteredRegular]);
 	const dataPlayoff = React.useMemo(() => filteredPlayoff, [filteredPlayoff]);
-	const dataProBowl = React.useMemo(() => filteredProBowl, [filteredProBowl]);
 
-	const tabs = ['Overall', 'Regular Season', 'Playoffs', 'Pro Bowl'];
+	const tabs = ['Overall', 'Regular Season', 'Playoffs'];
 
-	const data = [dataOverall, dataRegular, dataPlayoff, dataProBowl];
+	const data = [dataOverall, dataRegular, dataPlayoff];
 
 	return (
 		<>
@@ -576,13 +571,8 @@ export async function getStaticProps() {
 			.select('*')
 			.order('fantasy_points', { ascending: false });
 
-		const { data: probowl } = await supabase
-			.from('players_career_probowl')
-			.select('*')
-			.order('fantasy_points', { ascending: false });
-
 		return {
-			props: { career, season, playoff, probowl },
+			props: { career, season, playoff },
 		};
 	} catch (err) {
 		console.error(err);

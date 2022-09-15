@@ -1,4 +1,4 @@
-export const currentWeek = 1;
+export const currentWeek = 2;
 
 export const leagueID = '784462448236363776';
 
@@ -17,6 +17,6 @@ export const teamShortNames = {
 	'Jeff City Leprechauns': 'JC',
 	'White Panthers': 'WP',
 	'45ers': '45',
-	Rabbis: 'RAB',
+	'Unorthodox Rabbis': 'RAB',
 	'Baba Yagas': 'BY',
 };

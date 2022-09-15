@@ -154,14 +154,6 @@ export default function Stats({ results, season, playoffs, probowl }) {
 					person.position.includes(position.position)
 		  );
 
-	const filteredProBowl = !year
-		? probowl
-		: probowl.filter(
-				(person) =>
-					person.year.toString().includes(year.year) &&
-					person.position.includes(position.position)
-		  );
-
 	const columns = React.useMemo(
 		() => [
 			{
@@ -524,11 +516,10 @@ export default function Stats({ results, season, playoffs, probowl }) {
 	const dataOverall = React.useMemo(() => filteredOverall, [filteredOverall]);
 	const dataRegular = React.useMemo(() => filteredRegular, [filteredRegular]);
 	const dataPlayoff = React.useMemo(() => filteredPlayoff, [filteredPlayoff]);
-	const dataProBowl = React.useMemo(() => filteredProBowl, [filteredProBowl]);
 
-	const tabs = ['Overall', 'Regular Season', 'Playoffs', 'Pro Bowl'];
+	const tabs = ['Overall', 'Regular Season', 'Playoffs'];
 
-	const data = [dataOverall, dataRegular, dataPlayoff, dataProBowl];
+	const data = [dataOverall, dataRegular, dataPlayoff];
 
 	return (
 		<>

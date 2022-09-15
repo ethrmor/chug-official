@@ -1773,7 +1773,7 @@ export default function Manager({
 										<div className="flex text-sm items-start justify-between">
 											<p>Ties</p>
 											<p className="text-xl tabular-nums">
-												{currentSeason[0]?.regular_season_games_played}
+												{currentSeason[0]?.regular_season_ties}
 											</p>
 										</div>
 									)}
@@ -1781,9 +1781,12 @@ export default function Manager({
 									<div className="flex text-sm items-start justify-between">
 										<p>Win Pct.</p>
 										<p className="text-xl tabular-nums">
-											{currentSeason[0]?.regular_season_pct
-												.toString()
-												.slice(1) || '.000'}
+											{currentSeason[0]?.regular_season_games_played > 0 &&
+											currentSeason[0]?.regular_season_losses === 0
+												? '1.000'
+												: currentSeason[0]?.regular_season_pct
+														.toString()
+														.slice(1) || '.000'}
 										</p>
 									</div>
 									<div className="flex text-sm items-start justify-between">
@@ -2018,15 +2021,15 @@ export async function getStaticProps({ params }) {
 		});
 
 		const dlArray = players.filter((obj) => {
-			return obj.fantasy_positions[0] === 'DL';
+			return obj.fantasy_positions === 'DL';
 		});
 
 		const lbArray = players.filter((obj) => {
-			return obj.fantasy_positions[0] === 'LB';
+			return obj.fantasy_positions === 'LB';
 		});
 
 		const dbArray = players.filter((obj) => {
-			return obj.fantasy_positions[0] === 'DB';
+			return obj.fantasy_positions === 'DB';
 		});
 
 		const positionsArray = [
@@ -2043,7 +2046,8 @@ export async function getStaticProps({ params }) {
 			.from('game_history')
 			.select('*, owner_id (team), opponent_id (team)')
 			.eq('owner_id', parseInt(params.slug))
-			.eq('year', year);
+			.eq('year', year)
+			.order('week');
 
 		const { data: career } = await supabase
 			.from('owners_career')
