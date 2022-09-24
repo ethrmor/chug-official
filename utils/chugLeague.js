@@ -1,4 +1,4 @@
-export const currentWeek = 2;
+export const currentWeek = 3;
 
 export const leagueID = '784462448236363776';
 
