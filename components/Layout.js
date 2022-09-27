@@ -38,6 +38,7 @@ export default function Layout({ children }) {
 	];
 
 	const leagueLinks = [
+		{ id: '/league/power-rankings', name: 'Power Rankings' },
 		{ id: '/league/trades', name: 'Trades' },
 		{ id: '/league/drafts', name: 'Drafts' },
 		// { id: '/league/allchug', name: 'All-Chug' },
