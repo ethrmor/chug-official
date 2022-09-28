@@ -22,4 +22,4 @@ The Outkasts dropped their week 3 match-up to the defending champion Leprechauns
 
 Week 4 features two heavyweight bouts between the 1-2 Slayton Slayerz and 3-0 Kingston Kraken and the Game of the Week between the 3-0 River City Redbirds and 2-1 Direwolves.
 
-As week 3 is now in the books, we also have our first set of [power rankings](https://chugleague.com/power-rankings), which were released today. Check out who starts the season as number 1.
+As week 3 is now in the books, we also have our first set of [power rankings](https://chugleague.com/league/power-rankings), which were released today. Check out who starts the season as number 1.
