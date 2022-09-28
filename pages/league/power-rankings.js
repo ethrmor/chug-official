@@ -35,7 +35,7 @@ export default function PowerRankings({ results }) {
 									<h2 className="justify-self-start">{team.name}</h2>
 									<p>{team.record}</p>
 									<p className="hidden sm:block">{team.lastWeek}</p>
-									<p>{team.apr}</p>
+									<p>{team.apr.toFixed(2)}</p>
 								</div>
 
 								<span className="relative flex-shrink-0 ml-5 w-5 h-5">
@@ -89,7 +89,7 @@ export async function getStaticProps() {
 		const { data: results } = await supabase
 			.from('power_rankings')
 			.select('*')
-			.order('rank', { ascending: false });
+			.order('rank', { ascending: true });
 
 		return {
 			props: { results },

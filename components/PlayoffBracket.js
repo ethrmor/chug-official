@@ -1,5 +1,4 @@
 export default function PlayoffBracket({ data }) {
-	console.log(data);
 	return (
 		<div className="grid grid-cols-playoff grid-rows-10 py-8 text-sm">
 			<div className="flex items-end justify-between h-8 col-start-1 col-end-2 row-start-1 row-end-2"></div>

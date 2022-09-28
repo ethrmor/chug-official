@@ -721,8 +721,6 @@ export async function getStaticProps() {
 		const lb_id = lb?.roster_id - 1; // || 100
 		const db_id = db?.roster_id - 1; // || 100
 
-		console.log(wr_id);
-
 		const players = [
 			{
 				...quarterbacks,
