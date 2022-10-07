@@ -157,7 +157,9 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 				Cell: (e) => (
 					<>
 						<p className="tabular-nums text-center">
-							{e.value.toFixed(3).toString().slice(1)}
+							{e.value < 1
+								? e.value.toFixed(3).toString().slice(1)
+								: e.value.toFixed(3)}
 						</p>
 					</>
 				),
