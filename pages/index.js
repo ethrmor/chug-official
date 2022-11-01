@@ -507,14 +507,17 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 								<Tab.Panels className="">
 									{getWeekArray(currentWeek).map((tab, index) => (
 										<Tab.Panel key={index}>
-											<div className="bg-white dark:bg-dark-surface px-4">
+											<div className="bg-white dark:bg-dark-surface px-2">
 												{schedule
 													.filter((week) => week.week === tab)
 													.map((game, i) => (
-														<div key={i}>
+														<div
+															key={i}
+															className="hover:bg-dark-hover rounded-md"
+														>
 															<Link href={`/schedule/${game.id}`}>
 																<a>
-																	<div className="py-2">
+																	<div className="py-2 px-2">
 																		<div
 																			className={`flex justify-between pb-1 tabular-nums ${
 																				game.owner_points > game.opponent_points
@@ -529,13 +532,8 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 																					width={20}
 																					height={20}
 																				/>
-																				<Link
-																					href={`/owners/${game.owner_id.id}`}
-																				>
-																					<a className="hover:underline">
-																						<p>{game.owner_id.team}</p>
-																					</a>
-																				</Link>
+
+																				<p>{game.owner_id.team}</p>
 																			</div>
 																			<p>{game.owner_points.toFixed(2)}</p>
 																		</div>
@@ -553,13 +551,8 @@ export default function Home({ owners, posts, standings, players, schedule }) {
 																					width={20}
 																					height={20}
 																				/>
-																				<Link
-																					href={`/owners/${game.opponent_id.id}`}
-																				>
-																					<a className="hover:underline">
-																						<p>{game.opponent_id.team}</p>
-																					</a>
-																				</Link>
+
+																				<p>{game.opponent_id.team}</p>
 																			</div>
 																			<p>{game.opponent_points.toFixed(2)}</p>
 																		</div>
